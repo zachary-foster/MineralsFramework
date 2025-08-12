@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  
+  <ThingDef Name="ZF_StoneBlocksBase" ParentName="StoneBlocksBase"  Abstract="True">
+  </ThingDef>
+
+</Defs>

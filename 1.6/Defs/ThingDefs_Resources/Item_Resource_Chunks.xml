@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <ThingDef Name="MF_ChunkRockBase" ParentName="ChunkRockBase"  Abstract="True">
+    <butcherProducts>
+    </butcherProducts>
+  </ThingDef>
+
+  <ThingDef Name="MF_SoftStoneChunksBase" ParentName="MF_ChunkRockBase"  Abstract="True">
+    <thingCategories Inherit="False">
+      <li>SoftStoneChunks</li>
+    </thingCategories>
+  </ThingDef>
+  
+  <ThingDef Name="MF_HardStoneChunksBase" ParentName="MF_ChunkRockBase"  Abstract="True">
+    <thingCategories Inherit="False">
+      <li>HardStoneChunks</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef Name="MF_UltraHardStoneChunksBase" ParentName="MF_ChunkRockBase"  Abstract="True">
+    <thingCategories Inherit="False">
+      <li>UltraHardStoneChunks</li>
+    </thingCategories>
+  </ThingDef>
+
+</Defs>

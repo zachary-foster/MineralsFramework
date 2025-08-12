@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <ResearchProjectTagDef>
+    <defName>TribalOnlyStart</defName>
+  </ResearchProjectTagDef>
+
+  <ResearchProjectDef Name="ZF_TribalResearchBase" Abstract="True">
+    <requiredResearchBuilding>SimpleResearchBench</requiredResearchBuilding>
+    <tags>
+      <li>TribalOnlyStart</li>
+    </tags>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef Name="ZF_NoResearchBase" ParentName="ZF_TribalResearchBase" Abstract="True">
+    <tags Inherit="False">
+    </tags>
+  </ResearchProjectDef>
+
+
+</Defs>

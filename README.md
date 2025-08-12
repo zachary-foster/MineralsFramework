@@ -1,6 +1,14 @@
 # MineralsFramework - Base mod for overhauling the mechanics of rocks and minerals in RimWorld
 
-**This mod does not add any in-game content on its own**, but is required for other mods in the Minerals collection.
+**This mod does not add any in-game content on its own**, but is required for other mods in the Minerals collection:
+
+- MineralsRock
+- MineralsRockExtra
+- MineralsAreUseful
+- MineralsAreShiny
+- MineralsAreShinyExtra
+- MineralsAreMagical
+- MineralsAreCool
 
 
 ## Mechanics added
@@ -25,55 +33,77 @@ Overhaul of the mountains and rocks in RimWorld.
 ### MineralsAreUseful
 
 * Adds rocks/minerals:
-  - claystone
+  - claystone mountains, rocks, and boulders
   - sand dunes
   - scoria dunes
+  - flint nodules
+  - obsidian flows
 * Adds the resources:
+  - sharp stone
+  - obsidian chunks
+  - flint chunks
   - clay
   - sand
   - gravel
   - clay bricks
   - concrete
 * Adds recipes:
-  - clay -> clay bricks: cheap average strength building material
-  - sand -> sandstone bricks
+  - clay -> clay bricks
   - chunks -> gravel
   - gravel -> sand
-  - clay + sand + gravel + limestone bricks -> concrete
-* Adds buildings:
-  - Rammed earth walls: clay + sand
-  - Concrete walls: concrete
-  - Reinforced concrete walls: concrete + steel
-
-### MineralsAreShiny
-
-* Adds various crystals and deposits that can be mined for gems
-* Adds resources:
-  - gems
-  - hard gems
-* Adds equipment:
-  - royal weapons...
-
-
-### MineralsAreSharp
-
-* Adds rocks/minerals:
-  - flint nodules
-  - obsidian flows
-* Adds resources:
-  - sharp stone
+  - sand -> basalt blocks
+  - sand -> sandstone blocks
+  - clay + sand + gravel + limestone blocks -> concrete
+  - limestone blocks -> marble blocks
 * Adds equipment:
   - sharp stone knife
   - sharp stone spear
   - sharp stone ax
   - macuahatil
   - fire starting kit
-* Adds recipes:
-  - wood + sharp stone -> sharp stone spear
-  - wood + sharp stone -> sharp stone knife
-  - wood + sharp stone -> sharp stone ax
-  - wood + sharp stone -> machuahitl 
-  - wood + sharp stone + cloth/wool -> fire starting kit 
+* Adds buildings:
+  - Rammed earth walls: clay + sand
+  - Concrete walls: concrete
+  - Reinforced concrete walls: concrete + steel
+* Adds research:
+  - Aggregate engineering I (neolithic): Rammed earth walls, clay -> clay bricks
+  - Aggregate engineering II (medieval): gravel -> sand, concrete recipe, concrete walls
+  - Aggregate engineering III (industrial): reinforced concrete walls
+  - Stone casting I (spacer): sand -> basalt blocks, sand -> sandstone blocks, limestone -> marble blocks
+
+
+### MineralsAreShiny
+
+Adds rocks/minerals:
+  - calcite
+  - quartz
+  - amethyst
+  - schorl
+  - Rubellite
+  - Indicolite
+  - Magnetite
+  - Lodestone (requires HSK)
+  - Casserite (requires HSK)
+  - Uraninite (requires HSK)
+  - Malachite (requires HSK)
+  - emerald
+  - sapphire
+  - ruby
+  - diamond
+  - fossils
+* Adds resources:
+  - gems
+  - hard gems
+  - cut gems
+  - cut hard gems
+  - small fossils
+  - medium fossil specimen
+  - large fossil specimen
+* Adds recipes
+  - gems -> cut gems
+  - hard gems -> cut hard gems
+* Adds equipment:
+  - royal weapons: sword, axe, knife
 
 
 ### MineralsAreMagical
@@ -130,8 +160,3 @@ Adds buildings:
 Adds recipes:
   - ice chunks -> ice blocks
   - snow blocks -> ice blocks
-
-### MineralsAreDiverse
-
-Adds rocks/minerals:
-
