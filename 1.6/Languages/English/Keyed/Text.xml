@@ -23,4 +23,5 @@
 	<resourceDropAmountSetting>Resource Drop Amount</resourceDropAmountSetting>
 	<miningEffortSetting>Mining Speed</miningEffortSetting>
 	<terrainCountRangeSetting>Number of rock types in each map</terrainCountRangeSetting>
+  <debugModeEnabled>Print debug messages to log</debugModeEnabled>
 </LanguageData>

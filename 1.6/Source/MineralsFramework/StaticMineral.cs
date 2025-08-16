@@ -1476,10 +1476,6 @@ namespace MineralsFramework
             {
                 factor = 0f;
             }
-            if (tags.Contains("fictional") && MineralsFrameworkMain.Settings.includeFictionalSetting == false)
-            {
-                factor = 0f;
-            }
             return factor;
         }
 
@@ -1591,7 +1587,10 @@ namespace MineralsFramework
             // Check that it is a valid biome
             if (! CanSpawnInBiome(map))
             {
-                //Log.Message("Minerals: " + defName + " cannot be added to this biome");
+                if (MineralsFrameworkMain.Settings.debugModeEnabled)
+                {
+                    Log.Message("MineralsFramework: " + defName + " cannot be added to this biome");
+                }
                 return;
             }
 
@@ -1615,7 +1614,10 @@ namespace MineralsFramework
             // Find spots to spawn it
             if (Rand.Range(0f, 1f) <= perMapProbability * diversitySettingFactor() && spawnProbability > 0)
             {
-                //Log.Message("Minerals: " + defName + " will be spawned at a probability of " + spawnProbability);
+                if (MineralsFrameworkMain.Settings.debugModeEnabled)
+                {
+                    Log.Message("MineralsFramework: " + defName + " will be spawned at a probability of " + spawnProbability);
+                }
                 IEnumerable<IntVec3> allCells = map.AllCells.InRandomOrder(null);
                 foreach (IntVec3 current in allCells)
                 {
@@ -1651,11 +1653,6 @@ namespace MineralsFramework
                     }
                 }
             }
-            else
-            {
-                //Log.Message("Minerals: " + this.defName + " will not be spawned in this map.");
-            }
-
         }
 
         public virtual bool allowReplaceSetting()

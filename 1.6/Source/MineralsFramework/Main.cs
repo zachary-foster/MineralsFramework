@@ -8,7 +8,7 @@ using Verse;
 
 namespace MineralsFramework
 {
-    class MineralsFrameworkMain : Mod
+    public class MineralsFrameworkMain : Mod
     {
         public static MineralsFrameworkSettings Settings;
 

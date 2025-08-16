@@ -22,7 +22,6 @@ namespace MineralsFramework
         public float mineralSpawningSetting = 1f;
         public bool replaceWallsSetting = true;
         public bool replaceChunksSetting = true;
-        public bool includeFictionalSetting = true;
         public bool removeStartingChunksSetting = true;
         public bool underwaterMineralsSetting = true;
         public bool mineralsGrowUpWallsSetting = true;
@@ -32,6 +31,7 @@ namespace MineralsFramework
         public float resourceDropAmountSetting = 1f;
         public float miningEffortSetting = 1f;
         public IntRange terrainCountRangeSetting = new IntRange(1, 4);
+        public bool debugModeEnabled = false;
 
 
         public override void ExposeData()
@@ -46,7 +46,6 @@ namespace MineralsFramework
             Scribe_Values.Look(ref mineralSpawningSetting, "mineralSpawningSetting", 1f);
             Scribe_Values.Look(ref replaceWallsSetting, "replaceWallsSetting", true);
             Scribe_Values.Look(ref replaceChunksSetting, "replaceChunksSetting", true);
-            Scribe_Values.Look(ref includeFictionalSetting, "includeFictionalSetting", true);
             Scribe_Values.Look(ref removeStartingChunksSetting, "removeStartingChunksSetting", true);
             Scribe_Values.Look(ref underwaterMineralsSetting, "underwaterMineralsSetting", true);
             Scribe_Values.Look(ref mineralsGrowUpWallsSetting, "mineralsGrowUpWallsSetting", true);
@@ -56,6 +55,7 @@ namespace MineralsFramework
             Scribe_Values.Look(ref resourceDropAmountSetting, "resourceDropAmountSetting", 1f);
             Scribe_Values.Look(ref miningEffortSetting, "miningEffortSetting", 1f);
             Scribe_Values.Look<IntRange>(ref terrainCountRangeSetting, "terrainCountRangeSetting", new IntRange(1, 4), true);
+            Scribe_Values.Look(ref debugModeEnabled, "debugModeEnabled", false);
         }
 
 
@@ -127,10 +127,6 @@ namespace MineralsFramework
 
             list.Gap(smallGap);
 
-            list.CheckboxLabeled("includeFictionalSetting".Translate(), ref includeFictionalSetting);
-
-            list.Gap(smallGap);
-
             list.Label("resourceDropFreqSetting".Translate() + ": " + Math.Round(resourceDropFreqSetting * 100, 3) + "%", -1f);
             resourceDropFreqSetting = list.Slider(resourceDropFreqSetting, 0, maxSetting);
 
@@ -169,6 +165,10 @@ namespace MineralsFramework
 
             list.Label("visualSpreadFactor".Translate() + ": " + Math.Round(visualSpreadFactor * 100, 3) + "%", -1f);
             visualSpreadFactor = list.Slider(visualSpreadFactor, 0, 3);
+
+            list.Gap(smallGap);
+
+            list.CheckboxLabeled("debugModeEnabled".Translate(), ref debugModeEnabled);
 
             list.End();
         }

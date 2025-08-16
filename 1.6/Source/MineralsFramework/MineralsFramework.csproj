@@ -58,6 +58,8 @@
   <ItemGroup>
     <Compile Include="BigMineral.cs" />
     <Compile Include="DynamicMineral.cs" />
+    <Compile Include="harmonyPatching.cs" />
+    <Compile Include="initialization.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
