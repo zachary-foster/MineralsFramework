@@ -2,7 +2,7 @@
 <ModMetaData>
   <name>MineralsFramework: Geological Overhaul</name>
   <author>Zachary S. L. Foster</author>
-	<packageId>zacharyfoster.minerals2</packageId>
+	<packageId>zacharyfoster.mineralsframework</packageId>
   <description>Complete overhaul of mineral generation, mining mechanics, and stone visuals.</description>
   <url>https://github.com/zachary-foster/MineralsFramework</url>
   <supportedVersions>

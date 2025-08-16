@@ -135,7 +135,7 @@
     <fastGraphicRefresh>false</fastGraphicRefresh>
   </ThingDef>
 
-  <ThingDef Name="BigMineralBase" ParentName="StaticMineralBase" Class="MineralsFramework.ThingDef_BigMineral" Abstract="True">
+  <ThingDef Name="BigMineralBase" ParentName="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_BigMineral" Abstract="True">
     <thingClass>MineralsFramework.BigMineral</thingClass>
     <passability>PassThroughOnly</passability>
     <fillPercent>0.7</fillPercent>
