@@ -74,7 +74,7 @@
       <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
       <isNaturalRock>true</isNaturalRock>
       <isResourceRock>true</isResourceRock>
-      <mineableThing>RoughGem</mineableThing>
+      <!-- <mineableThing>RoughGem</mineableThing> -->
       <mineableDropChance>0</mineableDropChance>
       <mineableYield>0</mineableYield>
       <mineableNonMinedEfficiency>0</mineableNonMinedEfficiency>
