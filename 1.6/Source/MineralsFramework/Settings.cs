@@ -143,7 +143,7 @@ namespace MineralsFramework
             list.Gap(smallGap);
 
             list.Label("terrainCountRangeSetting".Translate(), -1f);
-            list.IntRange(ref terrainCountRangeSetting, 1, 10);
+            list.IntRange(ref terrainCountRangeSetting, 1, 8);
 
             list.Gap(bigGap);
 
