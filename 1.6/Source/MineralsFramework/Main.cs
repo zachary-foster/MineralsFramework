@@ -26,6 +26,6 @@ namespace MineralsFramework
         {
             return "MineralsFramework";
         }
-    }
 
+    }
 }

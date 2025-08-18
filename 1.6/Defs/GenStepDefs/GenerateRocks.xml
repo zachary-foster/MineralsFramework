@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  <GenStepDef>
+    <defName>GenStep_MineralsRock</defName>
+    <genStep Class="MineralsFramework.GenStep_MineralsFramework_Rocks"/>
+    <order>305.1</order> <!-- Right after RockChunks (305) -->
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>GenStep_MineralsRockIce</defName>
+    <genStep Class="MineralsFramework.GenStep_MineralsFramework_Ice"/>
+    <order>410.1</order> <!-- Right after Plants (410) -->
+  </GenStepDef>
+</Defs>
+
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patch>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>/Defs/BiomeDef[not(defName='Sea') and not(defName='Ocean')]</xpath>
+    <value>
+      <extraGenSteps>
+        <li>GenStep_MineralsRock</li>
+        <li>GenStep_MineralsRockIce</li>
+      </extraGenSteps>
+    </value>
+  </Operation>
+
+</Patch>

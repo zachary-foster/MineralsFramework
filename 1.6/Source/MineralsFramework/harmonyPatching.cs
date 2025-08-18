@@ -12,7 +12,7 @@ using Verse;         // RimWorld universal objects
 
 namespace MineralsFramework
 {
-
+    // Allow the user to customize thenumber of rock types per map
     [HarmonyPatch(typeof(World))]
     [HarmonyPatch("NaturalRockTypesIn")]
     public static class Patch_World_NaturalRockTypesIn
@@ -91,38 +91,4 @@ namespace MineralsFramework
         }
     }
 
-    [StaticConstructorOnStartup]
-    static class HarmonyPatches
-    {
-        // this static constructor runs to create a HarmonyInstance and install a patch.
-        static HarmonyPatches()
-        {
-            Harmony harmony = new Harmony("com.zacharyfoster.mineralsrock");
-
-            // Spawn rocks on map generation
-            MethodInfo targetmethod = AccessTools.Method(typeof(GenStep_RockChunks), "Generate");
-            HarmonyMethod postfixmethod = new HarmonyMethod(typeof(HarmonyPatches).GetMethod("initNewMapRocks"));
-            harmony.Patch(targetmethod, null, postfixmethod);
-
-            // Spawn ice after plants
-            MethodInfo icetargetmethod = AccessTools.Method(typeof(GenStep_Plants), "Generate");
-            HarmonyMethod icepostfixmethod = new HarmonyMethod(typeof(HarmonyPatches).GetMethod("initNewMapIce"));
-            harmony.Patch(icetargetmethod, null, icepostfixmethod);
-
-
-            harmony.PatchAll();
-
-
-        }
-
-        public static void initNewMapRocks(GenStep_RockChunks __instance, Map map)
-        {
-            mapBuilder.initRocks(map);
-        }
-
-        public static void initNewMapIce(GenStep_RockChunks __instance, Map map)
-        {
-            mapBuilder.initIce(map);
-        }
-    }
 }
