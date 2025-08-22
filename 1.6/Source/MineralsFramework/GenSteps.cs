@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using Verse;
+using Verse.Noise;
 
 namespace MineralsFramework
 {
@@ -28,4 +29,20 @@ namespace MineralsFramework
             mapBuilder.initIce(map);
         }
     }
+
+    public class GenStep_MineralsFramework_RemoveChunks : GenStep
+    {
+        public override int SeedPart => 1938421203; // Different unique seed
+
+        public override void Generate(Map map, GenStepParams parms)
+        {
+            // Remove starting chunks
+            if (MineralsFrameworkMain.Settings.removeStartingChunksSetting)
+            {
+                mapBuilder.removeStartingChunks(map);
+            }
+        }
+
+    }
 }
+

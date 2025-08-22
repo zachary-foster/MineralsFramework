@@ -15,12 +15,6 @@ namespace MineralsFramework
 
         public static void initRocks(Map map)
         {
-            // Remove starting chunks
-            if (MineralsFrameworkMain.Settings.removeStartingChunksSetting)
-            {
-                removeStartingChunks(map);
-            }
-
             List<string> spawned =  new List<string>();
 
             // Spawn static minerals

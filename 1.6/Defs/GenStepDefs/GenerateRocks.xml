@@ -3,13 +3,19 @@
   <GenStepDef>
     <defName>GenStep_MineralsRock</defName>
     <genStep Class="MineralsFramework.GenStep_MineralsFramework_Rocks"/>
-    <order>305.1</order> <!-- Right after RockChunks (305) -->
+    <order>300</order>
   </GenStepDef>
 
   <GenStepDef>
     <defName>GenStep_MineralsRockIce</defName>
     <genStep Class="MineralsFramework.GenStep_MineralsFramework_Ice"/>
-    <order>410.1</order> <!-- Right after Plants (410) -->
+    <order>750</order>
+  </GenStepDef>
+
+  <GenStepDef>
+    <defName>GenStep_MineralsRockRemoveChunks</defName>
+    <genStep Class="MineralsFramework.GenStep_MineralsFramework_RemoveChunks"/>
+    <order>980</order>
   </GenStepDef>
 </Defs>
 

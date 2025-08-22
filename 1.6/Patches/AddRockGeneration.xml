@@ -7,6 +7,7 @@
       <extraGenSteps>
         <li>GenStep_MineralsRock</li>
         <li>GenStep_MineralsRockIce</li>
+        <li>GenStep_MineralsRockRemoveChunks</li>
       </extraGenSteps>
     </value>
   </Operation>
