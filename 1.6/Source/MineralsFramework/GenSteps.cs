@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
@@ -16,8 +17,53 @@ namespace MineralsFramework
 
         public override void Generate(Map map, GenStepParams parms)
         {
-            mapBuilder.initRocks(map);
+            initRocks(map);
         }
+
+        public static void initRocks(Map map)
+        {
+            List<string> spawned = new List<string>();
+
+            // Spawn static minerals
+            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
+            {
+                if (mineralType.newMapGenStep == "chunks" && mineralType.GetType() == typeof(ThingDef_StaticMineral) && (!spawned.Contains(mineralType.defName)))
+                {
+                    mineralType.InitNewMap(map);
+                    spawned.Add(mineralType.defName);
+                }
+            }
+
+            // spawn dynamic minerals
+            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
+            {
+                if (mineralType.newMapGenStep == "chunks" && mineralType.GetType() == typeof(ThingDef_DynamicMineral) && (!spawned.Contains(mineralType.defName)))
+                {
+                    mineralType.InitNewMap(map);
+                    spawned.Add(mineralType.defName);
+                }
+            }
+
+            // spawn large minerals
+            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
+            {
+                if (mineralType.newMapGenStep == "chunks" && mineralType.GetType() == typeof(ThingDef_BigMineral) && (!spawned.Contains(mineralType.defName)))
+                {
+                    mineralType.InitNewMap(map);
+                    spawned.Add(mineralType.defName);
+                }
+            }
+
+            // spawn everything else
+            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
+            {
+                if (mineralType.newMapGenStep == "chunks" && (!spawned.Contains(mineralType.defName)))
+                {
+                    mineralType.InitNewMap(map);
+                }
+            }
+        }
+
     }
 
     public class GenStep_MineralsFramework_Ice : GenStep
@@ -26,7 +72,18 @@ namespace MineralsFramework
 
         public override void Generate(Map map, GenStepParams parms)
         {
-            mapBuilder.initIce(map);
+            initIce(map);
+        }
+
+        public static void initIce(Map map)
+        {
+            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
+            {
+                if (mineralType.newMapGenStep == "plants")
+                {
+                    mineralType.InitNewMap(map);
+                }
+            }
         }
     }
 
@@ -39,10 +96,23 @@ namespace MineralsFramework
             // Remove starting chunks
             if (MineralsFrameworkMain.Settings.removeStartingChunksSetting)
             {
-                mapBuilder.removeStartingChunks(map);
+                removeStartingChunks(map);
+            }
+        }
+
+        public static void removeStartingChunks(Map map)
+        {
+            string[] toRemove = { "ChunkSandstone", "ChunkGranite", "ChunkLimestone", "ChunkSlate", "ChunkMarble", "MR_ChunkBasalt", "MAU_ChunkClaystone", "Filth_RubbleRock", "AB_ChunkCragstone", "AB_ChunkMudstone", "AB_ChunkObsidian", "GU_ChunkRoseQuartz", "AB_ChunkSlimeStone" };
+            List<Thing> thingsToCheck = map.listerThings.AllThings;
+            for (int i = thingsToCheck.Count - 1; i >= 0; i--)
+            {
+                if (toRemove.Any(thingsToCheck[i].def.defName.Equals))
+                {
+                    thingsToCheck[i].Destroy(DestroyMode.Vanish);
+                }
             }
         }
 
     }
-}
 
+}
