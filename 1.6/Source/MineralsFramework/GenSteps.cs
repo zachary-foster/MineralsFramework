@@ -22,18 +22,10 @@ namespace MineralsFramework
 
         public static void initRocks(Map map)
         {
-            List<string> spawned = new List<string>();
-
             // Spawn all minerals in specified order
-            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs
-                .Where(m => m.newMapGenStep == "chunks")
-                .OrderBy(m => m.newMapSpawnOrder))
+            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs.OrderBy(m => m.newMapSpawnOrder))
             {
-                if (!spawned.Contains(mineralType.defName))
-                {
-                    mineralType.InitNewMap(map);
-                    spawned.Add(mineralType.defName);
-                }
+                mineralType.InitNewMap(map);
             }
         }
 

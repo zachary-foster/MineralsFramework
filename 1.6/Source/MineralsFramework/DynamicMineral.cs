@@ -317,7 +317,7 @@ namespace MineralsFramework
             return combineGrowthRateFactors(allGrowthRateFactorsMapRecent(aMap));
         }
 
-        public override float tileHabitabilitySpawnFactor(int tile)
+        public override float mapHabitabilitySpawnFactor(Map map)
         {
             return 1f;
         }

@@ -1,13 +1,13 @@
 
+using LudeonTK;
+using RimWorld;      // RimWorld specific functions 
+using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using UnityEngine;   // Always needed
-using RimWorld;      // RimWorld specific functions 
 using Verse;         // RimWorld universal objects 
-using RimWorld.Planet;
 
 namespace MineralsFramework
 {
@@ -1499,40 +1499,42 @@ namespace MineralsFramework
         // The probablility of spawning at each point when a map is created
         public virtual float mapSpawnProbFactor(Map map)
         {
-            return tileSpawnProbFactor(map.Tile);
-        }
-
-        // The probablility of spawning at each point when a map is created
-        public virtual float tileSpawnProbFactor(int tile)
-        {
             float output = 1f;
 
             // Base value determined by world tile location
             Rand.PushState();
-            Rand.Seed = tile.GetHashCode();
+            Rand.Seed = map.GetHashCode();
             output = output * Rand.Range(minClusterProbability, maxClusterProbability);
             Rand.PopState();
 
             // Apply distance to settlements factor
-            output *= settlementDistProbFactor(tile);
+            output *= settlementDistProbFactor(map);
 
             // Apply habitability factor if it is a valuable mineral
             if (otherSettlementMiningRadius > 3f)
             {
-                output *= tileHabitabilitySpawnFactor(tile);
+                output *= mapHabitabilitySpawnFactor(map);
+            }
+
+            if (MineralsFrameworkMain.Settings.debugModeEnabled)
+            {
+                Log.Message("Minerals: mapSpawnProbFactor: " + defName + ": " + output);
             }
 
             return output;
         }
 
-
         // How spawning is effected by the habitability of the world location
-        public virtual float tileHabitabilitySpawnFactor(int tile)
+        public virtual float mapHabitabilitySpawnFactor(Map map)
         {
             float output = 0.5f;
 
-            // Value determined by mean world tile temperature
-            float temp = Find.World.grid.Tiles.ToList()[tile].temperature;
+            // Value determined by map temperature
+            float temp = map.mapTemperature.OutdoorTemp;
+            if (map.Tile.Valid)
+            {
+                temp = map.Tile.Tile.temperature;
+            }
             float diffFromIdeal = Math.Abs(temp - 15f);
             if (diffFromIdeal > 10f)
             {
@@ -1540,7 +1542,7 @@ namespace MineralsFramework
             }
 
             // Apply biome effects
-            if (Find.World.grid.Tiles.ToList()[tile].Biomes.Any(b => b.isExtremeBiome))
+            if (map.Biomes.Any(b => b.isExtremeBiome))
             {
                 output += 0.5f;
             }
@@ -1551,30 +1553,35 @@ namespace MineralsFramework
                 output = 3f;
             }
 
-            //Log.Message("Minerals: tileHabitabilitySpawnFactor: " + defName + ": " + output);
+            if (MineralsFrameworkMain.Settings.debugModeEnabled)
+            {
+                Log.Message("Minerals: tileHabitabilitySpawnFactor: " + defName + ": " + output);
+            }
+
             return output;
         }
 
         // How much the probablility of spawning reduces based on distance to nearest settlement 
-        public virtual float settlementDistProbFactor(int tile)
+        public virtual float settlementDistProbFactor(Map map)
         {
             float output = 1f;
             if (otherSettlementMiningRadius > 0)
             {
                 foreach (Settlement s in Find.WorldObjects.Settlements)
                 {
-                    float travelDist = Find.World.grid.TraversalDistanceBetween(tile, s.Tile, false, (int) otherSettlementMiningRadius * 2);
-                    if ((! s.Faction.IsPlayer) && travelDist < otherSettlementMiningRadius)
+                    float travelDist = Find.World.grid.TraversalDistanceBetween(map.Tile, s.Tile, false, (int)otherSettlementMiningRadius * 2);
+                    if ((!s.Faction.IsPlayer) && travelDist < otherSettlementMiningRadius)
                     {
                         //Log.Message("Minerals: settlementDistProbFactor: " + defName + ": travelDist / otherSettlementMiningRadius:" + travelDist / otherSettlementMiningRadius);
-                        //Log.Message("Minerals: settlementDistProbFactor: " + defName + ": travelDist:" + travelDist);
                         output *= travelDist / otherSettlementMiningRadius;
                     }
                 }
 
             }
 
-            //Log.Message("Minerals: settlementDistProbFactor: " + defName + ": " + output);
+            if (MineralsFrameworkMain.Settings.debugModeEnabled) { 
+                Log.Message("Minerals: settlementDistProbFactor: " + defName + ": " + output);
+            }
             return output;
         }
 

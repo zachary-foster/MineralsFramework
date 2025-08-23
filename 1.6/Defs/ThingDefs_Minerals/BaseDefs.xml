@@ -83,8 +83,8 @@
       <isEdifice>true</isEdifice>
       <destroyShakeAmount>0</destroyShakeAmount>
     </building>
-    <!-- What stage of map generation the thing is spawned during (chunks or plants) -->
-    <newMapGenStep>chunks</newMapGenStep>
+    <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
+    <newMapSpawnOrder>100</newMapSpawnOrder>
     <!-- Tags which determine how some options behave  -->
     <tags>
     </tags>
@@ -131,6 +131,8 @@
       <deconstructible>false</deconstructible>
       <destroyShakeAmount>0</destroyShakeAmount>
     </building>
+    <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
+    <newMapSpawnOrder>200</newMapSpawnOrder>
     <!-- If true, the graphics are regenerated more often -->
     <fastGraphicRefresh>false</fastGraphicRefresh>
   </ThingDef>
@@ -193,6 +195,8 @@
     <hideAtSnowOrSandDepth>2</hideAtSnowOrSandDepth>
     <!-- How easy it is to mine -->
     <mineSpeedFactor>0.3</mineSpeedFactor>
+    <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
+    <newMapSpawnOrder>300</newMapSpawnOrder>
   </ThingDef>
   
   <ThingDef Name="BigMineralTrophyBase" ParentName="BuildingBase" Class="MineralsFramework.ThingDef_BigMineralTrophy" Abstract="True">
