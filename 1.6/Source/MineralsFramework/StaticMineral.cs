@@ -1516,11 +1516,6 @@ namespace MineralsFramework
                 output *= mapHabitabilitySpawnFactor(map);
             }
 
-            if (MineralsFrameworkMain.Settings.debugModeEnabled)
-            {
-                Log.Message("Minerals: mapSpawnProbFactor: " + defName + ": " + output);
-            }
-
             return output;
         }
 
