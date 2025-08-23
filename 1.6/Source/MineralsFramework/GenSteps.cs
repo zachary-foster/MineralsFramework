@@ -24,42 +24,15 @@ namespace MineralsFramework
         {
             List<string> spawned = new List<string>();
 
-            // Spawn static minerals
-            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
+            // Spawn all minerals in specified order
+            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs
+                .Where(m => m.newMapGenStep == "chunks")
+                .OrderBy(m => m.newMapSpawnOrder))
             {
-                if (mineralType.newMapGenStep == "chunks" && mineralType.GetType() == typeof(ThingDef_StaticMineral) && (!spawned.Contains(mineralType.defName)))
+                if (!spawned.Contains(mineralType.defName))
                 {
                     mineralType.InitNewMap(map);
                     spawned.Add(mineralType.defName);
-                }
-            }
-
-            // spawn dynamic minerals
-            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
-            {
-                if (mineralType.newMapGenStep == "chunks" && mineralType.GetType() == typeof(ThingDef_DynamicMineral) && (!spawned.Contains(mineralType.defName)))
-                {
-                    mineralType.InitNewMap(map);
-                    spawned.Add(mineralType.defName);
-                }
-            }
-
-            // spawn large minerals
-            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
-            {
-                if (mineralType.newMapGenStep == "chunks" && mineralType.GetType() == typeof(ThingDef_BigMineral) && (!spawned.Contains(mineralType.defName)))
-                {
-                    mineralType.InitNewMap(map);
-                    spawned.Add(mineralType.defName);
-                }
-            }
-
-            // spawn everything else
-            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
-            {
-                if (mineralType.newMapGenStep == "chunks" && (!spawned.Contains(mineralType.defName)))
-                {
-                    mineralType.InitNewMap(map);
                 }
             }
         }

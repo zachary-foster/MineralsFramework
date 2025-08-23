@@ -1028,6 +1028,9 @@ namespace MineralsFramework
 
         // What stage of map generation the thing is spawned during (chunks or plants)
         public string newMapGenStep = "chunks";
+        
+        // Order in which minerals are spawned during map generation (lower numbers first)
+        public int newMapSpawnOrder = 0;
 
         // Minimum distance from the nearest settlement the inital spawn needs to be in order to be spawned at the maximum probablity
         public float otherSettlementMiningRadius = 0f;
