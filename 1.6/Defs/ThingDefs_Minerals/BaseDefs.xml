@@ -82,6 +82,7 @@
       <deconstructible>false</deconstructible>
       <isEdifice>true</isEdifice>
       <destroyShakeAmount>0</destroyShakeAmount>
+      <mineablePreventMeteorite>true</mineablePreventMeteorite>
     </building>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>100</newMapSpawnOrder>
@@ -130,6 +131,7 @@
       <claimable>false</claimable>
       <deconstructible>false</deconstructible>
       <destroyShakeAmount>0</destroyShakeAmount>
+      <mineablePreventMeteorite>true</mineablePreventMeteorite>
     </building>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>200</newMapSpawnOrder>
