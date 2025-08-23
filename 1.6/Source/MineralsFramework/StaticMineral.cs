@@ -1564,6 +1564,12 @@ namespace MineralsFramework
         // How much the probablility of spawning reduces based on distance to nearest settlement 
         public virtual float settlementDistProbFactor(Map map)
         {
+            // Skip calculation for maps without world tiles (underground, asteroids etc)
+            if (!map.Tile.Valid)
+            {
+                return 1f;
+            }
+
             float output = 1f;
             if (otherSettlementMiningRadius > 0)
             {
@@ -1576,7 +1582,6 @@ namespace MineralsFramework
                         output *= travelDist / otherSettlementMiningRadius;
                     }
                 }
-
             }
 
             if (MineralsFrameworkMain.Settings.debugModeEnabled) { 
