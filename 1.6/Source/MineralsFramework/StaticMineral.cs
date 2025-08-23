@@ -1527,14 +1527,17 @@ namespace MineralsFramework
         // How spawning is effected by the habitability of the world location
         public virtual float mapHabitabilitySpawnFactor(Map map)
         {
+            // Return max value for maps without world tiles (underground, asteroids etc)
+            if (!map.Tile.Valid)
+            {
+                return 3f;
+            }
+
             float output = 0.5f;
 
             // Value determined by map temperature
             float temp = map.mapTemperature.OutdoorTemp;
-            if (map.Tile.Valid)
-            {
-                temp = map.Tile.Tile.temperature;
-            }
+            temp = map.Tile.Tile.temperature; // Now safe since we checked Valid
             float diffFromIdeal = Math.Abs(temp - 15f);
             if (diffFromIdeal > 10f)
             {
