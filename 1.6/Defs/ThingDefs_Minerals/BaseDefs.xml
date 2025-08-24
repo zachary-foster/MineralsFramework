@@ -52,6 +52,8 @@
     <mustBeUnderRoof>true</mustBeUnderRoof>
     <mustBeUnderThickRoof>false</mustBeUnderThickRoof>
     <mustBeUnroofed>false</mustBeUnroofed>
+    <mustBeNotUnderThickRoof>false</mustBeNotUnderThickRoof>
+    <mustBeNearPassable>false</mustBeNearPassable>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>4</maxMeshCount>
     <!-- The size range of images printed -->

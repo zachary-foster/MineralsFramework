@@ -1119,6 +1119,28 @@ namespace MineralsFramework
 
         // ======= Spawning conditions ======= //
 
+        public bool IsNearPassable(Map map, IntVec3 position, int radius = 1)
+        {
+            for (int xOffset = -radius; xOffset <= radius; xOffset++)
+            {
+                for (int zOffset = -radius; zOffset <= radius; zOffset++)
+                {
+                    IntVec3 checkedPosition = position + new IntVec3(xOffset, 0, zOffset);
+                    if (checkedPosition.InBounds(map))
+                    {
+                        if (!checkedPosition.Impassable(map))
+                        {
+                            return true;
+                        }
+
+                    }
+                }
+            }
+
+            return false;
+
+        }
+
 
         public virtual bool CanSpawnAt(Map map, IntVec3 position, bool initialSpawn = false)
         {
@@ -1158,6 +1180,11 @@ namespace MineralsFramework
                 return false;
             }
             //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: replacement is ok " + position, true);
+
+            // Check if it is near passable if needed
+            if (mustBeNearPassable && !IsNearPassable(map, position)) {
+                return false;
+            }
 
             // Check that it is near any needed terrains
             if (! isNearNeededTerrain(map, position))
