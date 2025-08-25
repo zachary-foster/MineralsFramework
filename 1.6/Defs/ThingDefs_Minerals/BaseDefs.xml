@@ -11,6 +11,7 @@
     <castEdgeShadows>false</castEdgeShadows>
     <fillPercent>0.05</fillPercent>
     <coversFloor>false</coversFloor>
+    <blockWind>false</blockWind>
     <pathCost>60</pathCost>
     <mineable>true</mineable>
     <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
@@ -18,7 +19,6 @@
     <drawerType>MapMeshOnly</drawerType>
     <scatterableOnMapGen>false</scatterableOnMapGen>
     <hideAtSnowOrSandDepth>0.5</hideAtSnowOrSandDepth>
-    <topVerticesAltitudeBias>0.01</topVerticesAltitudeBias>
     <!--How far away it can spawn from an existing location-->
     <!-- Even for static minerals, the map initialization uses "reproduction" to make clusters-->
     <spawnRadius>2</spawnRadius>
@@ -74,9 +74,8 @@
     <building>
       <isInert>true</isInert>
       <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
-      <isNaturalRock>true</isNaturalRock>
-      <isResourceRock>true</isResourceRock>
-      <!-- <mineableThing>RoughGem</mineableThing> -->
+      <isNaturalRock>false</isNaturalRock> <!-- Needs to be false to show weather effects -->
+      <isResourceRock>true</isResourceRock> <!-- Needs to be true to avoid it being considered a rock type -->
       <mineableDropChance>0</mineableDropChance>
       <mineableYield>0</mineableYield>
       <mineableNonMinedEfficiency>0</mineableNonMinedEfficiency>
@@ -126,8 +125,6 @@
     <building>
       <isInert>false</isInert>
       <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
-      <isNaturalRock>true</isNaturalRock>
-      <isResourceRock>true</isResourceRock>
       <mineableThing>Filth_RubbleRock</mineableThing>
       <mineableYield>1</mineableYield>
       <claimable>false</claimable>
