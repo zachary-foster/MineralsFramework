@@ -690,15 +690,26 @@ namespace MineralsFramework
 
         public virtual string ResourceDropList()
         {
-            List<DropInfo> parts = new List<DropInfo> { };
+            var dropDict = new Dictionary<string, DropInfo>();
 
             // Add thing dropped on destruction first
             if (attributes.building.mineableDropChance > 0 && attributes.building.mineableYield > 0 && attributes.building.mineableThing != null)
             {
-                DropInfo lastDrop = new DropInfo();
-                lastDrop.amount = attributes.building.mineableDropChance * attributes.building.mineableYield;
-                lastDrop.output = lastDrop.amount.ToString() + " " + attributes.building.mineableThing.label;
-                parts.Add(lastDrop);
+                string defName = attributes.building.mineableThing.defName;
+                float amount = attributes.building.mineableDropChance * attributes.building.mineableYield;
+                if (dropDict.TryGetValue(defName, out DropInfo existingDrop))
+                {
+                    existingDrop.amount += amount;
+                    existingDrop.output = $"{existingDrop.amount} {attributes.building.mineableThing.label}";
+                }
+                else
+                {
+                    dropDict[defName] = new DropInfo
+                    {
+                        amount = amount,
+                        output = $"{amount} {attributes.building.mineableThing.label}"
+                    };
+                }
             }
 
             // Add each extra resource that can be dropped
@@ -719,20 +730,31 @@ namespace MineralsFramework
                 else if (meanDrop >= 1)
                 {
                     meanDrop = (float)Math.Floor(meanDrop);
-                } else
+                }
+                else
                 {
                     meanDrop = (float)Math.Round(meanDrop, 2);
                 }
-                DropInfo thisDrop = new DropInfo();
-                thisDrop.amount = meanDrop;
-                thisDrop.output = meanDrop.ToString() + " " + myThingDef.label;
-                parts.Add(thisDrop);
+
+                string defName = resource.ResourceDefName;
+                if (dropDict.TryGetValue(defName, out DropInfo existingDrop))
+                {
+                    existingDrop.amount += meanDrop;
+                    existingDrop.output = $"{existingDrop.amount} {myThingDef.label}";
+                }
+                else
+                {
+                    dropDict[defName] = new DropInfo
+                    {
+                        amount = meanDrop,
+                        output = $"{meanDrop} {myThingDef.label}"
+                    };
+                }
             }
 
-            // Sort by resource abundance
-            parts.SortByDescending(x => x.amount);
-
-            return string.Join(", ", parts.Select(x => x.output).ToList());
+            // Sort by resource abundance and create output
+            var sortedDrops = dropDict.Values.OrderByDescending(x => x.amount).ToList();
+            return string.Join(", ", sortedDrops.Select(x => x.output));
         }
 
 
