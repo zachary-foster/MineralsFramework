@@ -957,8 +957,8 @@ namespace MineralsFramework
         public int maxClusterSize = 10;
 
         // The range of starting sizes of individuals in clusters
-        public float initialSizeMin = 0.3f;
-        public float initialSizeMax = 0.3f;
+        public float initialSizeMin = 0.5f;
+        public float initialSizeMax = 0.8f;
 
         // How much initial sizes of individuals randomly vary
         public float initialSizeVariation = 0.3f;
@@ -968,6 +968,9 @@ namespace MineralsFramework
 
         // The terrains this can appear on
         public List<string> allowedTerrains;
+        
+        // The terrains this cannot appear on (overrides allowedTerrains)
+        public List<string> disallowedTerrains;
 
         // The terrains this must be near to, but not necessarily on, and how far away it can be
         public List<string> neededNearbyTerrains;
@@ -1040,9 +1043,10 @@ namespace MineralsFramework
         public float topVerticesAltitudeBias = 0.01f;
 
         public List<string> texturePaths;
+
+        // at what snow depth the snow texture is used, if it exists
         public List<string> snowTexturePaths;
         public bool hasSnowyTextures = false;
-        // at what snow depth the snow texture is used, if it exists
         public float snowTextureThreshold = 0.5f;
 
         // How much to change the vertical position of the texture. Positive is up
@@ -1306,12 +1310,19 @@ namespace MineralsFramework
                 //if (defName == "BigColdstoneCrystal") Log.Message("IsTerrainOkAt: out of bounds", true);
                 return false;
             }
+            TerrainDef terrain = map.terrainGrid.TerrainAt(position);
+            
+            // Check disallowed terrains first
+            if (disallowedTerrains != null && disallowedTerrains.Count > 0 && disallowedTerrains.Any(terrain.defName.Equals))
+            {
+                return false;
+            }
+
             if (allowedTerrains == null || allowedTerrains.Count == 0)
             {
                 //if (defName == "BigColdstoneCrystal") Log.Message("IsTerrainOkAt: no terrain needed", true);
                 return true;
             }
-            TerrainDef terrain = map.terrainGrid.TerrainAt(position);
             // if (defName == "SmallFossils") Log.Message("IsTerrainOkAt: found terrain " + terrain.defName + ". checking if it is one of: " + String.Join(", ", allowedTerrains.ToArray()), true);
             return allowedTerrains.Any(terrain.defName.Equals);
         }

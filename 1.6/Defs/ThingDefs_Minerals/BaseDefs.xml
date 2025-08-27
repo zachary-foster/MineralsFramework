@@ -38,9 +38,18 @@
     <!-- The biomes this can appear in. If empty, all biomes are allowed -->
     <allowedBiomes>
     </allowedBiomes>
-    <!-- The terrains this can appear on. IF empty, all terrains are allowed -->
+    <!-- The terrains this can appear on. If empty, all terrains are allowed -->
     <allowedTerrains>
     </allowedTerrains>
+    <!-- The terrains this can appear cant on. If empty, all terrains are allowed -->
+    <disallowedTerrains>
+      <li>LavaDeep</li>
+      <li>LavaShallow</li>
+      <li>WaterDeep</li>
+      <li>WaterOceanDeep</li>
+      <li>Space</li>
+      <li>CooledLava</li>
+    </disallowedTerrains>
     <!-- The terrains this must be near to, but not necessarily on. If empty, it does not need to be near any -->
     <neededNearbyTerrains>
 		</neededNearbyTerrains>
