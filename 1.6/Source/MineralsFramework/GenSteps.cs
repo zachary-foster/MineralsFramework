@@ -25,7 +25,10 @@ namespace MineralsFramework
             // Spawn all minerals in specified order
             foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs.OrderBy(m => m.newMapSpawnOrder))
             {
-                mineralType.InitNewMap(map);
+                if (mineralType.newMapGenStep == "rocks")
+                {
+                    mineralType.InitNewMap(map);
+                }
             }
         }
 
@@ -42,9 +45,9 @@ namespace MineralsFramework
 
         public static void initIce(Map map)
         {
-            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs)
+            foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs.OrderBy(m => m.newMapSpawnOrder))
             {
-                if (mineralType.newMapGenStep == "plants")
+                if (mineralType.newMapGenStep == "ice")
                 {
                     mineralType.InitNewMap(map);
                 }

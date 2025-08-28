@@ -94,6 +94,8 @@
       <destroyShakeAmount>0</destroyShakeAmount>
       <mineablePreventMeteorite>true</mineablePreventMeteorite>
     </building>
+    <!-- What stage of map generation the thing is spawned during (rocks or ice) -->
+    <newMapGenStep>rocks</newMapGenStep>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>100</newMapSpawnOrder>
     <!-- Tags which determine how some options behave  -->
@@ -105,6 +107,10 @@
     <sizeScaledByAbundance>false</sizeScaledByAbundance>
     <!-- How easy it is to mine -->
     <mineSpeedFactor>1</mineSpeedFactor>
+    <!-- at what snow depth the snow texture is used, if it exists -->
+    <snowTextureThreshold>0.8</snowTextureThreshold>
+    <!-- at what snow depth the mineral is completely hidden -->
+    <hiddenInSnowThreshold>999</hiddenInSnowThreshold>
   </ThingDef>
   
   <ThingDef Name="MF_DynamicMineralBase" Parent="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_DynamicMineral" Abstract="True">

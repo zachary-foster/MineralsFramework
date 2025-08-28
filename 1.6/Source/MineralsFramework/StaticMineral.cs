@@ -614,7 +614,11 @@ namespace MineralsFramework
 
         public virtual bool hiddenInSnow(int i)
         {
-            return snowLevel() > attributes.snowTextureThreshold + (1.0f - attributes.snowTextureThreshold) * getTextureSize(i) / attributes.visualSizeRange.max;
+            if (attributes.hiddenInSnowThreshold > 10f)
+            {
+                return false;
+            }
+            return snowLevel() > attributes.hiddenInSnowThreshold * getTextureSize(i) / attributes.visualSizeRange.max;
         }
 
         public virtual void printSubTexture(SectionLayer layer, int i, float sizeFactor = 1f)
@@ -1047,7 +1051,8 @@ namespace MineralsFramework
         // at what snow depth the snow texture is used, if it exists
         public List<string> snowTexturePaths;
         public bool hasSnowyTextures = false;
-        public float snowTextureThreshold = 0.5f;
+        public float snowTextureThreshold = 0.8f;
+        public float hiddenInSnowThreshold = 1f;
 
         // How much to change the vertical position of the texture. Positive is up
         public float verticalOffset = 0f;
