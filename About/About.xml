@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <name>MineralsFramework: Geological Overhaul</name>
+  <name>Minerals Framework</name>
   <author>Zachary S. L. Foster</author>
 	<packageId>zacharyfoster.mineralsframework</packageId>
   <description>Complete overhaul of mineral generation, mining mechanics, and stone visuals.</description>
