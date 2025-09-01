@@ -237,7 +237,7 @@ namespace MineralsFramework
 
         public override void PreApplyDamage(ref DamageInfo dinfo, out bool absorbed)
         {
-            if (def.building.mineableThing != null && def.building.mineableYieldWasteable && dinfo.Def == DamageDefOf.Mining && dinfo.Instigator != null && dinfo.Instigator is Pawn)
+            if (dinfo.Def == DamageDefOf.Mining && dinfo.Instigator != null && dinfo.Instigator is Pawn)
             {
                 dinfo.SetAmount(dinfo.Amount * miningSpeedFactor());
                 incPctYeild(dinfo.Amount, (Pawn)dinfo.Instigator);
@@ -1057,8 +1057,8 @@ namespace MineralsFramework
         // How much to change the vertical position of the texture. Positive is up
         public float verticalOffset = 0f;
 
-        // What stage of map generation the thing is spawned during (chunks or plants)
-        public string newMapGenStep = "chunks";
+        // What stage of map generation the thing is spawned during (rocks or ice)
+        public string newMapGenStep = "rocks";
         
         // Order in which minerals are spawned during map generation (lower numbers first)
         public int newMapSpawnOrder = 0;
@@ -1618,7 +1618,7 @@ namespace MineralsFramework
 
             if (MineralsFrameworkMain.Settings.debugModeEnabled)
             {
-                Log.Message("Minerals: tileHabitabilitySpawnFactor: " + defName + ": " + output);
+                //Log.Message("Minerals: tileHabitabilitySpawnFactor: " + defName + ": " + output);
             }
 
             return output;
@@ -1648,7 +1648,7 @@ namespace MineralsFramework
             }
 
             if (MineralsFrameworkMain.Settings.debugModeEnabled) { 
-                Log.Message("Minerals: settlementDistProbFactor: " + defName + ": " + output);
+                //Log.Message("Minerals: settlementDistProbFactor: " + defName + ": " + output);
             }
             return output;
         }
@@ -1667,7 +1667,7 @@ namespace MineralsFramework
             {
                 if (MineralsFrameworkMain.Settings.debugModeEnabled)
                 {
-                    Log.Message("MineralsFramework: " + defName + " cannot be added to this biome");
+                    //Log.Message("MineralsFramework: " + defName + " cannot be added to this biome");
                 }
                 return;
             }

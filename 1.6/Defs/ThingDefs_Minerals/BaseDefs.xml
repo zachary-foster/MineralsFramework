@@ -140,8 +140,6 @@
     <building>
       <isInert>false</isInert>
       <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
-      <mineableThing>Filth_RubbleRock</mineableThing>
-      <mineableYield>1</mineableYield>
       <claimable>false</claimable>
       <deconstructible>false</deconstructible>
       <destroyShakeAmount>0</destroyShakeAmount>
