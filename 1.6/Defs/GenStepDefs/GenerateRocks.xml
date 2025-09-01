@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
   <GenStepDef>
-    <defName>GenStep_MineralsRock</defName>
+    <defName>MF_GenStep_Rocks</defName>
     <genStep Class="MineralsFramework.GenStep_MineralsFramework_Rocks"/>
     <order>300</order>
   </GenStepDef>
 
   <GenStepDef>
-    <defName>GenStep_MineralsRockIce</defName>
+    <defName>MF_GenStep_Ice</defName>
     <genStep Class="MineralsFramework.GenStep_MineralsFramework_Ice"/>
     <order>750</order>
   </GenStepDef>
 
   <GenStepDef>
-    <defName>GenStep_MineralsRockRemoveChunks</defName>
+    <defName>MF_GenStep_RemoveChunks</defName>
     <genStep Class="MineralsFramework.GenStep_MineralsFramework_RemoveChunks"/>
     <order>980</order>
   </GenStepDef>

@@ -5,9 +5,8 @@
     <xpath>/Defs/BiomeDef[not(defName='Sea') and not(defName='Ocean')]</xpath>
     <value>
       <extraGenSteps>
-        <li>GenStep_MineralsRock</li>
-        <li>GenStep_MineralsRockIce</li>
-        <li>GenStep_MineralsRockRemoveChunks</li>
+        <li>MF_GenStep_Rocks</li>
+        <li>MF_GenStep_Ice</li>
       </extraGenSteps>
     </value>
   </Operation>
