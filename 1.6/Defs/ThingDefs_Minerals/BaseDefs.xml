@@ -6,7 +6,7 @@
     <category>Building</category>
     <selectable>true</selectable>
     <neverMultiSelect>true</neverMultiSelect>
-    <altitudeLayer>LowPlant</altitudeLayer>
+    <altitudeLayer>Building</altitudeLayer>
     <passability>Standable</passability>
     <castEdgeShadows>false</castEdgeShadows>
     <fillPercent>0.05</fillPercent>
@@ -117,7 +117,6 @@
     <thingClass>MineralsFramework.DynamicMineral</thingClass>
     <category>Building</category>
     <selectable>true</selectable>
-    <altitudeLayer>LowPlant</altitudeLayer>
     <castEdgeShadows>false</castEdgeShadows>
     <fillPercent>0.05</fillPercent>
     <coversFloor>false</coversFloor>
@@ -182,8 +181,8 @@
     <maxMeshCount>1</maxMeshCount>
     <!-- The size range -->
     <visualSizeRange>
-      <min>1.2</min>
-      <max>1.7</max>
+      <min>0.8</min>
+      <max>1.8</max>
     </visualSizeRange>
     <visualClustering>1</visualClustering>
     <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
