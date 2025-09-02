@@ -1,162 +1,29 @@
-# MineralsFramework - Base mod for overhauling the mechanics of rocks and minerals in RimWorld
+# Minerals Framework
 
-**This mod does not add any in-game content on its own**, but is required for other mods in the Minerals collection:
+An overhaul of anything mineable and the foundation for the "Minerals" collection of mods.
+This mod **does not add any content to the game**, but provides a framework for other mods to build upon.
+Rocks and minerals produced by this framework have the following improvements over vanilla:
 
-- MineralsRock
-- MineralsRockExtra
-- MineralsAreUseful
-- MineralsAreShiny
-- MineralsAreShinyExtra
-- MineralsAreMagical
-- MineralsAreCool
+- More realistic and organic appearance, supporting different sizes, number of texture, distribution of texture positions, and random scattering
+- More customizable mining products, including support for multiple products, product probabilities, and product quantities
+- Mining products are randomly dropped while mining instead of all at once when the rock is destroyed
+- Miner skill affects amount of resources mined
+- Minerals have a "size" that affects how many resources can be mined from them and their appearance
+- Minerals can grow, shrink, spawn, and despawn in response to environmental conditions, such as temperature, precipitation, and light levels
+- An optional "snowy" texture that appears when enough snow has accumulated nearby
 
+See other mods in the "Minerals" collection to get the full experience:
 
-## Mechanics added
-
-* Rocks and minerals can yield multiple different products, each with their own probability, stack size, etc.
-* Rocks and minerals now yield resources as you mine rather than upon destruction.
-* Mining yield is dependent on miner skill.
-* Rocks and minerals can now spawn, grow, shrink, and despawn.
-
-## Mods in the Minerals collection
-
-### MineralsRock
-
-Overhaul of the mountains and rocks in RimWorld.
-
-* Adds weather weathered rocks on the boarders of mountains and more solid rocks the deeper you go in (based on roof presence/thickness).
-* Makes rocks more distinct in terms of hit points, beauty, and mineability.
-* Adds Basalt, since its the most abundant rock on Earth (WTF vanilla RimWorld?)
-* Adds river rocks that accumulate near streams
+- **Minerals Rock**: Complete overhaul of mountains and rocks
+- **Minerals Rock Extra**: Additional rocks types
+- **Minerals Sparkle**: Valuable crystals that can be mined for gems in remote and extreme biomes
+- **Minerals Sparkle Extra**: Additional crystal types
+- **Minerals Craft**: Useful stone types and resources useful for construction and crafting
+- **Minerals Exotic**: Exotic minerals such as glowstone, coldstone, and adamant
+- **Minerals Frozen**: Dynamic ice and snow that can be used for building and cooling rooms
 
 
-### MineralsAreUseful
+## Compatibility
 
-* Adds rocks/minerals:
-  - claystone mountains, rocks, and boulders
-  - sand dunes
-  - scoria dunes
-  - flint nodules
-  - obsidian flows
-* Adds the resources:
-  - sharp stone
-  - obsidian chunks
-  - flint chunks
-  - clay
-  - sand
-  - gravel
-  - clay bricks
-  - concrete
-* Adds recipes:
-  - clay -> clay bricks
-  - chunks -> gravel
-  - gravel -> sand
-  - sand -> basalt blocks
-  - sand -> sandstone blocks
-  - clay + sand + gravel + limestone blocks -> concrete
-  - limestone blocks -> marble blocks
-* Adds equipment:
-  - sharp stone knife
-  - sharp stone spear
-  - sharp stone ax
-  - macuahatil
-  - fire starting kit
-* Adds buildings:
-  - Rammed earth walls: clay + sand
-  - Concrete walls: concrete
-  - Reinforced concrete walls: concrete + steel
-* Adds research:
-  - Aggregate engineering I (neolithic): Rammed earth walls, clay -> clay bricks
-  - Aggregate engineering II (medieval): gravel -> sand, concrete recipe, concrete walls
-  - Aggregate engineering III (industrial): reinforced concrete walls
-  - Stone casting I (spacer): sand -> basalt blocks, sand -> sandstone blocks, limestone -> marble blocks
+I am not aware of any incompatibilities with other mods, but please let me know if you find any.
 
-
-### MineralsAreShiny
-
-Adds rocks/minerals:
-  - calcite
-  - quartz
-  - amethyst
-  - schorl
-  - Rubellite
-  - Indicolite
-  - Magnetite
-  - Lodestone (requires HSK)
-  - Casserite (requires HSK)
-  - Uraninite (requires HSK)
-  - Malachite (requires HSK)
-  - emerald
-  - sapphire
-  - ruby
-  - diamond
-  - fossils
-* Adds resources:
-  - gems
-  - hard gems
-  - cut gems
-  - cut hard gems
-  - small fossils
-  - medium fossil specimen
-  - large fossil specimen
-* Adds recipes
-  - gems -> cut gems
-  - hard gems -> cut hard gems
-* Adds equipment:
-  - royal weapons: sword, axe, knife
-
-
-### MineralsAreMagical
-
-Adds rocks/minerals:
-  - glowstone crystals
-  - coldstone crystals
-  - entropium crystals
-  - Adamant boulders
-Adds resources:
-  - glowstone
-  - coldstone
-  - entropium
-  - adamantine blocks
-  - adamantine chunks
-Adds buildings:
-  - glowstone sconce/torch: metal
-  - glowstone hearth: metal + components
-  - coldstone cooler: metal + components
-  - entropium sconce/torch: entropium + pasteel + components
-  - entropium sunlamp: entropium + pasteel + advanced components
-  - entropium regulator: entropium + pasteel + advanced components
-Adds recipes:
-  - glowstone + coldstone -> entropium
-  - entropium + plasteel -> adamant blocks
-  - adamantine chunks -> adamant blocks
-Adds research:
-  - Glowstone engineering I (neolithic): glowstone sconces/torches
-  - Glowstone engineering II (medieval, requires Glowstone engineering I): glowstone hearths
-  - Coldstone engineering (medieval): coldstone coolers
-  - Entropium engineering I (industrial, requires Glowstone engineering II and Coldstone engineering): entropium sconce/torch 
-  - Adamant engineering I (industrial): adamantine chunk cutting
-  - Entropium engineering II (spacer, requires Entropium engineering I): entropium sunlamp, entropium regulator, entropium recipe
-  - Adamant engineering II (Ultra, Adamant engineering I and Entropium engineering II): adamant blocks recipe
-
-### MineralsAreCool
-
-Adds rocks/minerals:
-  - ice stalagmites
-  - snow drifts
-  - deep snow
-  - glacial ice
-  - glacial boulders
-Adds resources:
-  - snow blocks
-  - ice blocks
-  - ice chunks
-Adds buildings:
-  - snow walls
-  - ice walls
-  - pekrete walls: ice + wood
-  - blue ice walls: ice + coldstone (requires MineralsAreMagical)
-  - green ice walls: ice + coldstone + glowstone (requires MineralsAreMagical)
-Adds recipes:
-  - ice chunks -> ice blocks
-  - snow blocks -> ice blocks
