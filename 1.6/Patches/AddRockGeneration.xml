@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Patch>
 
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/BiomeDef[not(extraGenSteps)]</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/BiomeDef[not(extraGenSteps)]</xpath>
+      <value>
+        <extraGenSteps />
+      </value>
+    </match>
+  </Operation>
+
   <Operation Class="PatchOperationAdd">
-    <xpath>/Defs/BiomeDef[not(defName='Sea') and not(defName='Ocean')]</xpath>
+    <xpath>/Defs/BiomeDef/extraGenSteps</xpath>
     <value>
-      <extraGenSteps>
-        <li>MF_GenStep_Rocks</li>
-        <li>MF_GenStep_Ice</li>
-      </extraGenSteps>
+      <li>MF_GenStep_Rocks</li>
+      <li>MF_GenStep_Ice</li>
     </value>
   </Operation>
 
