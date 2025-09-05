@@ -11,17 +11,19 @@ Rocks and minerals produced by this framework have the following improvements ov
 - Minerals have a "size" that affects how many resources can be mined from them and their appearance
 - Minerals can grow, shrink, spawn, and despawn in response to environmental conditions, such as temperature, precipitation, and light levels
 - An optional "snowy" texture that appears when enough snow has accumulated nearby
+- A "mining speed" property makes how easy it is to mine independent of rock hit points
 
 See other mods in the "Minerals" collection to get the full experience:
 
 - **Minerals Rock**: Complete overhaul of mountains and rocks
-- **Minerals Rock Extra**: Additional rocks types
+- **Minerals Rock Extra (Planned)**: Additional rocks types
 - **Minerals Sparkle**: Valuable crystals that can be mined for gems in remote and extreme biomes
-- **Minerals Sparkle Extra**: Additional crystal types
-- **Minerals Craft**: Useful stone types and resources useful for construction and crafting
-- **Minerals Exotic**: Exotic minerals such as glowstone, coldstone, and adamant
+- **Minerals Sparkle Extra (Planned)**: Additional crystal types
+- **Minerals Craft (Planned)**: Useful stone types and resources useful for construction and crafting
+- **Minerals Exotic (Planned)**: Exotic minerals such as glowstone, coldstone, and adamant
 - **Minerals Frozen**: Dynamic ice and snow that can be used for building and cooling rooms
 
+The Minerals mods are still being balanced. Feel free to let me know if anything needs to be adjusted!
 
 ## Compatibility
 
