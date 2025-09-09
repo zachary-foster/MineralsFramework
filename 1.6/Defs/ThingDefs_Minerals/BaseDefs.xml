@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
-  
-  <ThingDef Name="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+
+
+  <!-- This includes all of the default values for every option provided -->
+  <!-- The non-vanilla defualts used are the same that would be used if not defined but are here as documentation --> 
+ <ThingDef Name="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+
+    <!-- ========== VANILLA RIMWORLD SETTINGS ========== -->
     <thingClass>MineralsFramework.StaticMineral</thingClass>
     <category>Building</category>
     <selectable>true</selectable>
@@ -11,6 +16,8 @@
     <castEdgeShadows>false</castEdgeShadows>
     <fillPercent>0.05</fillPercent>
     <coversFloor>false</coversFloor>
+    <holdsRoof>false</holdsRoof>
+    <blockLight>false</blockLight>
     <blockWind>false</blockWind>
     <pathCost>60</pathCost>
     <mineable>true</mineable>
@@ -18,16 +25,40 @@
     <filthLeaving>Filth_RubbleRock</filthLeaving>
     <drawerType>MapMeshOnly</drawerType>
     <scatterableOnMapGen>false</scatterableOnMapGen>
-    <hideAtSnowOrSandDepth>0.5</hideAtSnowOrSandDepth>
-    <!--How far away it can spawn from an existing location-->
-    <!-- Even for static minerals, the map initialization uses "reproduction" to make clusters-->
-    <spawnRadius>2</spawnRadius>
+    <hideAtSnowOrSandDepth>2</hideAtSnowOrSandDepth>
+    <building>
+      <isInert>true</isInert>
+      <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
+      <isNaturalRock>false</isNaturalRock> <!-- Needs to be false to show weather effects -->
+      <isResourceRock>true</isResourceRock> <!-- Needs to be true to avoid it being considered a rock type -->
+      <mineableDropChance>0</mineableDropChance>
+      <mineableYield>0</mineableYield>
+      <mineableNonMinedEfficiency>0</mineableNonMinedEfficiency>
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+      <isEdifice>true</isEdifice>
+      <destroyShakeAmount>0</destroyShakeAmount>
+      <mineablePreventMeteorite>true</mineablePreventMeteorite>
+      <ai_neverTrashThis>true</ai_neverTrashThis>
+    </building>
+    <statBases>
+      <Flammability>0</Flammability>
+    </statBases>
+    <graphicData>
+      <shaderType>CutoutComplex</shaderType>
+      <graphicClass>Graphic_Random</graphicClass>
+    </graphicData>
+
+    <!-- ========== SPAWN SETTINGS ========== -->
     <!-- The probability that this mineral type will be spawned at all on a given map -->
-    <perMapProbability>0.5</perMapProbability>
+    <perMapProbability>1</perMapProbability>
     <!-- For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
     <minClusterProbability>0.001</minClusterProbability>
     <maxClusterProbability>0.01</maxClusterProbability>
-    <!-- How  many squares each cluster will be -->
+    <!-- How far away it can spawn from an existing location -->
+    <!-- Even for static minerals, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>2</spawnRadius>
+    <!-- How many squares each cluster will be -->
     <minClusterSize>1</minClusterSize>
     <maxClusterSize>10</maxClusterSize>
     <!-- The range of starting sizes of individuals in clusters -->
@@ -52,17 +83,44 @@
     </disallowedTerrains>
     <!-- The terrains this must be near to, but not necessarily on. If empty, it does not need to be near any -->
     <neededNearbyTerrains>
-		</neededNearbyTerrains>
+    </neededNearbyTerrains>
     <!-- how far away it can be from needed nearby terrains-->
     <neededNearbyTerrainRadius>3</neededNearbyTerrainRadius>
     <!-- If true, growth rate and initial size depends on distance from needed terrains -->
     <neededNearbyTerrainSizeEffect>true</neededNearbyTerrainSizeEffect>
+    <!-- Controls how extra clusters are added near assocaited things -->
+    <associatedOres>
+    </associatedOres>
+    <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
     <!-- Roof requirements -->
-    <mustBeUnderRoof>true</mustBeUnderRoof>
+    <mustBeUnderRoof>false</mustBeUnderRoof>
     <mustBeUnderThickRoof>false</mustBeUnderThickRoof>
     <mustBeUnroofed>false</mustBeUnroofed>
     <mustBeNotUnderThickRoof>false</mustBeNotUnderThickRoof>
     <mustBeNearPassable>false</mustBeNearPassable>
+    <!-- Things this mineral replaces when a map is initialized -->
+    <ThingsToReplace>
+    </ThingsToReplace>
+    <!-- If it replaces everything or just things it spawns on -->
+    <replaceAll>false</replaceAll>
+    <!-- If it must replace something in order to spawned -->
+    <mustReplace>false</mustReplace>
+    <!-- The radius that will be searched to replace things. 0 = only checked cell -->
+    <replaceRadius>0</replaceRadius>
+    <!-- The minmum propotion of things in radius for replacement to occur. Takes into acount size for MineralsFramework objects. -->
+    <replaceThreshold>0</replaceThreshold>
+    <!-- Can spawn on items, pawns, and plants-->
+    <canSpawnOnThings>false</canSpawnOnThings>
+    <!-- What stage of map generation the thing is spawned during (rocks or ice) -->
+    <newMapGenStep>rocks</newMapGenStep>
+    <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
+    <newMapSpawnOrder>100</newMapSpawnOrder>
+    <!-- Minimum distance from the nearest settlement the inital spawn needs to be in order to be spawned at the maximum probablity -->
+    <otherSettlementMiningRadius>0</otherSettlementMiningRadius>
+    <!--  If the mean size of minerals spawned at map generation is scaled by the relative abundance in that map -->
+    <sizeScaledByAbundance>false</sizeScaledByAbundance>
+
+    <!-- ========== APPEARANCE SETTINGS ========== -->
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>4</maxMeshCount>
     <!-- The size range of images printed -->
@@ -76,59 +134,68 @@
     <visualSpread>1.5</visualSpread>
     <!-- 0 = all images in cluster are same size -->
     <visualSizeVariation>0.2</visualSizeVariation>
-    <!-- Can spawn on items, pawns, and plants-->
-    <canSpawnOnThings>false</canSpawnOnThings>
+    <!-- If graphic overlapping with nearby wall textures are rotated -->
+    <growsUpWalls>false</growsUpWalls>
+    <!-- If textures overlapping walls above them should be printed on top -->
+    <printOverWalls>false</printOverWalls>
+    <!-- If largest textures are printed on top, ro if vertical order matters -->
+    <largeTexturesOnTop>false</largeTexturesOnTop>
+    <!-- How much to change the vertical position of the texture. Positive is up -->
+    <verticalOffset>0</verticalOffset>
+    <!-- at what snow depth the snow texture is used on full sized minerals -->
+    <snowTextureThreshold>0.8</snowTextureThreshold>
+    <!-- at what snow depth a full sized mineral is completely hidden -->
+    <hiddenInSnowThreshold>999</hiddenInSnowThreshold>
+    <!-- Has something to do with how textures on the same layer get stacked -->
+    <topVerticesAltitudeBias>0.01</topVerticesAltitudeBias>
     <!-- If the primary color is based on the stone below it -->
     <coloredByTerrain>false</coloredByTerrain>
-    <building>
-      <isInert>true</isInert>
-      <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
-      <isNaturalRock>false</isNaturalRock> <!-- Needs to be false to show weather effects -->
-      <isResourceRock>true</isResourceRock> <!-- Needs to be true to avoid it being considered a rock type -->
-      <mineableDropChance>0</mineableDropChance>
-      <mineableYield>0</mineableYield>
-      <mineableNonMinedEfficiency>0</mineableNonMinedEfficiency>
-      <claimable>false</claimable>
-      <deconstructible>false</deconstructible>
-      <isEdifice>true</isEdifice>
-      <destroyShakeAmount>0</destroyShakeAmount>
-      <mineablePreventMeteorite>true</mineablePreventMeteorite>
-    </building>
-    <!-- What stage of map generation the thing is spawned during (rocks or ice) -->
-    <newMapGenStep>rocks</newMapGenStep>
-    <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
-    <newMapSpawnOrder>100</newMapSpawnOrder>
+    <!-- If defined, randomly pick colors from this set -->
+    <randomColorsOne>
+    </randomColorsOne>
+    <randomColorsTwo>
+    </randomColorsTwo>
+    <!-- If true, then the probability of each color is randomly chosen for each map, so each map has distinctive colors -->
+    <seedRandomColorByMap>true</seedRandomColorByMap>
+    <!-- If smaller than 1, it looks smaller in water -->
+    <submergedSize>1</submergedSize>
+    <!-- How big of an area is checked when determining how submerged something is -->
+    <submergedRadius>2</submergedRadius>
+
+    <!-- ========== MINING SETTINGS ========== -->
+    <!-- Other resources it might drop -->
+    <RandomResourceDrop>
+    </RandomResourceDrop>
+    <!-- How easy it is to mine -->
+    <mineSpeedFactor>1</mineSpeedFactor>
+
+    <!-- ========== OTHER SETTINGS ========== -->
     <!-- Tags which determine how some options behave  -->
     <tags>
     </tags>
-    <!-- Minimum distance from the nearest settlement the inital spawn needs to be in order to be spawned at the maximum probablity -->
-    <otherSettlementMiningRadius>0</otherSettlementMiningRadius>
-    <!--  If the mean size of minerals spawned at map generation is scaled by the relative abundance in that map -->
-    <sizeScaledByAbundance>false</sizeScaledByAbundance>
-    <!-- How easy it is to mine -->
-    <mineSpeedFactor>1</mineSpeedFactor>
-    <!-- at what snow depth the snow texture is used, if it exists -->
-    <snowTextureThreshold>0.8</snowTextureThreshold>
-    <!-- at what snow depth the mineral is completely hidden -->
-    <hiddenInSnowThreshold>999</hiddenInSnowThreshold>
+
   </ThingDef>
-  
-  <ThingDef Name="MF_DynamicMineralBase" Parent="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_DynamicMineral" Abstract="True">
+
+
+  <!-- This includes all of the default values for every option provided -->
+  <!-- The non-vanilla defualts used are the same that would be used if not defined but are here as documentation --> 
+  <ThingDef Name="MF_DynamicMineralBase" ParentName="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_DynamicMineral" Abstract="True">
+
+    <!-- ========== VANILLA RIMWORLD SETTINGS ========== -->
     <thingClass>MineralsFramework.DynamicMineral</thingClass>
-    <category>Building</category>
-    <selectable>true</selectable>
-    <castEdgeShadows>false</castEdgeShadows>
-    <fillPercent>0.05</fillPercent>
-    <coversFloor>false</coversFloor>
-    <pathCost>60</pathCost>
-    <mineable>true</mineable>
-    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
-    <filthLeaving>Filth_RubbleRock</filthLeaving>
-    <drawerType>MapMeshOnly</drawerType>
     <tickerType>Long</tickerType>
+    <building>
+      <isInert>false</isInert>
+    </building>
+
+    <!-- ========== SPAWN AND GROWTH SETTINGS ========== -->
+    <!-- The number of days it takes to grow at 100% growth speed -->
     <growDays>100</growDays>
+    <!-- The smallest a mineral can be before reproducing -->
     <minReproductionSize>0.8</minReproductionSize>
+    <!-- The probability of reproducing each tick -->
     <reproduceProp>0.001</reproduceProp>
+    <!-- The probability of being deleted each tick if size is 0 -->
     <deathProb>0.001</deathProb>
     <!-- The minimum number of crystals in clusters that are spawned during gameplay, not map creation -->
     <minSpawnClusterSize>1</minSpawnClusterSize>
@@ -136,30 +203,43 @@
     <maxSpawnClusterSize>1</maxSpawnClusterSize>
     <!-- Chance of spawning de novo each tick -->
     <spawnProb>0.0001</spawnProb>
-    <building>
-      <isInert>false</isInert>
-      <canBuildNonEdificesUnder>false</canBuildNonEdificesUnder>
-      <claimable>false</claimable>
-      <deconstructible>false</deconstructible>
-      <destroyShakeAmount>0</destroyShakeAmount>
-      <mineablePreventMeteorite>true</mineablePreventMeteorite>
-    </building>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>200</newMapSpawnOrder>
+
+    <!-- ========== GROWTH RATE MODIFIERS ========== -->
+    <!-- All modifiers have the same options and are disabled by default. tempGrowthRateModifier included as an example
+    <tempGrowthRateModifier>
+      <aboveMaxDecayRate>5</aboveMaxDecayRate>
+      <maxStable>200</maxStable>
+      <maxGrow>100</maxGrow>
+      <maxIdeal>50</maxIdeal>
+      <minIdeal>0</minIdeal>
+      <minGrow>-100</minGrow>
+      <minStable>-200</minStable>
+      <belowMinDecayRate>0.01</belowMinDecayRate> 
+    </tempGrowthRateModifier>
+    -->
+    <tempGrowthRateModifier/>
+    <rainGrowthRateModifier/>
+    <lightGrowthRateModifier/>
+    <fertGrowthRateModifier/>
+    <distGrowthRateModifier/>
+    <sizeGrowthRateModifier/>
+
+    <!-- ========== APPEARANCE SETTINGS ========== -->
     <!-- If true, the graphics are regenerated more often -->
     <fastGraphicRefresh>false</fastGraphicRefresh>
+
   </ThingDef>
 
-  <ThingDef Name="BigMineralBase" ParentName="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_BigMineral" Abstract="True">
-    <thingClass>MineralsFramework.BigMineral</thingClass>
+
+  <ThingDef Name="MF_BigStaticMineralBase" ParentName="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <passability>PassThroughOnly</passability>
     <fillPercent>0.7</fillPercent>
     <pathCost>200</pathCost>
     <!--How far away it can spawn from an existing location-->
     <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
     <spawnRadius>1</spawnRadius>
-    <!-- The probability that this mineral type will be spawned at all on a given map -->
-    <perMapProbability>1.0</perMapProbability>
     <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
     <minClusterProbability>1</minClusterProbability>
     <maxClusterProbability>1</maxClusterProbability>
@@ -167,16 +247,10 @@
     <minClusterSize>1</minClusterSize>
     <maxClusterSize>1</maxClusterSize>
     <!-- The range of starting sizes of individuals in clusters -->
-    <initialSizeMin>0.95</initialSizeMin>
+    <initialSizeMin>0.9</initialSizeMin>
     <initialSizeMax>1</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>0.1</initialSizeVariation>
-    <!-- Roof requirements -->
-    <mustBeUnderRoof>false</mustBeUnderRoof>
-    <mustBeUnderThickRoof>false</mustBeUnderThickRoof>
-    <mustBeUnroofed>false</mustBeUnroofed>
-    <mustBeNotUnderThickRoof>false</mustBeNotUnderThickRoof>
-    <mustBeNearPassable>false</mustBeNearPassable>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>1</maxMeshCount>
     <!-- The size range -->
@@ -193,27 +267,22 @@
     <tags>
       <li>crystal</li>
       <li>big_mineral</li>
-      <li>fictional</li>
     </tags>
-    <!-- If graphic overlapping with nearby wall textures are rotated -->
-    <growsUpWalls>false</growsUpWalls>
     <!-- The radius that will be searched to replace things -->
     <replaceRadius>1</replaceRadius>
-    <!-- The minmum propotion of things in radius to replace for a replacement to happen -->
-    <repalceThreshold>0.4</repalceThreshold>
-    <!-- If it replaces everything -->
-    <replaceAll>false</replaceAll>
+    <!-- The minmum propotion of things in radius for replacement to occur. Takes into acount size for MineralsFramework objects. -->
+    <replaceThreshold>0.4</replaceThreshold>
     <!-- If it must replace something in order to spawned -->
     <mustReplace>true</mustReplace>
-    <hideAtSnowOrSandDepth>2</hideAtSnowOrSandDepth>
     <!-- How easy it is to mine -->
     <mineSpeedFactor>0.3</mineSpeedFactor>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>300</newMapSpawnOrder>
   </ThingDef>
-  
-  <ThingDef Name="BigMineralTrophyBase" ParentName="BuildingBase" Class="MineralsFramework.ThingDef_BigMineralTrophy" Abstract="True">
-    <thingClass>MineralsFramework.BigMineralTrophy</thingClass>
+
+
+  <ThingDef Name="MF_MineralSpecimenBase" ParentName="BuildingBase" Class="MineralsFramework.ThingDef_MineralSpecimen" Abstract="True">
+    <thingClass>MineralsFramework.MineralSpecimen</thingClass>
     <category>Building</category>
     <minifiedDef>MinifiedThing</minifiedDef>
     <altitudeLayer>Building</altitudeLayer>
@@ -225,11 +294,12 @@
     <soundImpactDefault>MeleeHit_Stone</soundImpactDefault>
     <rotatable>false</rotatable>
     <tradeTags>
-       <li>MineralTrophy</li>
+      <li>MineralSpecimen</li>
     </tradeTags>
     <thingCategories>
       <li>BuildingsSpecial</li>
     </thingCategories>
   </ThingDef>
+
 
 </Defs>

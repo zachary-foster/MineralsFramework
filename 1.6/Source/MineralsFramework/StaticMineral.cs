@@ -175,7 +175,6 @@ namespace MineralsFramework
             float proportionDamaged = (float) Mathf.Min(amount, HitPoints) / (float) MaxHitPoints;
             float proportionMined = proportionDamaged * minerYield;
             yieldPct += proportionMined;
-            //yieldPct = 0f;
 
             // Drop resources
             foreach (RandomResourceDrop toDrop in attributes.randomlyDropResources)
@@ -225,6 +224,9 @@ namespace MineralsFramework
                 {
                     Thing thing = ThingMaker.MakeThing(myThingDef, null);
                     thing.stackCount = dropNum;
+                    if (toDrop.Minified) {
+                      thing = thing.MakeMinified();
+                    }
                     GenPlace.TryPlaceThing(thing, Position, Map, ThingPlaceMode.Near, null);
                 }
             }
@@ -933,6 +935,7 @@ namespace MineralsFramework
         public int MinMiningSkill = 0;
         public bool ScaleYieldBySkill = true;
         public bool WasteProduct = false;
+        public bool Minified = false;
     }
 
 
@@ -945,63 +948,97 @@ namespace MineralsFramework
     /// <permission>No restrictions</permission>
     public class ThingDef_StaticMineral : ThingDef
     {
-        // How far away it can spawn from an existing location
-        // Even though it is a static mineral, the map initialization uses "reproduction" to make clusters 
-        public int spawnRadius = 1; 
 
         // The probability that this mineral type will be spawned at all on a given map
-        public float perMapProbability = 0.5f; 
+        public float perMapProbability = 1f; 
 
         // For a given map, the minimum/maximum probablility a cluster will spawn for every possible location
-        public float minClusterProbability; 
-        public float maxClusterProbability = 0.001f;
+        public float minClusterProbability = 0.001f; 
+        public float maxClusterProbability = 0.01f;
+
+        // How far away it can spawn from an existing location
+        // Even though it is a static mineral, the map initialization uses "reproduction" to make clusters 
+        public int spawnRadius = 2; 
 
         // How  many squares each cluster will be
         public int minClusterSize = 1;
         public int maxClusterSize = 10;
 
         // The range of starting sizes of individuals in clusters
-        public float initialSizeMin = 0.5f;
-        public float initialSizeMax = 0.8f;
+        public float initialSizeMin = 0.3f;
+        public float initialSizeMax = 0.9f;
 
         // How much initial sizes of individuals randomly vary
         public float initialSizeVariation = 0.3f;
 
-        // The biomes this can appear in
+        // The biomes this can appear in. If null, all are allowed
         public List<string> allowedBiomes;
 
-        // The terrains this can appear on
+        // The terrains this can appear on. If null, all are allowed
         public List<string> allowedTerrains;
         
         // The terrains this cannot appear on (overrides allowedTerrains)
-        public List<string> disallowedTerrains;
+        public List<string> disallowedTerrains = new List<string> { "LavaDeep", "LavaShallow", "WaterDeep", "WaterOceanDeep", "Space", "CooledLava" };
 
         // The terrains this must be near to, but not necessarily on, and how far away it can be
         public List<string> neededNearbyTerrains;
         public float neededNearbyTerrainRadius = 3f;
 
-        // Controls how extra clusters are added near assocaited ore
-        public List<string> associatedOres;
-        public float nearAssociatedOreBonus = 3f;
-
         // If true, growth rate and initial size depends on distance from needed terrains
         public bool neededNearbyTerrainSizeEffect = true;
 
+        // Controls how extra clusters are added near assocaited things 
+        public List<string> associatedOres;
+        public float nearAssociatedOreBonus = 10f;
+
         // If true, only grows under roofs
-        public bool mustBeUnderRoof = true;
+        public bool mustBeUnderRoof = false;
         public bool mustBeUnderThickRoof = false;
         public bool mustBeUnroofed = false;
         public bool mustBeNotUnderThickRoof = false;
         public bool mustBeNearPassable = false; 
 
+        // Things this mineral replaces when a map is initialized
+        public List<string> ThingsToReplace; 
+
+        // If it replaces everything
+        public bool replaceAll = false;
+
+        // If it must replace something in order to spawned
+        public bool mustReplace = false;
+
+        // The minmum propotion of things in radius to replace for a replacement to happen 
+        public float replaceThreshold = 0.3f;
+
+        // If it can spawn on other things
+        public bool canSpawnOnThings = false;
+
+        // What stage of map generation the thing is spawned during (rocks or ice)
+        public string newMapGenStep = "rocks";
+        
+        // Order in which minerals are spawned during map generation (lower numbers first)
+        public int newMapSpawnOrder = 100;
+
+        // Minimum distance from the nearest settlement the inital spawn needs to be in order to be spawned at the maximum probablity
+        public float otherSettlementMiningRadius = 0f;
+
+        // If the mean size of minerals spawned at map generation is scaled by the relative abundance in that map
+        public bool sizeScaledByAbundance = false;
+
         // The maximum number of images that will be printed per square
-        public int maxMeshCount = 1;
+        public int maxMeshCount = 4;
 
         // The size range of images printed
         public FloatRange visualSizeRange  = new FloatRange(0.3f, 1.0f);
+
+        // between 0 and 1. 0 = uniform distribution, 1 = normal distribution
         public float visualClustering = 0.5f;
-        public float visualSpread = 1.2f;
-        public float visualSizeVariation = 0.1f;
+
+        // 1 = everything appears within cell and can spawn at edge when visualClustering == 0
+        public float visualSpread = 1.5f;
+
+        // 0 = all images in cluster are same size
+        public float visualSizeVariation = 0.2f;
 
         // If graphic overlapping with nearby wall textures are rotated
         public bool growsUpWalls = false;
@@ -1012,66 +1049,90 @@ namespace MineralsFramework
         // If largest textures are printed on top, ro if vertical order matters
         public bool largeTexturesOnTop = false;
 
-        // Other resources it might drop
-        public List<RandomResourceDrop> randomlyDropResources;
+        // How much to change the vertical position of the texture. Positive is up
+        public float verticalOffset = 0f;
 
-        // If it can spawn on other things
-        public bool canSpawnOnThings = false;
+        // at what snow depth the snow texture is used for full sized minerals
+        public float snowTextureThreshold = 0.8f;
 
-        // Things this mineral replaces when a map is initialized
-        public List<string> ThingsToReplace; 
+        // at what snow depth a full sized mineral is completely hidden
+        public float hiddenInSnowThreshold = 1f;
 
-        // If it replaces everything
-        public bool replaceAll = true;
-
-        // If it must replace something in order to spawned
-        public bool mustReplace = false;
-
+        // Has something to do with how textures on the same layer get stacked
+        public float topVerticesAltitudeBias = 0.01f;
+        
         // If the primary color is based on the stone below it
         public bool coloredByTerrain = false;
 
         // If defined, randomly pick colors from this set
         public List<Color> randomColorsOne;
         public List<Color> randomColorsTwo;
+
         // If true, then the probability of each color is randomly chosen for each map, so each map has distinctive colors.
-        public bool seedRandomColorByMap = false;
+        public bool seedRandomColorByMap = true;
 
         // If smaller than 1, it looks smaller in water
         public float submergedSize = 1;
+
+        // How big of an area is checked when determining how submerged something is
         public int submergedRadius = 2;
 
-        // Tags which determine how some options behave
-        public List<string> tags;
-
-        // Has something to do with how textures on the same layer get stacked
-        public float topVerticesAltitudeBias = 0.01f;
-
-        public List<string> texturePaths;
-
-        // at what snow depth the snow texture is used, if it exists
-        public List<string> snowTexturePaths;
-        public bool hasSnowyTextures = false;
-        public float snowTextureThreshold = 0.8f;
-        public float hiddenInSnowThreshold = 1f;
-
-        // How much to change the vertical position of the texture. Positive is up
-        public float verticalOffset = 0f;
-
-        // What stage of map generation the thing is spawned during (rocks or ice)
-        public string newMapGenStep = "rocks";
-        
-        // Order in which minerals are spawned during map generation (lower numbers first)
-        public int newMapSpawnOrder = 0;
-
-        // Minimum distance from the nearest settlement the inital spawn needs to be in order to be spawned at the maximum probablity
-        public float otherSettlementMiningRadius = 0f;
-
-        // If the mean size of minerals spawned at map generation is scaled by the relative abundance in that map
-        public bool sizeScaledByAbundance = false;
+        // Other resources it might drop
+        public List<RandomResourceDrop> randomlyDropResources;
 
         // How easy it is to mine
         public float mineSpeedFactor = 1f;
 
+        // Tags which determine how some options behave
+        public List<string> tags;
+
+        // Populated based on graphicData.texPath, not meant for configuration via XML
+        public List<string> texturePaths;
+        public List<string> snowTexturePaths;
+        public bool hasSnowyTextures = false;
+
+
+
+        public static MakeDefaultThingDef()
+        {
+          return new ThingDef
+            {
+                defName = "StaticMineral",
+                thingClass = typeof(StaticMineral),
+                category = ThingCategory.Building,
+                selectable = true,
+                neverMultiSelect = true,
+                altitudeLayer = AltitudeLayer.Building,
+                passability = Traversability.Standable,
+                castEdgeShadows = false,
+                fillPercent = 0.05f,
+                coversFloor = false,
+                blockWind = false,
+                pathCost = 60,
+                mineable = true,
+                leaveResourcesWhenKilled = true,
+                filthLeaving = DefDatabase<ThingDef>.GetNamedSilentFail("Filth_RubbleRock"),
+                drawerType = DrawerType.MapMeshOnly,
+                scatterableOnMapGen = false,
+                hideAtSnowOrSandDepth = 2f,
+                
+                building = new BuildingProperties
+                {
+                    isInert = true,
+                    canBuildNonEdificesUnder = false,
+                    isNaturalRock = false,
+                    isResourceRock = true,
+                    mineableDropChance = 0f,
+                    mineableYield = 0,
+                    mineableNonMinedEfficiency = 0f,
+                    claimable = false,
+                    deconstructible = false,
+                    isEdifice = true,
+                    destroyShakeAmount = 0f,
+                    mineablePreventMeteorite = true
+                }
+            }
+        }
 
         // ======= Spawning clusters ======= //
 
@@ -1133,17 +1194,47 @@ namespace MineralsFramework
                 //if (defName == "BigColdstoneCrystal") Log.Message("ThingToReplaceAtPos: no replacement defined", true);
                 return(null);
             }
-            foreach (Thing thing in map.thingGrid.ThingsListAt(position))
+            int spotsChecked = 0;
+            float replaceCount = 0;
+            for (int xOffset = -replaceRadius; xOffset <= replaceRadius; xOffset++)
             {
-                if (thing == null || thing.def == null)
+                for (int zOffset = -replaceRadius; zOffset <= replaceRadius; zOffset++)
                 {
-                    continue;
+                    spotsChecked = spotsChecked + 1;
+                    IntVec3 checkedPosition = position + new IntVec3(xOffset, 0, zOffset);
+                    if (checkedPosition.InBounds(map))
+                    {
+                        foreach (Thing thing in map.thingGrid.ThingsListAt(checkedPosition))
+                        {
+                            if (thing == null || thing.def == null)
+                            {
+                                continue;
+                            }
+
+                            if (ThingsToReplace.Any(thing.def.defName.Equals))
+                            {
+                                if (StaticMineral.isMineral(thing))
+                                {
+                                    replaceCount += ((StaticMineral) thing).size;
+                                }
+                                else
+                                {
+                                    replaceCount += 1;
+                                }
+                            }
+                        }
+                    }
                 }
-                //if (defName == "BigColdstoneCrystal") Log.Message("ThingToReplaceAtPos: found " + thing.def.defName + " at " + position, true);
-                if (ThingsToReplace.Any(thing.def.defName.Equals))
-                {
-                    return(thing);
-                }
+            }
+            if (((float)replaceCount) / ((float)spotsChecked) > replaceThreshold)
+            {
+                //Log.Message(this.defName + " can replace at " + position, true);
+                return(toReplace);
+            }
+            else
+            {
+                //Log.Message(this.defName + " can not replace at " + position + " with density " + ((float)replaceCount) / ((float)spotsChecked), true);
+                return(null);
             }
             return(null);
         }

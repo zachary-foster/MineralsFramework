@@ -151,7 +151,7 @@ namespace MineralsFramework
         }
 
 
-    }       
+    }
 
 
 
@@ -167,33 +167,47 @@ namespace MineralsFramework
         // The number of days it takes to grow at max growth speed
         public float growDays = 100f;
 
-
+        // The smallest a mineral can be before reproducing
         public float minReproductionSize = 0.8f;
+
+        // The probability of reproducing each tick
         public float reproduceProp = 0.001f;
+
+        // The probability of being deleted each tick if size is 0
         public float deathProb = 0.001f;
+
         public float spawnProb = 0.0001f; // chance of spawning de novo each tick
-        public tempGrowthRateModifier tempGrowthRateModifer;  // Temperature effects on growth rate
-        public rainGrowthRateModifier rainGrowthRateModifer;  // Rain effects on growth rate
-        public lightGrowthRateModifier lightGrowthRateModifer; // Light effects on growth rate
-        public fertGrowthRateModifier fertGrowthRateModifer;  // Fertility effects on growth rate
-        public distGrowthRateModifier distGrowthRateModifer;  // Distance to needed terrain effects on growth rate
-        public sizeGrowthRateModifier sizeGrowthRateModifer;  // Current size effects on growth rate
+        public tempGrowthRateModifier tempGrowthRateModifier;  // Temperature effects on growth rate
+        public rainGrowthRateModifier rainGrowthRateModifier;  // Rain effects on growth rate
+        public lightGrowthRateModifier lightGrowthRateModifier; // Light effects on growth rate
+        public fertGrowthRateModifier fertGrowthRateModifier;  // Fertility effects on growth rate
+        public distGrowthRateModifier distGrowthRateModifier;  // Distance to needed terrain effects on growth rate
+        public sizeGrowthRateModifier sizeGrowthRateModifier;  // Current size effects on growth rate
         public bool fastGraphicRefresh = false; // If true, the graphics are regenerated more often
         public int minSpawnClusterSize = 1; // The minimum number of crystals in clusters that are spawned during gameplay, not map creation
         public int maxSpawnClusterSize = 1; // The maximum number of crystals in clusters that are spawned during gameplay, not map creation
 
+
+        public static ThingDef_DynamicMineral MakeDefaultThingDef()
+        {
+          ThingDef_DynamicMineral out = (ThingDef_DynamicMineral)ThingDef_StaticMineral.MakeDefaultThingDef();
+          out.thingClass = typeof(DynamicMineral);
+          out.tickerType = TickerType.Long;
+          out.building.isInert = false;
+          return out;
+        }
 
         public List<growthRateModifier> allRateModifiers 
         {
             get 
             {
                 List<growthRateModifier> output = new List<growthRateModifier>{
-                    tempGrowthRateModifer,
-                    rainGrowthRateModifer,
-                    lightGrowthRateModifer,
-                    fertGrowthRateModifer,
-                    distGrowthRateModifer,
-                    sizeGrowthRateModifer
+                    tempGrowthRateModifier,
+                    rainGrowthRateModifier,
+                    lightGrowthRateModifier,
+                    fertGrowthRateModifier,
+                    distGrowthRateModifier,
+                    sizeGrowthRateModifier
                 };
                 output.RemoveAll(item => item == null);
                 return output;
@@ -205,12 +219,12 @@ namespace MineralsFramework
             get
             {
                 List<growthRateModifier> output = new List<growthRateModifier>{
-                    tempGrowthRateModifer,
-                    rainGrowthRateModifer,
-                    lightGrowthRateModifer,
-                    fertGrowthRateModifer,
-                    distGrowthRateModifer,
-                    sizeGrowthRateModifer
+                    tempGrowthRateModifier,
+                    rainGrowthRateModifier,
+                    lightGrowthRateModifier,
+                    fertGrowthRateModifier,
+                    distGrowthRateModifier,
+                    sizeGrowthRateModifier
                 };
                 output.RemoveAll(item => item == null || (!item.wholeMapEffect));
                 return output;
@@ -222,12 +236,12 @@ namespace MineralsFramework
             get
             {
                 List<growthRateModifier> output = new List<growthRateModifier>{
-                    tempGrowthRateModifer,
-                    rainGrowthRateModifer,
-                    lightGrowthRateModifer,
-                    fertGrowthRateModifer,
-                    distGrowthRateModifer,
-                    sizeGrowthRateModifer
+                    tempGrowthRateModifier,
+                    rainGrowthRateModifier,
+                    lightGrowthRateModifier,
+                    fertGrowthRateModifier,
+                    distGrowthRateModifier,
+                    sizeGrowthRateModifier
                 };
                 output.RemoveAll(item => item == null || item.wholeMapEffect);
                 return output;
@@ -315,16 +329,6 @@ namespace MineralsFramework
         public virtual float GrowthRateMapRecent(Map aMap)
         {
             return combineGrowthRateFactors(allGrowthRateFactorsMapRecent(aMap));
-        }
-
-        public override float mapHabitabilitySpawnFactor(Map map)
-        {
-            return 1f;
-        }
-
-        public override void SpawnInitialCluster(Map map, IntVec3 position, float size, int count)
-        {
-            base.SpawnInitialCluster(map, position, size, count);
         }
 
     }
