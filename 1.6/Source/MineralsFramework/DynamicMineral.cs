@@ -176,25 +176,44 @@ namespace MineralsFramework
         // The probability of being deleted each tick if size is 0
         public float deathProb = 0.001f;
 
-        public float spawnProb = 0.0001f; // chance of spawning de novo each tick
-        public tempGrowthRateModifier tempGrowthRateModifier;  // Temperature effects on growth rate
-        public rainGrowthRateModifier rainGrowthRateModifier;  // Rain effects on growth rate
-        public lightGrowthRateModifier lightGrowthRateModifier; // Light effects on growth rate
-        public fertGrowthRateModifier fertGrowthRateModifier;  // Fertility effects on growth rate
-        public distGrowthRateModifier distGrowthRateModifier;  // Distance to needed terrain effects on growth rate
-        public sizeGrowthRateModifier sizeGrowthRateModifier;  // Current size effects on growth rate
-        public bool fastGraphicRefresh = false; // If true, the graphics are regenerated more often
-        public int minSpawnClusterSize = 1; // The minimum number of crystals in clusters that are spawned during gameplay, not map creation
-        public int maxSpawnClusterSize = 1; // The maximum number of crystals in clusters that are spawned during gameplay, not map creation
+        // chance of spawning de novo each tick
+        public float spawnProb = 0.0001f;
+
+        // Temperature effects on growth rate
+        public tempGrowthRateModifier tempGrowthRateModifier;
+
+        // Rain effects on growth rate
+        public rainGrowthRateModifier rainGrowthRateModifier;
+
+        // Light effects on growth rate
+        public lightGrowthRateModifier lightGrowthRateModifier;
+
+        // Fertility effects on growth rate
+        public fertGrowthRateModifier fertGrowthRateModifier;
+
+        // Distance to needed terrain effects on growth rate
+        public distGrowthRateModifier distGrowthRateModifier;
+
+        // Current size effects on growth rate
+        public sizeGrowthRateModifier sizeGrowthRateModifier;
+
+        // If true, the graphics are regenerated more often
+        public bool fastGraphicRefresh = false;
+
+        // The minimum number of crystals in clusters that are spawned during gameplay, not map creation
+        public int minSpawnClusterSize = 1;
+
+        // The maximum number of crystals in clusters that are spawned during gameplay, not map creation
+        public int maxSpawnClusterSize = 1;
 
 
-        public static ThingDef_DynamicMineral MakeDefaultThingDef()
+        public static ThingDef_DynamicMineral MakeDefaultDynamicMineralDef()
         {
-          ThingDef_DynamicMineral out = (ThingDef_DynamicMineral)ThingDef_StaticMineral.MakeDefaultThingDef();
-          out.thingClass = typeof(DynamicMineral);
-          out.tickerType = TickerType.Long;
-          out.building.isInert = false;
-          return out;
+            ThingDef_DynamicMineral result = (ThingDef_DynamicMineral)ThingDef_StaticMineral.MakeDefaultStaticMineralDef();
+            result.thingClass = typeof(DynamicMineral);
+            result.tickerType = TickerType.Long;
+            result.building.isInert = false;
+            return result;
         }
 
         public List<growthRateModifier> allRateModifiers 

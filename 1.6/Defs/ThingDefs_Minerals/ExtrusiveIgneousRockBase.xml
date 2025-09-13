@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+
+  <ThingDef Name="MF_WeatheredExtrusiveIgneousRockBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Rock/WeatheredBasalt</texPath>
+      <color>(100,100,100)</color>
+    </graphicData>
+    <uiIconPath>Things/Rock/WeatheredBasalt/WeatheredBasaltA</uiIconPath>
+    <statBases>
+      <MaxHitPoints>1300</MaxHitPoints>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>1.5</spawnRadius>
+    <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+    <minClusterProbability>0.01</minClusterProbability>
+    <maxClusterProbability>0.02</maxClusterProbability>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>1</minClusterSize>
+    <maxClusterSize>10</maxClusterSize>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>MS_RoughGem</ResourceDefName>
+        <DropProbability>0.03</DropProbability>
+        <MinMiningSkill>6</MinMiningSkill>
+      </li>
+      <li>
+        <ResourceDefName>CrushedStone</ResourceDefName>
+        <DropProbability>1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+        <WasteProduct>true</WasteProduct>
+      </li>
+      <li>
+        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
+        <DropProbability>0.1</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+      <li>
+        <ResourceDefName>MAU_ChunkDunite</ResourceDefName>
+        <DropProbability>0.01</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+    </randomlyDropResources>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_SolidExtrusiveIgneousRockBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Rock/WeatheredBasalt</texPath>
+      <color>(100,100,100)</color>
+    </graphicData>
+    <uiIconPath>Things/Rock/WeatheredBasalt/WeatheredBasaltA</uiIconPath>
+    <statBases>
+      <Beauty>-2</Beauty>
+      <MaxHitPoints>1500</MaxHitPoints>
+    </statBases>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>MS_RoughGem</ResourceDefName>
+        <DropProbability>0.03</DropProbability>
+        <MinMiningSkill>6</MinMiningSkill>
+      </li>
+      <li>
+        <ResourceDefName>CrushedStone</ResourceDefName>
+        <DropProbability>1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+        <WasteProduct>true</WasteProduct>
+      </li>
+      <li>
+        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
+        <DropProbability>0.08</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+      <li>
+        <ResourceDefName>MAU_ChunkDunite</ResourceDefName>
+        <DropProbability>0.02</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+    </randomlyDropResources>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_HewnExtrusiveIgneousRockBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Rock/HewnRockWall</texPath>
+      <color>(100,100,100)</color>
+    </graphicData>
+    <uiIconPath>Things/Rock/HewnRockWall/HewnRockWallA</uiIconPath>
+    <statBases>
+      <MaxHitPoints>1600</MaxHitPoints>
+      <Beauty>-2</Beauty>
+    </statBases>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>MS_RoughGem</ResourceDefName>
+        <DropProbability>0.03</DropProbability>
+        <MinMiningSkill>6</MinMiningSkill>
+      </li>
+      <li>
+        <ResourceDefName>CrushedStone</ResourceDefName>
+        <DropProbability>1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+        <WasteProduct>true</WasteProduct>
+      </li>
+      <li>
+        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
+        <DropProbability>0.05</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+      <li>
+        <ResourceDefName>MAU_ChunkDunite</ResourceDefName>
+        <DropProbability>0.03</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+    </randomlyDropResources>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_SmoothExtrusiveIgneousRockBase" ParentName="MF_HewnExtrusiveIgneousRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Rock/SmoothedRockWall</texPath>
+    </graphicData>
+    <uiIconPath>Things/Rock/SmoothedRockWall/SmoothedRockWallA</uiIconPath>
+    <statBases>
+      <Beauty>0</Beauty>
+    </statBases>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_BoulderExtrusiveIgneousRockBase" ParentName="MF_BoulderRockBase" Class="MineralsFramework.ThingDef_StaticMineral">
+    <graphicData>
+      <texPath>Things/Rock/PassableBasalt</texPath>
+      <color>(100,100,100)</color>
+    </graphicData>
+    <uiIconPath>Things/Rock/PassableBasalt/PassableBasaltA</uiIconPath>
+    <statBases>
+      <MaxHitPoints>900</MaxHitPoints>
+      <Beauty>-1</Beauty>
+    </statBases>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>2</spawnRadius>
+    <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+    <minClusterProbability>0.004</minClusterProbability>
+    <maxClusterProbability>0.008</maxClusterProbability>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>1</minClusterSize>
+    <maxClusterSize>6</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>0.6</initialSizeMin>
+    <initialSizeMax>1.0</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.2</initialSizeVariation>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>6</neededNearbyTerrainRadius>
+    <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>1.0</min>
+      <max>1.3</max>
+    </visualSizeRange>
+    <visualClustering>0.6</visualClustering>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>1.0</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.1</visualSizeVariation>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>MS_RoughGem</ResourceDefName>
+        <DropProbability>0.02</DropProbability>
+        <MinMiningSkill>6</MinMiningSkill>
+      </li>
+      <li>
+        <ResourceDefName>CrushedStone</ResourceDefName>
+        <DropProbability>1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+        <WasteProduct>true</WasteProduct>
+      </li>
+      <li>
+        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
+        <DropProbability>0.1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+      </li>
+      <li>
+        <ResourceDefName>MAU_ChunkDunite</ResourceDefName>
+        <DropProbability>0.01</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+    </randomlyDropResources>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_SmallExtrusiveIgneousRockBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Rock/PassableBasalt</texPath>
+      <color>(100,100,100)</color>
+    </graphicData>
+    <uiIconPath>Things/Rock/PassableBasalt/PassableBasaltA</uiIconPath>
+    <statBases>
+      <MaxHitPoints>600</MaxHitPoints>
+      <Beauty>-1</Beauty>
+    </statBases>
+    <pathCost>50</pathCost>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>1.5</spawnRadius>
+    <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+    <minClusterProbability>0.02</minClusterProbability>
+    <maxClusterProbability>0.04</maxClusterProbability>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>1</minClusterSize>
+    <maxClusterSize>15</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>0.5</initialSizeMin>
+    <initialSizeMax>1.0</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.2</initialSizeVariation>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>2</neededNearbyTerrainRadius>
+    <!-- Controls how extra clusters are added near assocaited ore-->
+    <nearAssociatedOreBonus>3</nearAssociatedOreBonus>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>4</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.3</min>
+      <max>0.95</max>
+    </visualSizeRange>
+    <visualClustering>0.2</visualClustering>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>1.2</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.3</visualSizeVariation>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>MS_RoughGem</ResourceDefName>
+        <DropProbability>0.02</DropProbability>
+        <MinMiningSkill>6</MinMiningSkill>
+      </li>
+      <li>
+        <ResourceDefName>CrushedStone</ResourceDefName>
+        <DropProbability>1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+        <WasteProduct>true</WasteProduct>
+      </li>
+      <li>
+        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
+        <DropProbability>0.1</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+    </randomlyDropResources>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_LavaFlowExtrusiveIgneousRockBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Rock/PassableBasalt</texPath>
+      <color>(100,100,100)</color>
+    </graphicData>
+    <uiIconPath>Things/Rock/PassableBasalt/PassableBasaltA</uiIconPath>
+    <fillPercent>0.2</fillPercent>
+    <statBases>
+      <MaxHitPoints>500</MaxHitPoints>
+      <Beauty>-1</Beauty>
+    </statBases>
+    <pathCost>70</pathCost>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>1</spawnRadius>
+    <!-- The probability that this mineral type will be spawned at all on a given map -->
+    <perMapProbability>0.5</perMapProbability>
+    <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+    <minClusterProbability>0.001</minClusterProbability>
+    <maxClusterProbability>0.003</maxClusterProbability>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>30</minClusterSize>
+    <maxClusterSize>600</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>0.4</initialSizeMin>
+    <initialSizeMax>0.9</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.1</initialSizeVariation>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>10</neededNearbyTerrainRadius>
+    <!-- Controls how extra clusters are added near assocaited ore-->
+    <nearAssociatedOreBonus>3</nearAssociatedOreBonus>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>20</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.35</min>
+      <max>0.6</max>
+    </visualSizeRange>
+    <visualClustering>0.5</visualClustering>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>2.1</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.3</visualSizeVariation>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>MS_RoughGem</ResourceDefName>
+        <DropProbability>0.02</DropProbability>
+        <MinMiningSkill>6</MinMiningSkill>
+      </li>
+      <li>
+        <ResourceDefName>CrushedStone</ResourceDefName>
+        <DropProbability>1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+        <WasteProduct>true</WasteProduct>
+      </li>
+      <li>
+        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
+        <DropProbability>0.2</DropProbability>
+        <CountPerDrop>1</CountPerDrop>
+      </li>
+    </randomlyDropResources>
+  </ThingDef>
+
+
+</Defs>

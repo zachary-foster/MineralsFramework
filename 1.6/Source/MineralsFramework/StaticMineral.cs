@@ -997,6 +997,7 @@ namespace MineralsFramework
         public bool mustBeUnroofed = false;
         public bool mustBeNotUnderThickRoof = false;
         public bool mustBeNearPassable = false; 
+        public bool mustBeNotNearPassable = false;
 
         // Things this mineral replaces when a map is initialized
         public List<string> ThingsToReplace; 
@@ -1006,6 +1007,9 @@ namespace MineralsFramework
 
         // If it must replace something in order to spawned
         public bool mustReplace = false;
+
+        // The radius that will be searched to replace things. 0 = only checked cell
+        public int replaceRadius = 0;
 
         // The minmum propotion of things in radius to replace for a replacement to happen 
         public float replaceThreshold = 0.3f;
@@ -1093,9 +1097,9 @@ namespace MineralsFramework
 
 
 
-        public static MakeDefaultThingDef()
+        public static ThingDef_StaticMineral MakeDefaultStaticMineralDef()
         {
-          return new ThingDef
+            return new ThingDef_StaticMineral
             {
                 defName = "StaticMineral",
                 thingClass = typeof(StaticMineral),
@@ -1115,7 +1119,7 @@ namespace MineralsFramework
                 drawerType = DrawerType.MapMeshOnly,
                 scatterableOnMapGen = false,
                 hideAtSnowOrSandDepth = 2f,
-                
+
                 building = new BuildingProperties
                 {
                     isInert = true,
@@ -1126,12 +1130,255 @@ namespace MineralsFramework
                     mineableYield = 0,
                     mineableNonMinedEfficiency = 0f,
                     claimable = false,
-                    deconstructible = false,
+                    alwaysDeconstructible = false,
                     isEdifice = true,
                     destroyShakeAmount = 0f,
                     mineablePreventMeteorite = true
                 }
+            };
+        }
+
+        public static ThingDef_StaticMineral MakeDefaultImpassableRockDef()
+        {
+            ThingDef_StaticMineral result = MakeDefaultStaticMineralDef();
+            result.passability = Traversability.Impassable;
+            result.castEdgeShadows = true;
+            result.fillPercent = 1f;
+            result.coversFloor = true;
+            result.rotatable = true;
+            result.saveCompressible = true;
+            result.holdsRoof = true;
+            result.staticSunShadowHeight = 1.0f;
+            result.blockLight = true;
+            result.blockWind = true;
+            result.maxMeshCount = 1;
+            result.visualSizeRange = new FloatRange(1.75f, 1.9f);
+            result.visualClustering = 1.0f;
+            result.visualSpread = 0.5f;
+            result.visualSizeVariation = 0.08f;
+            result.verticalOffset = 0.2f;
+            result.tags = new List<string> { "rock", "wall" };
+
+            return result;
+        }
+
+        public static ThingDef_StaticMineral MakeDefaultHewnRockDef()
+        {
+            // Start with the impassable rock base
+            ThingDef_StaticMineral result = MakeDefaultImpassableRockDef();
+
+            // Configure graphicData for corner filling (like walls)
+            result.graphicData = new GraphicData();
+            result.graphicData.linkType = LinkDrawerType.CornerFiller;
+
+            result.graphicData.linkFlags = LinkFlags.Wall | LinkFlags.Rock | LinkFlags.MapEdge;
+
+            // Configure damage data for different damage graphics
+            result.graphicData.damageData = new DamageGraphicData();
+            result.graphicData.damageData.cornerTL = "Damage/Corner";
+            result.graphicData.damageData.cornerTR = "Damage/Corner";
+            result.graphicData.damageData.cornerBL = "Damage/Corner";
+            result.graphicData.damageData.cornerBR = "Damage/Corner";
+            result.graphicData.damageData.edgeTop = "Damage/Edge";
+            result.graphicData.damageData.edgeBot = "Damage/Edge";
+            result.graphicData.damageData.edgeLeft = "Damage/Edge";
+            result.graphicData.damageData.edgeRight = "Damage/Edge";
+
+            // Set map generation properties
+            result.perMapProbability = 0f;
+            result.mustBeUnderThickRoof = true;
+            result.mustBeNotNearPassable = true;
+            result.newMapSpawnOrder = 40;
+            result.mineSpeedFactor = 0.8f;
+
+            // Add the 'hewn' tag (keeping existing tags from impassable base)
+            if (result.tags == null)
+            {
+                result.tags = new List<string>();
             }
+            result.tags.Add("hewn");
+
+            return result;
+        }
+
+        public static ThingDef_StaticMineral MakeDefaultSolidRockDef()
+        {
+            // Start with the impassable rock base
+            ThingDef_StaticMineral result = MakeDefaultImpassableRockDef();
+
+            // Configure building properties
+            if (result.building == null)
+            {
+                result.building = new BuildingProperties();
+            }
+            result.building.mineablePreventMeteorite = false;
+
+            // Set roof requirements
+            result.mustBeUnderRoof = true;
+
+            // Set map generation properties
+            result.newMapSpawnOrder = 50;
+            result.snowTextureThreshold = 1f;
+            result.mineSpeedFactor = 1.0f;
+
+            // Add the 'solid' tag (keeping existing tags from impassable base)
+            if (result.tags == null)
+            {
+                result.tags = new List<string>();
+            }
+            result.tags.Add("solid");
+
+            return result;
+        }
+
+        public static ThingDef_StaticMineral MakeDefaultWeatheredRockDef()
+        {
+            // Start with the impassable rock base
+            ThingDef_StaticMineral result = MakeDefaultImpassableRockDef();
+
+            // Set roof requirements
+            result.mustBeUnroofed = true;
+
+            // Set map generation properties
+            result.newMapSpawnOrder = 60;
+            result.snowTextureThreshold = 0.85f;
+
+            // Set cluster generation properties
+            result.minClusterProbability = 0.01f;
+            result.maxClusterProbability = 0.02f;
+            result.minClusterSize = 1;
+            result.maxClusterSize = 5;
+            result.initialSizeMin = 1f;
+            result.initialSizeMax = 1f;
+            result.initialSizeVariation = 0.3f;
+
+            // Set mining properties
+            result.mineSpeedFactor = 1.2f;
+
+            // Add the 'weathered' tag (keeping existing tags from impassable base)
+            if (result.tags == null)
+            {
+                result.tags = new List<string>();
+            }
+            result.tags.Add("weathered");
+
+            return result;
+        }
+
+        public static ThingDef_StaticMineral MakeDefaultBoulderRockDef()
+        {
+            // Start with the static mineral base (not impassable this time)
+            ThingDef_StaticMineral result = MakeDefaultStaticMineralDef();
+
+            // Set altitude layer, passability, and physical properties
+            result.altitudeLayer = AltitudeLayer.SmallWire;
+            result.fillPercent = 0.6f;
+            result.passability = Traversability.PassThroughOnly;
+            result.blockWind = true;
+            result.pathCost = 100;
+            // Note: altitudeLayer is set twice in XML, using the last value (LowPlant)
+            result.altitudeLayer = AltitudeLayer.LowPlant;
+
+            // Set submerged properties
+            result.submergedSize = 1f;
+            result.submergedRadius = 1;
+
+            // Set snow and visibility properties
+            result.snowTextureThreshold = 0.7f; // Using the second value from XML
+            result.printOverWalls = true;
+            result.hiddenInSnowThreshold = 1.1f;
+
+            // Set map generation properties
+            result.newMapSpawnOrder = 70;
+
+            // Set cluster generation properties
+            result.minClusterProbability = 0.005f;
+            result.maxClusterProbability = 0.01f;
+            result.minClusterSize = 1;
+            result.maxClusterSize = 4;
+            result.initialSizeMin = 0.8f;
+            result.initialSizeMax = 1.0f;
+            result.initialSizeVariation = 0.5f;
+
+            // Set terrain dependency properties
+            result.neededNearbyTerrainRadius = 12;
+            result.neededNearbyTerrainSizeEffect = true;
+
+            // Set visual properties
+            result.maxMeshCount = 1;
+            result.visualSizeRange = new FloatRange(1.1f, 1.3f);
+            result.visualClustering = 0.2f;
+            result.visualSpread = 0.7f;
+            result.visualSizeVariation = 0.1f;
+
+            // Set mining properties
+            result.mineSpeedFactor = 1.4f;
+
+            // Set tags (replacing any existing tags from the base)
+            result.tags = new List<string> { "rock", "boulder" };
+
+            return result;
+        }
+
+        public static ThingDef_StaticMineral MakeDefaultSmallRockDef()
+        {
+            // Start with the static mineral base
+            ThingDef_StaticMineral result = MakeDefaultStaticMineralDef();
+
+            // Configure graphicData to disable damage graphics
+            if (result.graphicData == null)
+            {
+                result.graphicData = new GraphicData();
+            }
+            if (result.graphicData.damageData == null)
+            {
+                result.graphicData.damageData = new DamageGraphicData();
+            }
+            result.graphicData.damageData.enabled = false;
+
+            // Set altitude layer and physical properties
+            result.altitudeLayer = AltitudeLayer.SmallWire;
+            result.fillPercent = 0.2f;
+            result.pathCost = 20;
+
+            // Set submerged properties
+            result.submergedSize = 0f;
+            result.submergedRadius = 1;
+
+            // Set snow and visibility properties
+            result.snowTextureThreshold = 0.6f; // Using the second value from XML
+            result.hiddenInSnowThreshold = 0.85f;
+
+            // Set map generation properties
+            result.newMapSpawnOrder = 80;
+
+            // Set cluster generation properties
+            result.minClusterProbability = 0.02f;
+            result.maxClusterProbability = 0.05f;
+            result.minClusterSize = 1;
+            result.maxClusterSize = 6;
+            result.initialSizeMin = 0.7f;
+            result.initialSizeMax = 1.0f;
+            result.initialSizeVariation = 0.2f;
+
+            // Set terrain dependency properties
+            result.neededNearbyTerrainRadius = 4;
+            result.neededNearbyTerrainSizeEffect = true;
+
+            // Set visual properties
+            result.maxMeshCount = 4;
+            result.visualSizeRange = new FloatRange(0.5f, 0.7f);
+            result.visualClustering = 0.3f;
+            result.visualSpread = 1.2f;
+            result.visualSizeVariation = 0.3f;
+
+            // Set mining properties
+            result.mineSpeedFactor = 1.6f;
+
+            // Set tags (replacing any existing tags from the base)
+            result.tags = new List<string> { "rock", "small_rock" };
+
+            return result;
         }
 
         // ======= Spawning clusters ======= //
@@ -1229,7 +1476,17 @@ namespace MineralsFramework
             if (((float)replaceCount) / ((float)spotsChecked) > replaceThreshold)
             {
                 //Log.Message(this.defName + " can replace at " + position, true);
-                return(toReplace);
+                foreach (Thing thing in map.thingGrid.ThingsListAt(position))
+                {
+                    if (thing == null || thing.def == null)
+                    {
+                        continue;
+                    }
+                    if (ThingsToReplace.Any(thing.def.defName.Equals))
+                    {
+                        return (thing);
+                    }
+                }
             }
             else
             {
@@ -1254,7 +1511,6 @@ namespace MineralsFramework
                         {
                             return true;
                         }
-
                     }
                 }
             }
@@ -1304,7 +1560,11 @@ namespace MineralsFramework
             //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: replacement is ok " + position, true);
 
             // Check if it is near passable if needed
-            if (mustBeNearPassable && !IsNearPassable(map, position)) {
+            bool nearPassable = IsNearPassable(map, position);
+            if (mustBeNearPassable && !nearPassable) {
+                return false;
+            }
+            if (mustBeNotNearPassable && nearPassable) {
                 return false;
             }
 

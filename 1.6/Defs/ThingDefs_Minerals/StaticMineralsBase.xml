@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+  <ThingDef Name="MF_CrystalBase" ParentName="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <fillpercent>0.1</fillpercent>
+    <pathcost>40</pathcost>
+    <graphicData>
+      <damageData>
+        <enabled>false</enabled>
+      </damageData>
+    </graphicData>
+    <selectable>true</selectable>
+    <!-- Roof requirements -->
+    <mustBeUnderRoof>true</mustBeUnderRoof>
+    <!-- Tags which determine how some options behave  -->
+    <tags>
+      <li>crystal</li>
+    </tags>
+    <!-- If graphic overlapping with nearby wall textures are rotated -->
+    <growsUpWalls>true</growsUpWalls>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_EmbeddedMineralBase" ParentName="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <altitudeLayer>Floor</altitudeLayer>
+    <fillPercent>0.01</fillPercent>
+    <pathCost>1</pathCost>
+    <graphicData>
+      <damageData>
+        <enabled>false</enabled>
+      </damageData>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>1000</MaxHitPoints>
+    </statBases>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.2</min>
+      <max>0.35</max>
+    </visualSizeRange>
+    <visualClustering>0.3</visualClustering>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>8</maxMeshCount>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>1.2</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.1</visualSizeVariation>
+    <!-- Tags which determine how some options behave  -->
+    <tags>
+      <li>crystal</li>
+      <li>NoticeMineral_Event</li>
+    </tags>
+    <!-- at what snow depth the mineral is completely hidden -->
+    <hiddenInSnowThreshold>0.6</hiddenInSnowThreshold>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_DiamondCrystalBase" ParentName="MF_EmbeddedMineralBase" Class="MineralsFramework.ThingDef_StaticMineral">
+    <graphicData>
+      <texPath>Things/Mineral/DiamondCrystal</texPath>
+    </graphicData>
+    <uiIconPath>Things/Mineral/DiamondCrystal/DiamondCrystalA</uiIconPath>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>6</spawnRadius>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>2</minClusterSize>
+    <maxClusterSize>20</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>.2</initialSizeMin>
+    <initialSizeMax>.7</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.1</initialSizeVariation>
+    <!-- The terrains this can appear on. The default is rocky terrains-->
+    <allowedTerrains>
+      <li>Granite_Rough</li>
+      <li>MR_BasaltBase_Rough</li>
+      <li>MR_DioriteBase_Rough</li>
+      <li>MR_GabbroBase_Rough</li>
+      <li>MR_DuniteBase_Rough</li>
+      <li>MR_RhyoliteBase_Rough</li>
+      <li>MR_ScoriaBase_Rough</li>
+    </allowedTerrains>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>7</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.15</min>
+      <max>0.25</max>
+    </visualSizeRange>
+    <visualClustering>0.2</visualClustering>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>1.2</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.2</visualSizeVariation>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_CalciteBase" ParentName="MF_CrystalBase" Class="MineralsFramework.ThingDef_StaticMineral">
+    <graphicData>
+      <texPath>Things/Mineral/CalciteCrystal</texPath>
+    </graphicData>
+    <uiIconPath>Things/Mineral/CalciteCrystal/CalciteCrystalA</uiIconPath>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+    </statBases>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>2</spawnRadius>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>1</minClusterSize>
+    <maxClusterSize>40</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>.3</initialSizeMin>
+    <initialSizeMax>.95</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.3</initialSizeVariation>
+    <!-- The terrains this can appear on. The default is rocky terrains-->
+    <allowedTerrains>
+      <li>Limestone_Rough</li>
+      <li>Marble_Rough</li>
+      <li>Sandstone_Rough</li>
+      <li>Slate_Rough</li>
+      <li>MR_ClaystoneBase_Rough</li>
+      <li>MR_MudstoneBase_Rough</li>
+      <li>MR_ChalkBase_Rough</li>
+      <li>MR_LigniteBase_Rough</li>
+      <li>MR_BlueMarbleBase_Rough</li>
+      <li>MR_PinkMarbleBase_Rough</li>
+      <li>MR_BrownMarbleBase_Rough</li>
+    </allowedTerrains>
+    <!-- Controls how extra clusters are added near assocaited ore-->
+    <associatedOres>
+      <li>Limestone</li>
+      <li>Chalk</li>
+    </associatedOres>
+    <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>15</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.3</min>
+      <max>0.6</max>
+    </visualSizeRange>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualClustering>0.5</visualClustering>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSpread>2.0</visualSpread>
+    <visualSizeVariation>0.2</visualSizeVariation>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_QuartzBase" ParentName="MF_CrystalBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Mineral/QuartzCrystal</texPath>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+    </statBases>
+    <uiIconPath>Things/Mineral/QuartzCrystal/QuartzCrystalA</uiIconPath>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>5</spawnRadius>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>5</minClusterSize>
+    <maxClusterSize>50</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>.4</initialSizeMin>
+    <initialSizeMax>1.0</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.2</initialSizeVariation>
+    <!-- Controls how extra clusters are added near assocaited ore-->
+    <associatedOres>
+      <li>GoldPyriteCrystal</li>
+      <li>SilverPyriteCrystal</li>
+      <li>MineableGold</li>
+      <li>WeatheredOreGold</li>
+      <li>SolidOreGold</li>
+    </associatedOres>
+    <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
+    <!-- The terrains this can appear on. The default is rocky terrains-->
+    <allowedTerrains>
+      <li>Marble_Rough</li>
+      <li>MR_BasaltBase_Rough</li>
+      <li>Granite_Rough</li>
+      <li>ZF_AnorthositeBase_Rough</li>
+      <li>ZF_SchistBase_Rough</li>
+      <li>ZF_BlueMarbleBase_Rough</li>
+      <li>ZF_DioriteBase_Rough</li>
+      <li>ZF_AndesiteBase_Rough</li>
+      <li>ZF_BrownMarbleBase_Rough</li>
+      <li>ZF_PinkMarbleBase_Rough</li>
+      <li>ZF_GabbroBase_Rough</li>
+      <li>ZF_GneissBase_Rough</li>
+      <li>ZF_DuniteBase_Rough</li>
+      <li>ZF_RhyoliteBase_Rough</li>
+      <li>ZF_ScoriaBase_Rough</li>
+      <li>ZF_SerpentiniteBase_Rough</li>
+      <li>VibrantDunite_Rough</li>
+    </allowedTerrains>
+    <!-- The terrains this must be near to, but not necessarily on -->
+    <neededNearbyTerrains>
+      <li>Granite</li>
+      <li>Marble</li>
+      <li>Basalt</li>
+      <li>SolidGranite</li>
+      <li>SolidMarble</li>
+      <li>SolidBasalt</li>
+      <li>ZF_SolidAnorthosite</li>
+      <li>ZF_SolidSchist</li>
+      <li>ZF_SolidBlueMarble</li>
+      <li>ZF_SolidDiorite</li>
+      <li>ZF_SolidAndesite</li>
+      <li>ZF_SolidBrownMarble</li>
+      <li>ZF_SolidPinkMarble</li>
+      <li>ZF_SolidGabbro</li>
+      <li>ZF_SolidGneiss</li>
+      <li>ZF_SolidDunite</li>
+      <li>ZF_SolidRhyolite</li>
+      <li>ZF_SolidScoria</li>
+      <li>ZF_SolidSerpentinite</li>
+    </neededNearbyTerrains>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>1.5</neededNearbyTerrainRadius>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>30</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.3</min>
+      <max>0.6</max>
+    </visualSizeRange>
+    <visualClustering>0.3</visualClustering>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>2.0</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.3</visualSizeVariation>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>GlassBatch</ResourceDefName>
+        <DropProbability>3</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+      </li>
+    </randomlyDropResources>
+    <!-- How easy it is to mine -->
+    <mineSpeedFactor>0.2</mineSpeedFactor>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_BigQuartzBase" ParentName="MF_BigStaticMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Mineral/BigQuartzCrystal</texPath>
+    </graphicData>
+    <uiIconPath>Things/Mineral/BigQuartzCrystal/BigQuartzCrystalA</uiIconPath>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+    </statBases>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>5</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.6</min>
+      <max>1.5</max>
+    </visualSizeRange>
+    <visualClustering>1</visualClustering>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>2.0</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.3</visualSizeVariation>
+    <!-- How much to change the vertical position of the texture. Positive is up -->
+    <verticalOffset>0.1</verticalOffset>
+    <!-- The radius that will be searched to replace things -->
+    <replaceRadius>1</replaceRadius>
+    <!-- The minmum propotion of things in radius to replace for a replacement to happen -->
+    <repalceThreshold>0.5</repalceThreshold>
+    <!-- Tags which determine how some options behave -->
+    <tags>
+      <li>crystal</li>
+    </tags>
+    <!-- How easy it is to mine -->
+    <mineSpeedFactor>0.2</mineSpeedFactor>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_MetalOxideBase" ParentName="MF_CrystalBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <altitudeLayer>FloorEmplacement</altitudeLayer>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+    </statBases>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>1</spawnRadius>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>3</minClusterSize>
+    <maxClusterSize>30</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>.3</initialSizeMin>
+    <initialSizeMax>.8</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.45</initialSizeVariation>
+    <!-- The terrains this can appear on. The default is rocky terrains-->
+    <allowedTerrains>
+      <li>Limestone_Rough</li>
+      <li>Sandstone_Rough</li>
+      <li>Slate_Rough</li>
+      <li>ZF_ClaystoneBase_Rough</li>
+      <li>ZF_MudstoneBase_Rough</li>
+      <li>ZF_ChalkBase_Rough</li>
+      <li>ZF_LigniteBase_Rough</li>
+      <li>ZF_TuffBase_Rough</li>
+    </allowedTerrains>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>15</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.45</min>
+      <max>0.75</max>
+    </visualSizeRange>
+    <visualClustering>0.4</visualClustering>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>1.6</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.3</visualSizeVariation>
+    <!-- How easy it is to mine -->
+    <mineSpeedFactor>0.3</mineSpeedFactor>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_TourmalineBase" ParentName="MF_CrystalBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <fillPercent>0.1</fillPercent>
+    <pathCost>40</pathCost>
+    <graphicData>
+      <texPath>Things/Mineral/TourmalineCrystal</texPath>
+    </graphicData>
+    <uiIconPath>Things/Mineral/TourmalineCrystal/TourmalineCrystalA</uiIconPath>
+    <statBases>
+      <MaxHitPoints>75</MaxHitPoints>
+    </statBases>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>2</spawnRadius>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>1</minClusterSize>
+    <maxClusterSize>15</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>.5</initialSizeMin>
+    <initialSizeMax>.9</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>0.4</initialSizeVariation>
+    <!-- The terrains this can appear on. The default is rocky terrains-->
+    <allowedTerrains>
+      <li>Granite_Rough</li>
+      <li>Marble_Rough</li>
+      <li>ZF_AnorthositeBase_Rough</li>
+      <li>ZF_SchistBase_Rough</li>
+      <li>ZF_BlueMarbleBase_Rough</li>
+      <li>ZF_BrownMarbleBase_Rough</li>
+      <li>ZF_PinkMarbleBase_Rough</li>
+      <li>ZF_GneissBase_Rough</li>
+      <li>ZF_DuniteBase_Rough</li>
+      <li>ZF_SerpentiniteBase_Rough</li>
+    </allowedTerrains>
+    <!-- Controls how extra clusters are added near assocaited ore-->
+    <associatedOres>
+      <li>QuartzCrystal</li>
+      <li>AmethystCrystal</li>
+      <li>CitrineCrystal</li>
+      <li>PrasioliteCrystal</li>
+      <li>DraviteCrystal</li>
+      <li>RubelliteCrystal</li>
+      <li>IndicoliteCrystal</li>
+      <li>GreenTourmalineCrystal</li>
+      <li>SiberiteCrystal</li>
+      <li>WatermelonTourmalineCrystal</li>
+    </associatedOres>
+    <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>12</maxMeshCount>
+    <!-- The size range -->
+    <visualSizeRange>
+      <min>0.3</min>
+      <max>0.6</max>
+    </visualSizeRange>
+    <visualClustering>0.5</visualClustering>
+    <!-- between 0 and 1. 0 = uniform distribution, 1 = normal distribution -->
+    <visualSpread>2.0</visualSpread>
+    <!-- 1 = everything appears within cell and can spawn at edge when visualClustering == 0 -->
+    <visualSizeVariation>0.4</visualSizeVariation>
+    <!-- How easy it is to mine -->
+    <mineSpeedFactor>0.1</mineSpeedFactor>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_CorundumBase" ParentName="MF_EmbeddedMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Mineral/CorundumCrystal</texPath>
+    </graphicData>
+    <uiIconPath>Things/Mineral/CorundumCrystal/CorundumCrystalA</uiIconPath>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>8</spawnRadius>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>2</minClusterSize>
+    <maxClusterSize>20</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>.6</initialSizeMin>
+    <initialSizeMax>.9</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.1</initialSizeVariation>
+    <!-- The terrains this can appear on. The default is rocky terrains-->
+    <allowedTerrains>
+      <li>Marble_Rough</li>
+      <li>ZF_AnorthositeBase_Rough</li>
+      <li>ZF_SchistBase_Rough</li>
+      <li>ZF_BlueMarbleBase_Rough</li>
+      <li>ZF_DioriteBase_Rough</li>
+      <li>ZF_AndesiteBase_Rough</li>
+      <li>ZF_BrownMarbleBase_Rough</li>
+      <li>ZF_PinkMarbleBase_Rough</li>
+      <li>ZF_GabbroBase_Rough</li>
+      <li>ZF_GneissBase_Rough</li>
+      <li>ZF_DuniteBase_Rough</li>
+      <li>ZF_RhyoliteBase_Rough</li>
+      <li>ZF_SerpentiniteBase_Rough</li>
+    </allowedTerrains>
+    <!-- The terrains this must be near to, but not necessarily on -->
+    <neededNearbyTerrains>
+      <li>Marble_Rough</li>
+      <li>ZF_AnorthositeBase_Rough</li>
+      <li>ZF_SchistBase_Rough</li>
+      <li>ZF_BlueMarbleBase_Rough</li>
+      <li>ZF_DioriteBase_Rough</li>
+      <li>ZF_AndesiteBase_Rough</li>
+      <li>ZF_BrownMarbleBase_Rough</li>
+      <li>ZF_PinkMarbleBase_Rough</li>
+      <li>ZF_GabbroBase_Rough</li>
+      <li>ZF_GneissBase_Rough</li>
+      <li>ZF_DuniteBase_Rough</li>
+      <li>ZF_RhyoliteBase_Rough</li>
+      <li>ZF_SerpentiniteBase_Rough</li>
+    </neededNearbyTerrains>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_BerylBase" ParentName="MF_EmbeddedMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Mineral/BerylCrystal</texPath>
+    </graphicData>
+    <uiIconPath>Things/Mineral/BerylCrystal/BerylCrystalA</uiIconPath>
+    <!--How far away it can spawn from an existing location-->
+    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
+    <spawnRadius>8</spawnRadius>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>3</minClusterSize>
+    <maxClusterSize>30</maxClusterSize>
+    <!-- The range of starting sizes of individuals in clusters -->
+    <initialSizeMin>.6</initialSizeMin>
+    <initialSizeMax>.9</initialSizeMax>
+    <!-- How much initial sizes of individuals randomly vary -->
+    <initialSizeVariation>.1</initialSizeVariation>
+    <!-- The terrains this can appear on. The default is rocky terrains-->
+    <allowedTerrains>
+      <li>Granite_Rough</li>
+      <li>Limestone_Rough</li>
+      <li>ZF_SchistBase_Rough</li>
+      <li>ZF_GneissBase_Rough</li>
+      <li>ZF_DuniteBase_Rough</li>
+      <li>ZF_SerpentiniteBase_Rough</li>
+    </allowedTerrains>
+    <!-- The terrains this must be near to, but not necessarily on -->
+    <neededNearbyTerrains>
+      <li>Granite_Rough</li>
+      <li>Limestone_Rough</li>
+      <li>ZF_SchistBase_Rough</li>
+      <li>ZF_GneissBase_Rough</li>
+      <li>ZF_DuniteBase_Rough</li>
+      <li>ZF_SerpentiniteBase_Rough</li>
+    </neededNearbyTerrains>
+    <!-- Controls how extra clusters are added near assocaited ore-->
+    <associatedOres>
+      <li>MineableTin</li>
+      <li>MineableTungsten</li>
+    </associatedOres>
+    <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+  </ThingDef>
+
+</Defs>

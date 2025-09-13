@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+
+
+  <ThingDef Name="MF_WeatheredOreBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <uiIconPath>Things/Ore/WeatheredOre/WeatheredOreA</uiIconPath>
+    <graphicData>
+      <texPath>Things/Ore/WeatheredOre</texPath>
+    </graphicData>
+    <!-- The probability that this mineral type will be spawned at all on a given map -->
+    <perMapProbability>0</perMapProbability>
+    <!-- If the primary color is based on the stone below it -->
+    <coloredByTerrain>true</coloredByTerrain>
+    <!-- Tags which determine how some options behave  -->
+    <tags>
+      <li>ore</li>
+    </tags>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_SolidOreBase" ParentName="MF_SolidRockBase" Class="MineralsRock.ThingDef_StaticMineral" Abstract="True">
+    <uiIconPath>Things/Ore/WeatheredOre/WeatheredOreA</uiIconPath>
+    <graphicData>
+      <texPath>Things/Ore/WeatheredOre</texPath>
+    </graphicData>
+    <!-- The probability that this mineral type will be spawned at all on a given map -->
+    <perMapProbability>0</perMapProbability>
+    <!-- If the primary color is based on the stone below it -->
+    <coloredByTerrain>true</coloredByTerrain>
+    <!-- Tags which determine how some options behave  -->
+    <tags>
+      <li>ore</li>
+    </tags>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_HewnOreBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Ore/HewnOre</texPath>
+    </graphicData>
+    <uiIconPath>Things/Ore/HewnOre/HewnOreA</uiIconPath>
+    <!-- The probability that this mineral type will be spawned at all on a given map -->
+    <perMapProbability>0</perMapProbability>
+    <!-- If the primary color is based on the stone below it -->
+    <coloredByTerrain>true</coloredByTerrain>
+    <!-- Tags which determine how some options behave  -->
+    <tags>
+      <li>ore</li>
+    </tags>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_WeatheredGemOreBase" ParentName="MF_WeatheredOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <uiIconPath>Things/Ore/QuartzOre/QuartzOreA</uiIconPath>
+    <graphicData>
+      <texPath>Things/Ore/QuartzOre</texPath>
+    </graphicData>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_SolidGemOreBase" ParentName="MF_SolidOreBase" Class="MineralsRock.ThingDef_SolidRock" Abstract="True">
+    <uiIconPath>Things/Ore/QuartzOre/QuartzOreA</uiIconPath>
+    <graphicData>
+      <texPath>Things/Ore/QuartzOre</texPath>
+    </graphicData>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_HewnGemOreBase" ParentName="MF_HewnOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <uiIconPath>Things/Ore/HewnOre/HewnOreA</uiIconPath>
+    <graphicData>
+      <texPath>Things/Ore/HewnOre</texPath>
+    </graphicData>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_WeatheredTechOre" ParentName="MF_WeatheredOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Ore/CompactedTech</texPath>
+    </graphicData>
+    <uiIconPath>Things/Ore/CompactedTech/CompactedTechA</uiIconPath>
+    <statBases>
+      <Beauty>-5</Beauty>
+    </statBases>
+    <!-- If the primary color is based on the stone below it -->
+    <coloredByTerrain>false</coloredByTerrain>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_SolidTechOre" ParentName="MF_SolidOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Ore/CompactedTech</texPath>
+    </graphicData>
+    <uiIconPath>Things/Ore/CompactedTech/CompactedTechA</uiIconPath>
+    <statBases>
+      <Beauty>-5</Beauty>
+    </statBases>
+    <!-- If the primary color is based on the stone below it -->
+    <coloredByTerrain>false</coloredByTerrain>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_HewnTechOre" ParentName="MF_HewnOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Ore/CompactedTech</texPath>
+    </graphicData>
+    <uiIconPath>Things/Ore/CompactedTech/CompactedTechA</uiIconPath>
+    <statBases>
+      <Beauty>-5</Beauty>
+    </statBases>
+    <!-- If the primary color is based on the stone below it -->
+    <coloredByTerrain>false</coloredByTerrain>
+  </ThingDef>
+
+
+</Defs>

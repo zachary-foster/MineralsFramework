@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Defs>
+  
+
+  <ThingDef Name="MF_FossilBase" ParentName="MF_EmbeddedMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+    </statBases>
+    <!-- The terrains this can appear on.-->
+    <allowedTerrains>
+      <li>Limestone_Rough</li>
+      <li>Sandstone_Rough</li>
+      <li>Slate_Rough</li>
+      <li>MR_ClaystoneBase_Rough</li>
+      <li>MR_MudstoneBase_Rough</li>
+      <li>Chalk_Rough</li>
+      <li>Jaspillite_Rough</li>
+      <li>Lignite_Rough</li>
+      <li>Siltstone_Rough</li>
+    </allowedTerrains>
+    <!-- If the primary color is based on the stone below it -->
+    <coloredByTerrain>true</coloredByTerrain>
+    <!-- Tags which determine how some options behave  -->
+    <tags>
+      <li>fossil</li>
+      <li>NoticeMineral_Event</li>
+    </tags>
+    <!-- How easy it is to mine -->
+    <mineSpeedFactor>0.05</mineSpeedFactor>
+  </ThingDef>
+
+
+  <ThingDef Name="MF_BigFossilBase" ParentName="MF_FossilBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <!-- The maximum number of images that will be printed per square -->
+    <maxMeshCount>1</maxMeshCount>
+    <!-- Things this mineral replaces when a map is initialized -->
+    <ThingsToReplace>
+      <li>MS_SmallFossil</li>
+    </ThingsToReplace>
+    <!-- The radius that will be searched to replace things -->
+    <replaceRadius>1</replaceRadius>
+    <!-- The minmum propotion of things in radius to replace for a replacement to happen -->
+    <replaceThreshold>0.4</replaceThreshold>
+    <!-- If it replaces everything -->
+    <replaceAll>false</replaceAll>
+    <!-- If it must replace something in order to spawned -->
+    <mustReplace>false</mustReplace>
+    <!-- Tags which determine how some options behave  -->
+    <tags>
+      <li>big_mineral</li>
+    </tags>
+  </ThingDef>
+
+
+</Defs>
