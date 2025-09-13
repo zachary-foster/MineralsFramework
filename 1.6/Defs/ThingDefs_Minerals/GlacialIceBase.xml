@@ -43,7 +43,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SolidGlacialIceBase" ParentName="MF_SolidRockBase" Class="MineralsRock.ThingDef_SolidRock">
+  <ThingDef Name="MF_SolidGlacialIceBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredLimestone</texPath>
     </graphicData>

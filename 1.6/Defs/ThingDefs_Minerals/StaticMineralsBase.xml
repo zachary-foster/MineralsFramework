@@ -2,8 +2,8 @@
 <Defs>
 
   <ThingDef Name="MF_CrystalBase" ParentName="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
-    <fillpercent>0.1</fillpercent>
-    <pathcost>40</pathcost>
+    <fillPercent>0.1</fillPercent>
+    <pathCost>40</pathCost>
     <graphicData>
       <damageData>
         <enabled>false</enabled>
@@ -55,7 +55,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_DiamondCrystalBase" ParentName="MF_EmbeddedMineralBase" Class="MineralsFramework.ThingDef_StaticMineral">
+  <ThingDef Name="MF_DiamondCrystalBase" ParentName="MF_EmbeddedMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Mineral/DiamondCrystal</texPath>
     </graphicData>
@@ -96,7 +96,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_CalciteBase" ParentName="MF_CrystalBase" Class="MineralsFramework.ThingDef_StaticMineral">
+  <ThingDef Name="MF_CalciteBase" ParentName="MF_CrystalBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Mineral/CalciteCrystal</texPath>
     </graphicData>
@@ -272,7 +272,7 @@
     <!-- The radius that will be searched to replace things -->
     <replaceRadius>1</replaceRadius>
     <!-- The minmum propotion of things in radius to replace for a replacement to happen -->
-    <repalceThreshold>0.5</repalceThreshold>
+    <replaceThreshold>0.5</replaceThreshold>
     <!-- Tags which determine how some options behave -->
     <tags>
       <li>crystal</li>

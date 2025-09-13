@@ -2,7 +2,7 @@
 <Defs>
 
 
-  <ThingDef Name="MR_WeatheredLimestoneBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_WeatheredLimestoneBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredLimestone</texPath>
       <color>(158,153,135)</color>
@@ -48,7 +48,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MR_SolidLimestoneBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SolidLimestoneBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredLimestone</texPath>
       <color>(158,153,135)</color>
@@ -98,7 +98,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MR_HewnLimestoneBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_HewnLimestoneBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/HewnRockWall</texPath>
       <color>(158,153,135)</color>
@@ -148,7 +148,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MR_SmoothedHewnLimestoneBase" ParentName="MR_HewnLimestoneBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SmoothedLimestoneBase" ParentName="MF_HewnLimestoneBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/SmoothedRockWall</texPath>
     </graphicData>
@@ -159,7 +159,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MR_BoulderLimestoneBase" ParentName="MF_BoulderRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_BoulderLimestoneBase" ParentName="MF_BoulderRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/BoulderGranite</texPath>
       <color>(158,153,135)</color>
@@ -231,7 +231,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MR_SmallLimestoneBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SmallLimestoneBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/PassableLimestone</texPath>
       <color>(158,153,135)</color>

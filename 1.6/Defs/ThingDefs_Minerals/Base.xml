@@ -164,8 +164,8 @@
 
     <!-- ========== MINING SETTINGS ========== -->
     <!-- Other resources it might drop -->
-    <RandomResourceDrop>
-    </RandomResourceDrop>
+    <randomlyDropResources>
+    </randomlyDropResources>
     <!-- How easy it is to mine -->
     <mineSpeedFactor>1</mineSpeedFactor>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
-  
+
 
   <ThingDef Name="MF_FossilBase" ParentName="MF_EmbeddedMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <statBases>

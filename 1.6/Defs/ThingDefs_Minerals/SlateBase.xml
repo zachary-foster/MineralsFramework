@@ -146,7 +146,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SmoothedSlateBase" ParentName="MR_HewnSlateBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SmoothedSlateBase" ParentName="MF_HewnSlateBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/SmoothedRockWall</texPath>
     </graphicData>

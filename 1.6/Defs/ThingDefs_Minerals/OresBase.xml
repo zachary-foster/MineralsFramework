@@ -18,7 +18,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SolidOreBase" ParentName="MF_SolidRockBase" Class="MineralsRock.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SolidOreBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <uiIconPath>Things/Ore/WeatheredOre/WeatheredOreA</uiIconPath>
     <graphicData>
       <texPath>Things/Ore/WeatheredOre</texPath>
@@ -58,7 +58,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SolidGemOreBase" ParentName="MF_SolidOreBase" Class="MineralsRock.ThingDef_SolidRock" Abstract="True">
+  <ThingDef Name="MF_SolidGemOreBase" ParentName="MF_SolidOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <uiIconPath>Things/Ore/QuartzOre/QuartzOreA</uiIconPath>
     <graphicData>
       <texPath>Things/Ore/QuartzOre</texPath>
@@ -74,7 +74,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_WeatheredTechOre" ParentName="MF_WeatheredOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_WeatheredTechOreBase" ParentName="MF_WeatheredOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Ore/CompactedTech</texPath>
     </graphicData>
@@ -87,7 +87,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SolidTechOre" ParentName="MF_SolidOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SolidTechOreBase" ParentName="MF_SolidOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Ore/CompactedTech</texPath>
     </graphicData>
@@ -100,7 +100,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_HewnTechOre" ParentName="MF_HewnOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_HewnTechOreBase" ParentName="MF_HewnOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Ore/CompactedTech</texPath>
     </graphicData>

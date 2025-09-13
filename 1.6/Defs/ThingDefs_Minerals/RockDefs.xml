@@ -71,6 +71,8 @@
     <newMapSpawnOrder>40</newMapSpawnOrder>
     <!-- How easy it is to mine -->
     <mineSpeedFactor>0.8</mineSpeedFactor>
+    <!-- If it replaces everything or just things it spawns on -->
+    <replaceAll>true</replaceAll>
     <!-- Tags which determine how some options behave  -->
     <tags>
       <li>hewn</li>
@@ -88,6 +90,8 @@
     <mustBeUnderRoof>true</mustBeUnderRoof>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>50</newMapSpawnOrder>
+    <!-- If it replaces everything or just things it spawns on -->
+    <replaceAll>true</replaceAll>
     <!-- at what snow depth the snow texture is used, if it exists -->
     <snowTextureThreshold>1</snowTextureThreshold>
     <!-- How easy it is to mine -->
@@ -104,6 +108,8 @@
     <mustBeUnroofed>true</mustBeUnroofed>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>60</newMapSpawnOrder>
+    <!-- If it replaces everything or just things it spawns on -->
+    <replaceAll>true</replaceAll>
     <!-- at what snow depth the snow texture is used, if it exists -->
     <snowTextureThreshold>0.85</snowTextureThreshold>
     <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->

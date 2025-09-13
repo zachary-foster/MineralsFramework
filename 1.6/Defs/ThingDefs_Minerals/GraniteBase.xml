@@ -2,7 +2,7 @@
 <Defs>
 
 
-  <ThingDef Name="MF_WeatheredIntrusiveIgneousRockBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_WeatheredGraniteBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredGranite</texPath>
     </graphicData>
@@ -18,10 +18,12 @@
     <minClusterProbability>0.01</minClusterProbability>
     <maxClusterProbability>0.02</maxClusterProbability>
     <!-- How  many squares each cluster will be -->
-    <minClusterSize>1</minClusterSize>
-    <maxClusterSize>5</maxClusterSize>
+    <minClusterSize>2</minClusterSize>
+    <maxClusterSize>8</maxClusterSize>
     <!-- how far away it can be from needed nearby terrains-->
     <neededNearbyTerrainRadius>2</neededNearbyTerrainRadius>
+    <!-- Controls how extra clusters are added near assocaited things -->
+    <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
@@ -45,7 +47,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SolidIntrusiveIgneousRockBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SolidGraniteBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/SolidGranite</texPath>
     </graphicData>
@@ -77,7 +79,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_HewnIntrusiveIgneousRockBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_HewnGraniteBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/HewnGranite</texPath>
     </graphicData>
@@ -108,7 +110,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SmoothedHewnIntrusiveIgneousRockBase" ParentName="MF_HewnIntrusiveIgneousRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SmoothedGraniteBase" ParentName="MF_HewnGraniteBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/SmoothedGranite</texPath>
     </graphicData>
@@ -119,7 +121,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_BoulderIntrusiveIgneousRockBase" ParentName="MF_BoulderRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_BoulderGraniteBase" ParentName="MF_BoulderRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/BoulderGranite</texPath>
     </graphicData>
@@ -145,7 +147,7 @@
     <!-- how far away it can be from needed nearby terrains-->
     <neededNearbyTerrainRadius>12</neededNearbyTerrainRadius>
     <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>20</nearAssociatedOreBonus>
+    <nearAssociatedOreBonus>30</nearAssociatedOreBonus>
     <!-- The size range -->
     <visualSizeRange>
       <min>1.1</min>
@@ -173,7 +175,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SmallIntrusiveIgneousRockBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SmallGraniteBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/PassableGranite</texPath>
     </graphicData>
@@ -197,9 +199,9 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>4</neededNearbyTerrainRadius>
+    <neededNearbyTerrainRadius>3</neededNearbyTerrainRadius>
     <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
+    <nearAssociatedOreBonus>8</nearAssociatedOreBonus>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>2</maxMeshCount>
     <!-- The size range -->

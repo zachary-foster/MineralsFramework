@@ -118,7 +118,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SmoothedMarbleBase" ParentName="MR_HewnMarbleBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SmoothedMarbleBase" ParentName="MF_HewnMarbleBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/SmoothedMarble</texPath>
     </graphicData>

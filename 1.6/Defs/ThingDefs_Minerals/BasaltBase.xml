@@ -2,7 +2,7 @@
 <Defs>
 
 
-  <ThingDef Name="MF_WeatheredExtrusiveIgneousRockBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_WeatheredBasaltBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredBasalt</texPath>
       <color>(100,100,100)</color>
@@ -48,7 +48,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SolidExtrusiveIgneousRockBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SolidBasaltBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredBasalt</texPath>
       <color>(100,100,100)</color>
@@ -85,7 +85,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_HewnExtrusiveIgneousRockBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_HewnBasaltBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/HewnRockWall</texPath>
       <color>(100,100,100)</color>
@@ -122,7 +122,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SmoothExtrusiveIgneousRockBase" ParentName="MF_HewnExtrusiveIgneousRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SmoothedBasaltBase" ParentName="MF_HewnBasaltBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/SmoothedRockWall</texPath>
     </graphicData>
@@ -133,7 +133,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_BoulderExtrusiveIgneousRockBase" ParentName="MF_BoulderRockBase" Class="MineralsFramework.ThingDef_StaticMineral">
+  <ThingDef Name="MF_BoulderBasaltBase" ParentName="MF_BoulderRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/PassableBasalt</texPath>
       <color>(100,100,100)</color>
@@ -197,7 +197,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SmallExtrusiveIgneousRockBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SmallBasaltBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/PassableBasalt</texPath>
       <color>(100,100,100)</color>
@@ -260,7 +260,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_LavaFlowExtrusiveIgneousRockBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_LavaFlowBasaltBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/PassableBasalt</texPath>
       <color>(100,100,100)</color>
