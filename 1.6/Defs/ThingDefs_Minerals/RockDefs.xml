@@ -78,7 +78,7 @@
   </ThingDef>
 
 
-  <ThingDef Name="MF_SolidRockBase" ParentName="MF_ImpassableRockBase" Class="MineralsRock.ThingDef_StaticMineral" Abstract="True">
+  <ThingDef Name="MF_SolidRockBase" ParentName="MF_ImpassableRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <building>
       <mineablePreventMeteorite>false</mineablePreventMeteorite>
     </building>
@@ -95,7 +95,7 @@
     <!-- Tags which determine how some options behave  -->
     <tags>
       <li>solid</li>
-    </tags
+    </tags>
   </ThingDef>
 
 
@@ -124,12 +124,11 @@
 
 
   <ThingDef Name="MF_BoulderRockBase" ParentName="MF_StaticMineralBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
-    <altitudeLayer>SmallWire</altitudeLayer>
+    <altitudeLayer>LowPlant</altitudeLayer>
     <fillPercent>0.6</fillPercent>
     <passability>PassThroughOnly</passability>
     <blockWind>true</blockWind>
     <pathCost>100</pathCost>
-    <altitudeLayer>LowPlant</altitudeLayer>
     <!-- If smaller than 1, it looks smaller in water -->
     <submergedSize>1</submergedSize>
     <submergedRadius>1</submergedRadius>
