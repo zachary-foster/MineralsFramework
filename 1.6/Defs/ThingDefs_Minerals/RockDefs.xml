@@ -132,8 +132,6 @@
     <!-- If smaller than 1, it looks smaller in water -->
     <submergedSize>1</submergedSize>
     <submergedRadius>1</submergedRadius>
-    <!-- at what snow depth the snow texture is used, if it exists -->
-    <snowTextureThreshold>0.8</snowTextureThreshold>
     <!-- If textures overlapping walls above them should be printed on top -->
     <printOverWalls>true</printOverWalls>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
