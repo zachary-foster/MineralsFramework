@@ -200,7 +200,7 @@
     <!-- Controls how extra clusters are added near assocaited ore-->
     <nearAssociatedOreBonus>12</nearAssociatedOreBonus>
     <!-- Roof requirements -->
-    <mustBeUnroofed>true</mustBeUnroofed>
+    <mustBeNotUnderRoof>true</mustBeNotUnderRoof>
     <!-- The size range -->
     <visualSizeRange>
       <min>1.2</min>
@@ -273,7 +273,7 @@
     <!-- Controls how extra clusters are added near assocaited ore-->
     <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- Roof requirements -->
-    <mustBeUnroofed>true</mustBeUnroofed>
+    <mustBeNotUnderRoof>true</mustBeNotUnderRoof>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>3</maxMeshCount>
     <!-- The size range -->

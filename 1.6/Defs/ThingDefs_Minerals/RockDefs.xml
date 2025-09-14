@@ -16,8 +16,8 @@
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>1</maxMeshCount>
     <!-- The range of starting sizes of individuals in clusters -->
-    <initialSizeMin>1</initialSizeMin>
-    <initialSizeMax>0.95</initialSizeMax>
+    <initialSizeMin>0.95</initialSizeMin>
+    <initialSizeMax>1</initialSizeMax>
     <!-- If true, growth rate and initial size depends on distance from needed terrains -->
     <neededNearbyTerrainSizeEffect>false</neededNearbyTerrainSizeEffect>
     <!-- The size range -->
@@ -59,11 +59,9 @@
         <edgeRight>Damage/Edge</edgeRight>
       </damageData>
     </graphicData>
-    <!-- The probability that this mineral type will be spawned at all on a given map -->
-    <perMapProbability>0</perMapProbability>
-    <!-- The range of starting sizes of individuals in clusters -->
-    <initialSizeMin>1</initialSizeMin>
-    <initialSizeMax>1</initialSizeMax>
+    <!-- For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+    <minClusterProbability>1</minClusterProbability>
+    <maxClusterProbability>1</maxClusterProbability>
     <!-- Roof requirements -->
     <mustBeUnderThickRoof>true</mustBeUnderThickRoof>
     <mustBeNotNearPassable>true</mustBeNotNearPassable>
@@ -71,8 +69,8 @@
     <newMapSpawnOrder>40</newMapSpawnOrder>
     <!-- How easy it is to mine -->
     <mineSpeedFactor>0.8</mineSpeedFactor>
-    <!-- If it replaces everything or just things it spawns on -->
-    <replaceAll>true</replaceAll>
+    <!-- If it must replace something in order to spawned -->
+    <mustReplace>true</mustReplace>
     <!-- Tags which determine how some options behave  -->
     <tags>
       <li>hewn</li>
@@ -84,14 +82,15 @@
     <building>
       <mineablePreventMeteorite>false</mineablePreventMeteorite>
     </building>
-    <!-- The probability that this mineral type will be spawned at all on a given map -->
-    <perMapProbability>0</perMapProbability>
+    <!-- For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+    <minClusterProbability>1</minClusterProbability>
+    <maxClusterProbability>1</maxClusterProbability>
     <!-- Roof requirements -->
     <mustBeUnderRoof>true</mustBeUnderRoof>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>50</newMapSpawnOrder>
-    <!-- If it replaces everything or just things it spawns on -->
-    <replaceAll>true</replaceAll>
+    <!-- If it must replace something in order to spawned -->
+    <mustReplace>true</mustReplace>
     <!-- at what snow depth the snow texture is used, if it exists -->
     <snowTextureThreshold>1</snowTextureThreshold>
     <!-- How easy it is to mine -->
@@ -105,7 +104,7 @@
 
   <ThingDef Name="MF_WeatheredRockBase" ParentName="MF_ImpassableRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <!-- Roof requirements -->
-    <mustBeUnroofed>true</mustBeUnroofed>
+    <mustBeNotUnderRoof>true</mustBeNotUnderRoof>
     <!-- Order in which minerals are spawned during map generation (lower numbers first) -->
     <newMapSpawnOrder>60</newMapSpawnOrder>
     <!-- If it replaces everything or just things it spawns on -->
@@ -201,7 +200,7 @@
     <!-- at what snow depth the snow texture is used, if it exists -->
     <snowTextureThreshold>0.6</snowTextureThreshold>
     <!-- at what snow depth the mineral is completely hidden -->
-    <hiddenInSnowThreshold>0.85</hiddenInSnowThreshold>
+    <hiddenInSnowThreshold>0.95</hiddenInSnowThreshold>
     <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
     <minClusterProbability>0.02</minClusterProbability>
     <maxClusterProbability>0.05</maxClusterProbability>

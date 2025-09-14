@@ -7,8 +7,8 @@
     <graphicData>
       <texPath>Things/Ore/WeatheredOre</texPath>
     </graphicData>
-    <!-- The probability that this mineral type will be spawned at all on a given map -->
-    <perMapProbability>0</perMapProbability>
+    <!-- If it must replace something in order to spawned -->
+    <mustReplace>true</mustReplace>
     <!-- If the primary color is based on the stone below it -->
     <coloredByTerrain>true</coloredByTerrain>
     <!-- Tags which determine how some options behave  -->
@@ -23,8 +23,6 @@
     <graphicData>
       <texPath>Things/Ore/WeatheredOre</texPath>
     </graphicData>
-    <!-- The probability that this mineral type will be spawned at all on a given map -->
-    <perMapProbability>0</perMapProbability>
     <!-- If the primary color is based on the stone below it -->
     <coloredByTerrain>true</coloredByTerrain>
     <!-- Tags which determine how some options behave  -->
@@ -39,8 +37,6 @@
       <texPath>Things/Ore/HewnOre</texPath>
     </graphicData>
     <uiIconPath>Things/Ore/HewnOre/HewnOreA</uiIconPath>
-    <!-- The probability that this mineral type will be spawned at all on a given map -->
-    <perMapProbability>0</perMapProbability>
     <!-- If the primary color is based on the stone below it -->
     <coloredByTerrain>true</coloredByTerrain>
     <!-- Tags which determine how some options behave  -->
@@ -101,8 +97,10 @@
 
 
   <ThingDef Name="MF_HewnTechOreBase" ParentName="MF_HewnOreBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
-    <graphicData>
+    <graphicData Inherit="False">
       <texPath>Things/Ore/CompactedTech</texPath>
+      <shaderType>CutoutComplex</shaderType>
+      <graphicClass>Graphic_Random</graphicClass>
     </graphicData>
     <uiIconPath>Things/Ore/CompactedTech/CompactedTechA</uiIconPath>
     <statBases>

@@ -32,7 +32,7 @@
       <isNaturalRock>false</isNaturalRock> <!-- Needs to be false to show weather effects -->
       <isResourceRock>true</isResourceRock> <!-- Needs to be true to avoid it being considered a rock type -->
       <mineableDropChance>0</mineableDropChance>
-      <mineableYield>0</mineableYield>
+      <mineableYield>1</mineableYield>
       <mineableNonMinedEfficiency>0</mineableNonMinedEfficiency>
       <claimable>false</claimable>
       <deconstructible>false</deconstructible>
@@ -94,10 +94,14 @@
     <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
     <!-- Roof requirements -->
     <mustBeUnderRoof>false</mustBeUnderRoof>
+    <mustBeNotUnderRoof>false</mustBeNotUnderRoof>
     <mustBeUnderThickRoof>false</mustBeUnderThickRoof>
-    <mustBeUnroofed>false</mustBeUnroofed>
     <mustBeNotUnderThickRoof>false</mustBeNotUnderThickRoof>
     <mustBeNearPassable>false</mustBeNearPassable>
+    <mustBeNotNearPassable>false</mustBeNotNearPassable>
+    <mustBeNearRoof>false</mustBeNearRoof>
+    <mustBeNearRoofDist>1</mustBeNearRoofDist>
+
     <!-- Things this mineral replaces when a map is initialized -->
     <ThingsToReplace>
     </ThingsToReplace>
