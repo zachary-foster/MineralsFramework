@@ -1249,8 +1249,8 @@ namespace MineralsFramework
                 WasteProduct = d.WasteProduct,
                 Minified = d.Minified
             }).ToList();
-            copy.isTemplateFor = this.isTemplateFor;
-            copy.templateReplaceString = this.templateReplaceString;
+            copy.isTemplateFor = this.isTemplateFor != null ? new List<string>(this.isTemplateFor) : null;
+            copy.templateReplaceString = this.templateReplaceString;  // string is immutable so direct assignment is safe
             copy.tags = this.tags != null ? new List<string>(this.tags) : null;
             copy.texturePaths = this.texturePaths != null ? new List<string>(this.texturePaths) : null;
             copy.snowTexturePaths = this.snowTexturePaths != null ? new List<string>(this.snowTexturePaths) : null;
