@@ -177,6 +177,10 @@
     <!-- Tags which determine how some options behave  -->
     <tags>
     </tags>
+    <!-- List of defnames (if they exist) that this should be used as a template to create new defs for by replacing occurances of a string with each defname -->
+    <templateReplaceString></templateReplaceString>
+    <isTemplateFor>
+    </isTemplateFor>
 
   </ThingDef>
 

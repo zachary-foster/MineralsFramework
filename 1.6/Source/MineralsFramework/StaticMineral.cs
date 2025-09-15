@@ -1097,11 +1097,168 @@ namespace MineralsFramework
         // Tags which determine how some options behave
         public List<string> tags;
 
+        // List of defnames that this should be used as a template to create new defs for by replacing occurances of a string with each defname
+        public List<string> isTemplateFor;
+        public string templateReplaceString;
+
         // Populated based on graphicData.texPath, not meant for configuration via XML
         public List<string> texturePaths;
         public List<string> snowTexturePaths;
         public bool hasSnowyTextures = false;
 
+
+        public virtual ThingDef_StaticMineral DeepCopy()
+        {
+            ThingDef_StaticMineral copy = new ThingDef_StaticMineral
+            {
+                thingClass = this.thingClass,
+                category = this.category,
+                selectable = this.selectable,
+                neverMultiSelect = this.neverMultiSelect,
+                altitudeLayer = this.altitudeLayer,
+                passability = this.passability,
+                castEdgeShadows = this.castEdgeShadows,
+                fillPercent = this.fillPercent,
+                coversFloor = this.coversFloor,
+                blockWind = this.blockWind,
+                pathCost = this.pathCost,
+                mineable = this.mineable,
+                leaveResourcesWhenKilled = this.leaveResourcesWhenKilled,
+                filthLeaving = this.filthLeaving,
+                drawerType = this.drawerType,
+                scatterableOnMapGen = this.scatterableOnMapGen,
+                hideAtSnowOrSandDepth = this.hideAtSnowOrSandDepth,
+                statBases = this.statBases?.Select(s => new StatModifier { stat = s.stat, value = s.value }).ToList(),
+                uiIconPath = this.uiIconPath
+            };
+            
+            if (this.building != null)
+            {
+                copy.building = new BuildingProperties
+                {
+                    isInert = this.building.isInert,
+                    canBuildNonEdificesUnder = this.building.canBuildNonEdificesUnder,
+                    isNaturalRock = this.building.isNaturalRock,
+                    isResourceRock = this.building.isResourceRock,
+                    mineableDropChance = this.building.mineableDropChance,
+                    mineableYield = this.building.mineableYield,
+                    mineableThing = this.building.mineableThing,
+                    mineableNonMinedEfficiency = this.building.mineableNonMinedEfficiency,
+                    smoothedThing = this.building.smoothedThing,
+                    claimable = this.building.claimable,
+                    alwaysDeconstructible = this.building.alwaysDeconstructible,
+                    isEdifice = this.building.isEdifice,
+                    destroyShakeAmount = this.building.destroyShakeAmount,
+                    mineablePreventMeteorite = this.building.mineablePreventMeteorite,
+                    ai_neverTrashThis = this.building.ai_neverTrashThis
+                };
+            }
+
+            if (this.graphicData != null)
+            {
+                copy.graphicData = new GraphicData
+                {
+                    shaderType = this.graphicData.shaderType,
+                    graphicClass = this.graphicData.graphicClass,
+                    texPath = this.graphicData.texPath,
+                    color = this.graphicData.color,
+                    colorTwo = this.graphicData.colorTwo,
+                    drawSize = this.graphicData.drawSize,
+                    linkType = this.graphicData.linkType,
+                    linkFlags = this.graphicData.linkFlags
+                };
+
+                if (this.graphicData.damageData != null) {
+                    copy.graphicData.damageData = new DamageGraphicData()
+                    {
+                        cornerTL = this.graphicData.damageData.cornerTL,
+                        cornerTR = this.graphicData.damageData.cornerTR,
+                        cornerBL = this.graphicData.damageData.cornerBL,
+                        cornerBR = this.graphicData.damageData.cornerBR,
+                        edgeTop = this.graphicData.damageData.edgeTop,
+                        edgeBot = this.graphicData.damageData.edgeBot,
+                        edgeLeft = this.graphicData.damageData.edgeLeft,
+                        edgeRight = this.graphicData.damageData.edgeRight,
+                        enabled = this.graphicData.damageData.enabled
+                    };
+                }
+
+            }
+
+            // Copy all custom fields
+            copy.perMapProbability = this.perMapProbability;
+            copy.minClusterProbability = this.minClusterProbability;
+            copy.maxClusterProbability = this.maxClusterProbability;
+            copy.spawnRadius = this.spawnRadius;
+            copy.minClusterSize = this.minClusterSize;
+            copy.maxClusterSize = this.maxClusterSize;
+            copy.initialSizeMin = this.initialSizeMin;
+            copy.initialSizeMax = this.initialSizeMax;
+            copy.initialSizeVariation = this.initialSizeVariation;
+            copy.allowedBiomes = this.allowedBiomes != null ? new List<string>(this.allowedBiomes) : null;
+            copy.allowedTerrains = this.allowedTerrains != null ? new List<string>(this.allowedTerrains) : null;
+            copy.disallowedTerrains = this.disallowedTerrains != null ? new List<string>(this.disallowedTerrains) : null;
+            copy.neededNearbyTerrains = this.neededNearbyTerrains != null ? new List<string>(this.neededNearbyTerrains) : null;
+            copy.neededNearbyTerrainRadius = this.neededNearbyTerrainRadius;
+            copy.neededNearbyTerrainSizeEffect = this.neededNearbyTerrainSizeEffect;
+            copy.associatedOres = this.associatedOres != null ? new List<string>(this.associatedOres) : null;
+            copy.nearAssociatedOreBonus = this.nearAssociatedOreBonus;
+            copy.mustBeUnderRoof = this.mustBeUnderRoof;
+            copy.mustBeNotUnderRoof = this.mustBeNotUnderRoof;
+            copy.mustBeUnderThickRoof = this.mustBeUnderThickRoof;
+            copy.mustBeNotUnderThickRoof = this.mustBeNotUnderThickRoof;
+            copy.mustBeNearPassable = this.mustBeNearPassable;
+            copy.mustBeNotNearPassable = this.mustBeNotNearPassable;
+            copy.mustBeNearRoof = this.mustBeNearRoof;
+            copy.mustBeNearRoofDist = this.mustBeNearRoofDist;
+            copy.ThingsToReplace = this.ThingsToReplace != null ? new List<string>(this.ThingsToReplace) : null;
+            copy.replaceAll = this.replaceAll;
+            copy.mustReplace = this.mustReplace;
+            copy.replaceRadius = this.replaceRadius;
+            copy.replaceThreshold = this.replaceThreshold;
+            copy.canSpawnOnThings = this.canSpawnOnThings;
+            copy.newMapGenStep = this.newMapGenStep;
+            copy.newMapSpawnOrder = this.newMapSpawnOrder;
+            copy.otherSettlementMiningRadius = this.otherSettlementMiningRadius;
+            copy.sizeScaledByAbundance = this.sizeScaledByAbundance;
+            copy.maxMeshCount = this.maxMeshCount;
+            copy.visualSizeRange = this.visualSizeRange;
+            copy.visualClustering = this.visualClustering;
+            copy.visualSpread = this.visualSpread;
+            copy.visualSizeVariation = this.visualSizeVariation;
+            copy.growsUpWalls = this.growsUpWalls;
+            copy.printOverWalls = this.printOverWalls;
+            copy.largeTexturesOnTop = this.largeTexturesOnTop;
+            copy.verticalOffset = this.verticalOffset;
+            copy.snowTextureThreshold = this.snowTextureThreshold;
+            copy.hiddenInSnowThreshold = this.hiddenInSnowThreshold;
+            copy.topVerticesAltitudeBias = this.topVerticesAltitudeBias;
+            copy.coloredByTerrain = this.coloredByTerrain;
+            copy.randomColorsOne = this.randomColorsOne != null ? new List<Color>(this.randomColorsOne) : null;
+            copy.randomColorsTwo = this.randomColorsTwo != null ? new List<Color>(this.randomColorsTwo) : null;
+            copy.seedRandomColorByMap = this.seedRandomColorByMap;
+            copy.submergedSize = this.submergedSize;
+            copy.submergedRadius = this.submergedRadius;
+            copy.randomlyDropResources = this.randomlyDropResources?.Select(d => new RandomResourceDrop
+            {
+                ResourceDefName = d.ResourceDefName,
+                DropProbability = d.DropProbability,
+                CountPerDrop = d.CountPerDrop,
+                MinMiningSkill = d.MinMiningSkill,
+                ScaleYieldBySkill = d.ScaleYieldBySkill,
+                WasteProduct = d.WasteProduct,
+                Minified = d.Minified
+            }).ToList();
+            copy.isTemplateFor = this.isTemplateFor;
+            copy.templateReplaceString = this.templateReplaceString;
+            copy.tags = this.tags != null ? new List<string>(this.tags) : null;
+            copy.texturePaths = this.texturePaths != null ? new List<string>(this.texturePaths) : null;
+            copy.snowTexturePaths = this.snowTexturePaths != null ? new List<string>(this.snowTexturePaths) : null;
+            copy.hasSnowyTextures = this.hasSnowyTextures;
+            copy.mineSpeedFactor = this.mineSpeedFactor;
+
+            return copy;
+        }
 
 
         public static ThingDef_StaticMineral MakeDefaultStaticMineralDef()
