@@ -1111,6 +1111,9 @@ namespace MineralsFramework
         {
             ThingDef_StaticMineral copy = new ThingDef_StaticMineral
             {
+                defName = this.defName,
+                label = this.label,
+                description = this.description,
                 thingClass = this.thingClass,
                 category = this.category,
                 selectable = this.selectable,
