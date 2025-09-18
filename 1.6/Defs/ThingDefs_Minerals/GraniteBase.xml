@@ -53,7 +53,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/SolidGranite/SolidGraniteA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1800</MaxHitPoints>
+      <MaxHitPoints>1600</MaxHitPoints>
       <Beauty>1</Beauty>
     </statBases>
     <!-- Other resources it might drop -->
@@ -84,7 +84,7 @@
       <texPath>Things/Rock/HewnGranite</texPath>
     </graphicData>
     <statBases>
-      <MaxHitPoints>2000</MaxHitPoints>
+      <MaxHitPoints>1800</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
     <!-- Other resources it might drop -->
@@ -127,7 +127,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/BoulderGranite/BoulderGraniteA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1200</MaxHitPoints>
+      <MaxHitPoints>800</MaxHitPoints>
       <Beauty>1</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
@@ -181,7 +181,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/PassableGranite/PassableGraniteA</uiIconPath>
     <statBases>
-      <MaxHitPoints>700</MaxHitPoints>
+      <MaxHitPoints>600</MaxHitPoints>
       <Beauty>0</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->

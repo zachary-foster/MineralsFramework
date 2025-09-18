@@ -91,29 +91,29 @@ namespace MineralsFramework
 
 
 
-//        public override IntVec3 Position
-//        {
-//            get
-//            {
-//                return base.Position;
-//            }
-//            set
-//            {
-//                const int maxTrys = 10;
-//                for (int i = 0; i < maxTrys; i++)
-//                {
-//                    if (StaticMineral.PlaceIsBlocked(this.attributes, this.Map, value))
-//                    {
-//                        value = value.RandomAdjacentCell8Way();
-//                    }
-//                    else
-//                    {
-//                        break;
-//                    }
-//                }
-//                base.Position = value;
-//            }
-//        }
+        //        public override IntVec3 Position
+        //        {
+        //            get
+        //            {
+        //                return base.Position;
+        //            }
+        //            set
+        //            {
+        //                const int maxTrys = 10;
+        //                for (int i = 0; i < maxTrys; i++)
+        //                {
+        //                    if (StaticMineral.PlaceIsBlocked(this.attributes, this.Map, value))
+        //                    {
+        //                        value = value.RandomAdjacentCell8Way();
+        //                    }
+        //                    else
+        //                    {
+        //                        break;
+        //                    }
+        //                }
+        //                base.Position = value;
+        //            }
+        //        }
 
 
 
@@ -137,7 +137,7 @@ namespace MineralsFramework
                 foreach (var tool in miner.Tools)
                 {
                     if (tool.power > toolPower)
-                        toolPower = Mathf.Clamp((tool.power / 10f),0.6f,1.4f);
+                        toolPower = Mathf.Clamp((tool.power / 10f), 0.6f, 1.4f);
                 }
                 if (toolPower > 1)
                 {
@@ -173,7 +173,7 @@ namespace MineralsFramework
             {
                 minerSkill = miner.skills.GetSkill(SkillDefOf.Mining).Level;
             }
-            float proportionDamaged = (float) Mathf.Min(amount, HitPoints) / (float) MaxHitPoints;
+            float proportionDamaged = (float)Mathf.Min(amount, HitPoints) / (float)MaxHitPoints;
             float proportionMined = proportionDamaged * minerYield;
             yieldPct += proportionMined;
 
@@ -226,7 +226,7 @@ namespace MineralsFramework
                     Thing thing = ThingMaker.MakeThing(myThingDef, null);
                     thing.stackCount = dropNum;
                     if (toDrop.Minified) {
-                      thing = thing.MakeMinified();
+                        thing = thing.MakeMinified();
                     }
                     GenPlace.TryPlaceThing(thing, Position, Map, ThingPlaceMode.Near, null);
                 }
@@ -235,7 +235,7 @@ namespace MineralsFramework
 
         public virtual float miningSpeedFactor()
         {
-           return attributes.mineSpeedFactor * MineralsFrameworkMain.Settings.miningEffortSetting / size;
+            return attributes.mineSpeedFactor * MineralsFrameworkMain.Settings.miningEffortSetting / size;
         }
 
         public override void PreApplyDamage(ref DamageInfo dinfo, out bool absorbed)
@@ -248,16 +248,16 @@ namespace MineralsFramework
             base.PreApplyDamage(ref dinfo, out absorbed);
         }
 
-            
+
 
         // ======= Behavior ======= //
 
-//        public override bool BlocksPawn(Pawn p)
-//        {
-//            return this.size >= 0.8f;
-//        }
+        //        public override bool BlocksPawn(Pawn p)
+        //        {
+        //            return this.size >= 0.8f;
+        //        }
 
-            
+
         // ======= Appearance ======= //
 
         public float GetSizeBasedOnNearest(Vector3 subcenter, float baseSize)
@@ -283,10 +283,10 @@ namespace MineralsFramework
                             {
                                 float distanceToPos = Vector3.Distance(item.TrueCenter(), subcenter);
 
-                                if (distToNearest > distanceToPos & distanceToPos <= 1) 
+                                if (distToNearest > distanceToPos & distanceToPos <= 1)
                                 {
                                     distToNearest = distanceToPos;
-                                    sizeOfNearest = ((StaticMineral) item).size;
+                                    sizeOfNearest = ((StaticMineral)item).size;
                                 }
                             }
                         }
@@ -307,6 +307,11 @@ namespace MineralsFramework
             return (Rand.Gaussian(0, 0.2f) * clustering + Rand.Range(-0.5f, 0.5f) * (1 - clustering)) * spread;
         }
 
+        public virtual bool isWaterLikeTerrain(TerrainDef t)
+        {
+            return t.IsWater || t.IsIce || t.IsFlood || t.IsRiver;
+        }
+
         public virtual float submersibleFactor()
         {
             // Check that underwater minerals are enabled
@@ -323,11 +328,7 @@ namespace MineralsFramework
 
             // Check if is on dry land
             TerrainDef myTerrain = Map.terrainGrid.TerrainAt(Position);
-            if (myTerrain == null)
-            {
-                return 1f;
-            }
-            if (!(myTerrain.defName.Contains("Water") || myTerrain.defName.Contains("IceShallow") || myTerrain.defName.Contains("MuddyIce")))
+            if (myTerrain == null || !isWaterLikeTerrain(myTerrain))
             {
                 return 1f;
             }
@@ -344,7 +345,7 @@ namespace MineralsFramework
                     if (checkedPosition.InBounds(Map))
                     {
                         TerrainDef terrain = Map.terrainGrid.TerrainAt(checkedPosition);
-                        if (terrain != null && !(terrain.defName.Contains("Water") || myTerrain.defName.Contains("IceShallow") || myTerrain.defName.Contains("MuddyIce")))
+                        if (terrain != null && !isWaterLikeTerrain(terrain))
                         {
                             dryCount = dryCount + 1;
                         }
@@ -665,7 +666,7 @@ namespace MineralsFramework
             // get print size
             float sizeFactor = printSizeFactor();
 
-            if (sizeFactor <= 0)
+            if (sizeFactor <= 0.02f)
             {
                 return;
             }
@@ -992,6 +993,9 @@ namespace MineralsFramework
         // If true, growth rate and initial size depends on distance from needed terrains
         public bool neededNearbyTerrainSizeEffect = true;
 
+        // If true spawn probability depends on distance from needed terrains
+        public bool neededNearbyTerrainAbundEffect = true;
+
         // Controls how extra clusters are added near assocaited things 
         public List<string> associatedOres;
         public float nearAssociatedOreBonus = 10f;
@@ -1124,6 +1128,10 @@ namespace MineralsFramework
                 fillPercent = this.fillPercent,
                 coversFloor = this.coversFloor,
                 blockWind = this.blockWind,
+                blockLight = this.blockLight,
+                saveCompressible = this.saveCompressible,
+                staticSunShadowHeight = this.staticSunShadowHeight,
+                holdsRoof = this.holdsRoof,
                 pathCost = this.pathCost,
                 mineable = this.mineable,
                 leaveResourcesWhenKilled = this.leaveResourcesWhenKilled,
@@ -1147,6 +1155,7 @@ namespace MineralsFramework
                     mineableYield = this.building.mineableYield,
                     mineableThing = this.building.mineableThing,
                     mineableNonMinedEfficiency = this.building.mineableNonMinedEfficiency,
+                    veinMineable = this.building.veinMineable,
                     smoothedThing = this.building.smoothedThing,
                     claimable = this.building.claimable,
                     alwaysDeconstructible = this.building.alwaysDeconstructible,
@@ -1261,417 +1270,6 @@ namespace MineralsFramework
             copy.mineSpeedFactor = this.mineSpeedFactor;
 
             return copy;
-        }
-
-
-        public static ThingDef_StaticMineral MakeDefaultStaticMineralDef()
-        {
-            ThingDef_StaticMineral result = new ThingDef_StaticMineral
-            {
-                thingClass = typeof(StaticMineral),
-                category = ThingCategory.Building,
-                selectable = true,
-                neverMultiSelect = true,
-                altitudeLayer = AltitudeLayer.Building,
-                passability = Traversability.Standable,
-                castEdgeShadows = false,
-                fillPercent = 0.05f,
-                coversFloor = false,
-                blockWind = false,
-                pathCost = 60,
-                mineable = true,
-                leaveResourcesWhenKilled = true,
-                filthLeaving = DefDatabase<ThingDef>.GetNamedSilentFail("Filth_RubbleRock"),
-                drawerType = DrawerType.MapMeshOnly,
-                scatterableOnMapGen = false,
-                hideAtSnowOrSandDepth = 2f,
-                building = new BuildingProperties
-                {
-                    isInert = true,
-                    canBuildNonEdificesUnder = false,
-                    isNaturalRock = false,
-                    isResourceRock = true,
-                    mineableDropChance = 0f,
-                    mineableYield = 1,
-                    mineableNonMinedEfficiency = 0f,
-                    claimable = false,
-                    alwaysDeconstructible = false,
-                    isEdifice = true,
-                    destroyShakeAmount = 0f,
-                    mineablePreventMeteorite = true,
-                    ai_neverTrashThis = true
-                },
-                statBases = new List<StatModifier>
-                {
-                    new StatModifier
-                    {
-                        stat = StatDefOf.Flammability,
-                        value = 0f
-                    }
-                },
-                graphicData = new GraphicData
-                {
-                    shaderType = ShaderTypeDefOf.CutoutComplex,
-                    graphicClass = typeof(Graphic_Random)
-                }
-            };
-            
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeDefaultImpassableRockDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultStaticMineralDef();
-            result.passability = Traversability.Impassable;
-            result.castEdgeShadows = true;
-            result.fillPercent = 1f;
-            result.coversFloor = true;
-            result.rotatable = true;
-            result.saveCompressible = true;
-            result.holdsRoof = true;
-            result.staticSunShadowHeight = 1.0f;
-            result.blockLight = true;
-            result.blockWind = true;
-            result.maxMeshCount = 1;
-            result.initialSizeMin = 0.95f;
-            result.initialSizeMax = 1f;
-            result.neededNearbyTerrainSizeEffect = false;
-            result.visualSizeRange = new FloatRange(1.75f, 1.9f);
-            result.visualClustering = 1.0f;
-            result.visualSpread = 0.5f;
-            result.visualSizeVariation = 0.08f;
-            result.verticalOffset = 0.2f;
-            result.tags = new List<string> { "rock", "wall" };
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeDefaultHewnRockDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultImpassableRockDef();
-            result.graphicData.linkType = LinkDrawerType.CornerFiller;
-            result.graphicData.linkFlags = LinkFlags.Wall | LinkFlags.Rock | LinkFlags.MapEdge;
-            result.graphicData.damageData = new DamageGraphicData();
-            result.graphicData.damageData.cornerTL = "Damage/Corner";
-            result.graphicData.damageData.cornerTR = "Damage/Corner";
-            result.graphicData.damageData.cornerBL = "Damage/Corner";
-            result.graphicData.damageData.cornerBR = "Damage/Corner";
-            result.graphicData.damageData.edgeTop = "Damage/Edge";
-            result.graphicData.damageData.edgeBot = "Damage/Edge";
-            result.graphicData.damageData.edgeLeft = "Damage/Edge";
-            result.graphicData.damageData.edgeRight = "Damage/Edge";
-            result.minClusterProbability = 1f;
-            result.maxClusterProbability = 1f;
-            result.mustBeUnderThickRoof = true;
-            result.mustBeNotNearPassable = true;
-            result.newMapSpawnOrder = 40;
-            result.mineSpeedFactor = 0.8f;
-            result.mustReplace = true;
-            result.tags.Add("hewn");
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeDefaultSolidRockDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultImpassableRockDef();
-            result.building.mineablePreventMeteorite = false;
-            result.minClusterProbability = 1f;
-            result.maxClusterProbability = 1f;
-            result.mustBeUnderRoof = true;
-            result.newMapSpawnOrder = 50;
-            result.mustReplace = true;
-            result.snowTextureThreshold = 1f;
-            result.mineSpeedFactor = 1.0f;
-            result.tags.Add("solid");
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeDefaultWeatheredRockDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultImpassableRockDef();
-            result.mustBeNotUnderRoof = true;
-            result.newMapSpawnOrder = 60;
-            result.replaceAll = true;
-            result.snowTextureThreshold = 0.85f;
-            result.minClusterProbability = 0.01f;
-            result.maxClusterProbability = 0.02f;
-            result.minClusterSize = 1;
-            result.maxClusterSize = 5;
-            result.initialSizeVariation = 0.3f;
-            result.mineSpeedFactor = 1.2f;
-            result.tags.Add("weathered");
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeDefaultBoulderRockDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultStaticMineralDef();
-            result.altitudeLayer = AltitudeLayer.LowPlant;
-            result.fillPercent = 0.6f;
-            result.passability = Traversability.PassThroughOnly;
-            result.blockWind = true;
-            result.pathCost = 100;
-            result.submergedSize = 1f;
-            result.submergedRadius = 1;
-            result.newMapSpawnOrder = 70;
-            result.snowTextureThreshold = 0.7f;
-            result.hiddenInSnowThreshold = 1.1f;
-            result.minClusterProbability = 0.005f;
-            result.maxClusterProbability = 0.01f;
-            result.minClusterSize = 1;
-            result.maxClusterSize = 4;
-            result.initialSizeMin = 0.8f;
-            result.initialSizeMax = 1.0f;
-            result.initialSizeVariation = 0.5f;
-            result.neededNearbyTerrainRadius = 12;
-            result.neededNearbyTerrainSizeEffect = true;
-            result.maxMeshCount = 1;
-            result.visualSizeRange = new FloatRange(1.1f, 1.3f);
-            result.visualClustering = 0.2f;
-            result.visualSpread = 0.7f;
-            result.visualSizeVariation = 0.1f;
-            result.mineSpeedFactor = 1.4f;
-            result.tags = new List<string> { "rock", "boulder", "chunk_replacer" };
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeDefaultSmallRockDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultStaticMineralDef();
-            if (result.graphicData == null)
-            {
-                result.graphicData = new GraphicData();
-            }
-            if (result.graphicData.damageData == null)
-            {
-                result.graphicData.damageData = new DamageGraphicData();
-            }
-            result.graphicData.damageData.enabled = false;
-            result.altitudeLayer = AltitudeLayer.SmallWire;
-            result.fillPercent = 0.2f;
-            result.pathCost = 20;
-            result.submergedSize = 0f;
-            result.submergedRadius = 1;
-            result.newMapSpawnOrder = 80;
-            result.snowTextureThreshold = 0.6f;
-            result.hiddenInSnowThreshold = 0.95f;
-            result.minClusterProbability = 0.02f;
-            result.maxClusterProbability = 0.05f;
-            result.minClusterSize = 1;
-            result.maxClusterSize = 6;
-            result.initialSizeMin = 0.7f;
-            result.initialSizeMax = 1.0f;
-            result.initialSizeVariation = 0.2f;
-            result.neededNearbyTerrainRadius = 4;
-            result.neededNearbyTerrainSizeEffect = true;
-            result.maxMeshCount = 4;
-            result.visualSizeRange = new FloatRange(0.5f, 0.7f);
-            result.visualClustering = 0.3f;
-            result.visualSpread = 1.2f;
-            result.visualSizeVariation = 0.3f;
-            result.mineSpeedFactor = 1.6f;
-            result.tags = new List<string> { "rock", "small_rock" };
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeWeatheredGenericRockBaseDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultWeatheredRockDef();
-
-            result.graphicData.texPath = "Things/Rock/WeatheredGranite";
-            result.uiIconPath = "Things/Rock/WeatheredGranite/WeatheredGraniteA";
-            result.statBases.Add(new StatModifier { stat = StatDefOf.MaxHitPoints, value = 1200f });
-            result.statBases.Add(new StatModifier { stat = StatDefOf.Beauty, value = 1f });
-            result.spawnRadius = 1;
-            result.minClusterProbability = 0.005f;
-            result.maxClusterProbability = 0.015f;
-            result.minClusterSize = 2;
-            result.maxClusterSize = 8;
-            result.neededNearbyTerrainRadius = 2;
-            result.nearAssociatedOreBonus = 5f;
-            result.randomlyDropResources = new List<RandomResourceDrop>
-            {
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "MS_RoughGem",
-                    DropProbability = 0.03f,
-                    CountPerDrop = 1,
-                    MinMiningSkill = 4,
-                    WasteProduct = false
-                },
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "CrushedStone",
-                    DropProbability = 2f,
-                    CountPerDrop = 5,
-                    MinMiningSkill = 0,
-                    WasteProduct = true
-                }
-            };
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeSolidGenericRockBaseDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultSolidRockDef();
-
-            result.graphicData.texPath = "Things/Rock/SolidGranite";
-            result.uiIconPath = "Things/Rock/SolidGranite/SolidGraniteA";
-            result.statBases.Add(new StatModifier { stat = StatDefOf.MaxHitPoints, value = 1400f });
-            result.statBases.Add(new StatModifier { stat = StatDefOf.Beauty, value = 1f });
-            result.randomlyDropResources = new List<RandomResourceDrop>
-            {
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "MS_RoughGem",
-                    DropProbability = 0.03f,
-                    CountPerDrop = 1,
-                    MinMiningSkill = 4,
-                    WasteProduct = false
-                },
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "CrushedStone",
-                    DropProbability = 2f,
-                    CountPerDrop = 5,
-                    MinMiningSkill = 0,
-                    WasteProduct = true
-                }
-            };
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeHewnGenericRockBaseDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultHewnRockDef();
-
-            result.graphicData.texPath = "Things/Rock/HewnGranite";
-            result.statBases.Add(new StatModifier { stat = StatDefOf.MaxHitPoints, value = 1500f });
-            result.statBases.Add(new StatModifier { stat = StatDefOf.Beauty, value = -1f });
-            result.randomlyDropResources = new List<RandomResourceDrop>
-            {
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "MS_RoughGem",
-                    DropProbability = 0.03f,
-                    CountPerDrop = 1,
-                    MinMiningSkill = 4,
-                    WasteProduct = false
-                },
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "CrushedStone",
-                    DropProbability = 2f,
-                    CountPerDrop = 5,
-                    MinMiningSkill = 0,
-                    WasteProduct = true
-                }
-            };
-
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeSmoothedGenericRockBaseDef()
-        {
-            ThingDef_StaticMineral result = MakeHewnGenericRockBaseDef();
-            result.graphicData.texPath = "Things/Rock/SmoothedGranite";
-            result.uiIconPath = "Things/Rock/SmoothedRockWall/SmoothedRockWallA";
-            return result;
-        }
-
-
-        public static ThingDef_StaticMineral MakeBoulderGenericRockBaseDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultBoulderRockDef();
-            result.graphicData.texPath = "Things/Rock/BoulderGranite";
-            result.uiIconPath = "Things/Rock/BoulderGranite/BoulderGraniteA";
-            result.statBases.Add(new StatModifier { stat = StatDefOf.MaxHitPoints, value = 900f });
-            result.statBases.Add(new StatModifier { stat = StatDefOf.Beauty, value = 1f });
-            result.spawnRadius = 1;
-            result.minClusterProbability = 0.004f;
-            result.maxClusterProbability = 0.008f;
-            result.minClusterSize = 1;
-            result.maxClusterSize = 3;
-            result.initialSizeMin = 0.8f;
-            result.initialSizeMax = 1.0f;
-            result.initialSizeVariation = 0.5f;
-            result.neededNearbyTerrainRadius = 12;
-            result.nearAssociatedOreBonus = 30f;
-            result.visualSizeRange = new FloatRange(1.1f, 1.3f);
-            result.visualClustering = 0.2f;
-            result.visualSpread = 0.7f;
-            result.visualSizeVariation = 0.1f;
-            result.randomlyDropResources = new List<RandomResourceDrop>
-            {
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "MS_RoughGem",
-                    DropProbability = 0.02f,
-                    CountPerDrop = 1,
-                    MinMiningSkill = 4,
-                    WasteProduct = false
-                },
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "CrushedStone",
-                    DropProbability = 1f,
-                    CountPerDrop = 5,
-                    MinMiningSkill = 0,
-                    WasteProduct = true
-                }
-            };
-            return result;
-        }
-
-        public static ThingDef_StaticMineral MakeSmallGenericRockBaseDef()
-        {
-            ThingDef_StaticMineral result = MakeDefaultSmallRockDef();
-            result.graphicData.texPath = "Things/Rock/PassableGranite";
-            result.uiIconPath = "Things/Rock/PassableGranite/PassableGraniteA";
-            result.statBases.Add(new StatModifier { stat = StatDefOf.MaxHitPoints, value = 500f });
-            result.statBases.Add(new StatModifier { stat = StatDefOf.Beauty, value = 0f });
-            result.spawnRadius = 1;
-            result.minClusterProbability = 0.02f;
-            result.maxClusterProbability = 0.03f;
-            result.minClusterSize = 1;
-            result.maxClusterSize = 4;
-            result.initialSizeMin = 0.7f;
-            result.initialSizeMax = 1.0f;
-            result.initialSizeVariation = 0.2f;
-            result.neededNearbyTerrainRadius = 3;
-            result.nearAssociatedOreBonus = 8f;
-            result.maxMeshCount = 2;
-            result.visualSizeRange = new FloatRange(0.5f, 0.7f);
-            result.visualClustering = 0.3f;
-            result.visualSpread = 1.2f;
-            result.visualSizeVariation = 0.3f;
-            result.randomlyDropResources = new List<RandomResourceDrop>
-            {
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "MS_RoughGem",
-                    DropProbability = 0.01f,
-                    CountPerDrop = 1,
-                    MinMiningSkill = 4,
-                    WasteProduct = false
-                },
-                new RandomResourceDrop
-                {
-                    ResourceDefName = "CrushedStone",
-                    DropProbability = 0.5f,
-                    CountPerDrop = 5,
-                    MinMiningSkill = 0,
-                    WasteProduct = true
-                }
-            }; 
-            return result;
         }
 
         // ======= Spawning clusters ======= //
@@ -2088,6 +1686,7 @@ namespace MineralsFramework
             //category = originalDef;
             output.size = size;
             map.mapDrawer.MapMeshDirty(dest, MapMeshFlagDefOf.Buildings);
+            map.edificeGrid.Register(output);
             //Log.Message("Spawned " + defName + " at " + dest);
             return output;
         }
@@ -2370,6 +1969,13 @@ namespace MineralsFramework
                     // Randomly spawn some clusters
                     if (Rand.Range(0f, 1f) < spawnProbability && CanSpawnAt(map, current, true))
                     {
+                        if (neededNearbyTerrainAbundEffect && neededNearbyTerrains != null && neededNearbyTerrains.Count > 0) {
+                            if (Rand.Range(0f, 1f) > Math.Pow(posDistFromNeededTerrain(map, current) / neededNearbyTerrainRadius, 0.5))
+                            {
+                                continue;
+                            }
+                        }
+                        
                         SpawnInitialCluster(map, current, Rand.Range(initialSizeMin, initialSizeMax) * sizeScaling, Rand.Range(minClusterSize, maxClusterSize));
                     }
 
@@ -2442,10 +2048,8 @@ namespace MineralsFramework
                 Thing ToReplace = ThingToReplaceAtPos(map, current);
                 if (ToReplace != null)
                 {
-
                     ToReplace.Destroy(DestroyMode.Vanish);
                     StaticMineral spawned = SpawnAt(map, current, Rand.Range(initialSizeMin, initialSizeMax));
-                    map.edificeGrid.Register(spawned);
                 }
             }
             map.regionAndRoomUpdater.Enabled = true;

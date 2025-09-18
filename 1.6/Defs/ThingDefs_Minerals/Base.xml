@@ -88,6 +88,8 @@
     <neededNearbyTerrainRadius>3</neededNearbyTerrainRadius>
     <!-- If true, growth rate and initial size depends on distance from needed terrains -->
     <neededNearbyTerrainSizeEffect>true</neededNearbyTerrainSizeEffect>
+    <!-- If true spawn probability depends on distance from needed terrains -->
+    <neededNearbyTerrainAbundEffect>true</neededNearbyTerrainAbundEffect>
     <!-- Controls how extra clusters are added near assocaited things -->
     <associatedOres>
     </associatedOres>

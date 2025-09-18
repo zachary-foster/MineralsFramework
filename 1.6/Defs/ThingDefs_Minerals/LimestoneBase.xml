@@ -5,15 +5,8 @@
   <ThingDef Name="MF_WeatheredLimestoneBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredLimestone</texPath>
-      <color>(158,153,135)</color>
     </graphicData>
     <uiIconPath>Things/Rock/WeatheredLimestone/WeatheredLimestoneA</uiIconPath>
-    <randomColorsOne>
-      <li>(158,153,135)</li>
-    </randomColorsOne>
-    <randomColorsTwo>
-      <li>(168,163,145)</li>
-    </randomColorsTwo>
     <statBases>
       <MaxHitPoints>1000</MaxHitPoints>
       <Beauty>0</Beauty>
@@ -51,17 +44,10 @@
   <ThingDef Name="MF_SolidLimestoneBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredLimestone</texPath>
-      <color>(158,153,135)</color>
     </graphicData>
     <uiIconPath>Things/Rock/WeatheredLimestone/WeatheredLimestoneA</uiIconPath>
-    <randomColorsOne>
-      <li>(158,153,135)</li>
-    </randomColorsOne>
-    <randomColorsTwo>
-      <li>(168,163,145)</li>
-    </randomColorsTwo>
     <statBases>
-      <MaxHitPoints>1300</MaxHitPoints>
+      <MaxHitPoints>1200</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
     <!-- Other resources it might drop -->
@@ -101,15 +87,8 @@
   <ThingDef Name="MF_HewnLimestoneBase" ParentName="MF_HewnRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/HewnRockWall</texPath>
-      <color>(158,153,135)</color>
     </graphicData>
     <uiIconPath>Things/Rock/HewnRockWall/HewnRockWallA</uiIconPath>
-    <randomColorsOne>
-      <li>(158,153,135)</li>
-    </randomColorsOne>
-    <randomColorsTwo>
-      <li>(168,163,145)</li>
-    </randomColorsTwo>
     <statBases>
       <MaxHitPoints>1400</MaxHitPoints>
       <Beauty>-1</Beauty>
@@ -161,18 +140,11 @@
 
   <ThingDef Name="MF_BoulderLimestoneBase" ParentName="MF_BoulderRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
-      <texPath>Things/Rock/BoulderGranite</texPath>
-      <color>(158,153,135)</color>
+      <texPath>Things/Rock/BoulderMarble</texPath>
     </graphicData>
-    <uiIconPath>Things/Rock/BoulderGranite/BoulderGraniteA</uiIconPath>
-    <randomColorsOne>
-      <li>(158,153,135)</li>
-    </randomColorsOne>
-    <randomColorsTwo>
-      <li>(168,163,145)</li>
-    </randomColorsTwo>
+    <uiIconPath>Things/Rock/BoulderMarble/BoulderMarbleA</uiIconPath>
     <statBases>
-      <MaxHitPoints>800</MaxHitPoints>
+      <MaxHitPoints>600</MaxHitPoints>
       <Beauty>0</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
@@ -234,20 +206,10 @@
   <ThingDef Name="MF_SmallLimestoneBase" ParentName="MF_SmallRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/PassableLimestone</texPath>
-      <color>(158,153,135)</color>
-      <damageData>
-        <enabled>false</enabled>
-      </damageData>
     </graphicData>
     <uiIconPath>Things/Rock/PassableLimestone/PassableLimestoneA</uiIconPath>
-    <randomColorsOne>
-      <li>(158,153,135)</li>
-    </randomColorsOne>
-    <randomColorsTwo>
-      <li>(168,163,145)</li>
-    </randomColorsTwo>
     <statBases>
-      <MaxHitPoints>600</MaxHitPoints>
+      <MaxHitPoints>400</MaxHitPoints>
       <Beauty>0</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->

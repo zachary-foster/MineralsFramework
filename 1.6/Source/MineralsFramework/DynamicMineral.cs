@@ -207,15 +207,6 @@ namespace MineralsFramework
         public int maxSpawnClusterSize = 1;
 
 
-        public static ThingDef_DynamicMineral MakeDefaultDynamicMineralDef()
-        {
-            ThingDef_DynamicMineral result = (ThingDef_DynamicMineral)ThingDef_StaticMineral.MakeDefaultStaticMineralDef();
-            result.thingClass = typeof(DynamicMineral);
-            result.tickerType = TickerType.Long;
-            result.building.isInert = false;
-            return result;
-        }
-
         public List<growthRateModifier> allRateModifiers 
         {
             get 

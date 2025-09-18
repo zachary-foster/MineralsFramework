@@ -9,7 +9,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/WeatheredBasalt/WeatheredBasaltA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1300</MaxHitPoints>
+      <MaxHitPoints>1400</MaxHitPoints>
       <Beauty>-2</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
@@ -140,7 +140,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/PassableBasalt/PassableBasaltA</uiIconPath>
     <statBases>
-      <MaxHitPoints>900</MaxHitPoints>
+      <MaxHitPoints>800</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
@@ -204,7 +204,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/PassableBasalt/PassableBasaltA</uiIconPath>
     <statBases>
-      <MaxHitPoints>600</MaxHitPoints>
+      <MaxHitPoints>500</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
     <pathCost>50</pathCost>

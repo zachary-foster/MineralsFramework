@@ -8,7 +8,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/WeatheredSlate/WeatheredSlateA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1000</MaxHitPoints>
+      <MaxHitPoints>800</MaxHitPoints>
       <Beauty>2</Beauty>
     </statBases>
     <!-- The size range -->
@@ -61,7 +61,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/WeatheredSlate/WeatheredSlateA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1200</MaxHitPoints>
+      <MaxHitPoints>1000</MaxHitPoints>
       <Beauty>1</Beauty>
     </statBases>
     <!-- The size range -->
@@ -109,7 +109,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/HewnRockWall/HewnRockWallA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1200</MaxHitPoints>
+      <MaxHitPoints>1300</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
     <!-- Other resources it might drop -->
@@ -163,7 +163,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/WeatheredSlate/WeatheredSlateA</uiIconPath>
     <statBases>
-      <MaxHitPoints>900</MaxHitPoints>
+      <MaxHitPoints>800</MaxHitPoints>
       <Beauty>10</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
@@ -231,7 +231,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/PassableSlate/PassableSlateA</uiIconPath>
     <statBases>
-      <MaxHitPoints>500</MaxHitPoints>
+      <MaxHitPoints>300</MaxHitPoints>
       <Beauty>0</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->

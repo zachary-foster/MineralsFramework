@@ -7,6 +7,12 @@
     <graphicData>
       <texPath>Things/Ore/WeatheredOre</texPath>
     </graphicData>
+    <building>
+      <veinMineable>true</veinMineable>
+    </building>
+    <statBases>
+      <MaxHitPoints>1300</MaxHitPoints>
+    </statBases>
     <!-- If it must replace something in order to spawned -->
     <mustReplace>true</mustReplace>
     <!-- If the primary color is based on the stone below it -->
@@ -23,6 +29,12 @@
     <graphicData>
       <texPath>Things/Ore/WeatheredOre</texPath>
     </graphicData>
+    <building>
+      <veinMineable>true</veinMineable>
+    </building>
+    <statBases>
+      <MaxHitPoints>1500</MaxHitPoints>
+    </statBases>
     <!-- If the primary color is based on the stone below it -->
     <coloredByTerrain>true</coloredByTerrain>
     <!-- Tags which determine how some options behave  -->
@@ -37,6 +49,12 @@
       <texPath>Things/Ore/HewnOre</texPath>
     </graphicData>
     <uiIconPath>Things/Ore/HewnOre/HewnOreA</uiIconPath>
+    <building>
+      <veinMineable>true</veinMineable>
+    </building>
+    <statBases>
+      <MaxHitPoints>1600</MaxHitPoints>
+    </statBases>
     <!-- If the primary color is based on the stone below it -->
     <coloredByTerrain>true</coloredByTerrain>
     <!-- Tags which determine how some options behave  -->

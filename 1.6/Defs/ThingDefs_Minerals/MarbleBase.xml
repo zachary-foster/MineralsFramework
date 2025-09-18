@@ -8,7 +8,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/WeatheredMarble/WeatheredMarbleA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1300</MaxHitPoints>
+      <MaxHitPoints>1200</MaxHitPoints>
       <Beauty>2</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
@@ -52,7 +52,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/SolidMarble/SolidMarbleA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1500</MaxHitPoints>
+      <MaxHitPoints>1300</MaxHitPoints>
       <Beauty>1</Beauty>
     </statBases>
     <!-- Other resources it might drop -->
@@ -89,7 +89,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/HewnMarble/HewnMarbleA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1600</MaxHitPoints>
+      <MaxHitPoints>1400</MaxHitPoints>
       <Beauty>0</Beauty>
     </statBases>
     <!-- Other resources it might drop -->
@@ -138,7 +138,7 @@
     <uiIconPath>Things/Rock/BoulderMarble/BoulderMarbleA</uiIconPath>
     <fillPercent>0.6</fillPercent>
     <statBases>
-      <MaxHitPoints>800</MaxHitPoints>
+      <MaxHitPoints>600</MaxHitPoints>
       <Beauty>2</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
@@ -197,7 +197,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/PassableMarble/PassableMarbleA</uiIconPath>
     <statBases>
-      <MaxHitPoints>600</MaxHitPoints>
+      <MaxHitPoints>400</MaxHitPoints>
       <Beauty>1</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->

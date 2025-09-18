@@ -18,6 +18,7 @@ namespace MineralsFramework
         public override void Generate(Map map, GenStepParams parms)
         {
             initRocks(map);
+            
         }
 
         public static void initRocks(Map map)

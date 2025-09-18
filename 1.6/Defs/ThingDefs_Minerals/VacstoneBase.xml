@@ -2,6 +2,45 @@
 <Defs>
 
 
+  <ThingDef Name="MF_WeatheredVacstoneBase" ParentName="MF_WeatheredRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
+    <graphicData>
+      <texPath>Things/Rock/WeatheredBasalt</texPath>
+    </graphicData>
+    <uiIconPath>Things/Rock/WeatheredBasalt/WeatheredBasaltA</uiIconPath>
+    <statBases>
+      <Beauty>-1</Beauty>
+      <MaxHitPoints>800</MaxHitPoints>
+    </statBases>
+    <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
+    <minClusterProbability>0.005</minClusterProbability>
+    <maxClusterProbability>0.01</maxClusterProbability>
+    <!-- How  many squares each cluster will be -->
+    <minClusterSize>1</minClusterSize>
+    <maxClusterSize>2</maxClusterSize>
+    <!-- how far away it can be from needed nearby terrains-->
+    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+    <!-- Other resources it might drop -->
+    <randomlyDropResources>
+      <li>
+        <ResourceDefName>MS_RoughGem</ResourceDefName>
+        <DropProbability>0.03</DropProbability>
+        <MinMiningSkill>6</MinMiningSkill>
+      </li>
+      <li>
+        <ResourceDefName>CrushedStone</ResourceDefName>
+        <DropProbability>1</DropProbability>
+        <CountPerDrop>5</CountPerDrop>
+        <WasteProduct>true</WasteProduct>
+      </li>
+      <li>
+        <ResourceDefName>Steel</ResourceDefName>
+        <DropProbability>0.05</DropProbability>
+        <CountPerDrop>10</CountPerDrop>
+      </li>
+    </randomlyDropResources>
+  </ThingDef>
+
+
   <ThingDef Name="MF_SolidVacstoneBase" ParentName="MF_SolidRockBase" Class="MineralsFramework.ThingDef_StaticMineral" Abstract="True">
     <graphicData>
       <texPath>Things/Rock/WeatheredBasalt</texPath>
@@ -9,22 +48,8 @@
     <uiIconPath>Things/Rock/WeatheredBasalt/WeatheredBasaltA</uiIconPath>
     <statBases>
       <Beauty>-1</Beauty>
-      <MaxHitPoints>1600</MaxHitPoints>
+      <MaxHitPoints>1000</MaxHitPoints>
     </statBases>
-    <!--How far away it can spawn from an existing location-->
-    <!-- Even though it is a static crystal, the map initialization uses "reproduction" to make clusters-->
-    <spawnRadius>1</spawnRadius>
-    <!--For a given map, the minimum/maximum probablility a cluster will spawn for every possible location -->
-    <minClusterProbability>1</minClusterProbability>
-    <maxClusterProbability>1</maxClusterProbability>
-    <!-- How  many squares each cluster will be -->
-    <minClusterSize>1</minClusterSize>
-    <maxClusterSize>1</maxClusterSize>
-    <!-- The range of starting sizes of individuals in clusters -->
-    <initialSizeMin>1</initialSizeMin>
-    <initialSizeMax>1</initialSizeMax>
-    <!-- How much initial sizes of individuals randomly vary -->
-    <initialSizeVariation>.3</initialSizeVariation>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
@@ -53,9 +78,12 @@
     </graphicData>
     <uiIconPath>Things/Rock/HewnRockWall/HewnRockWallA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1700</MaxHitPoints>
+      <MaxHitPoints>1600</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
+    <!-- Roof requirements -->
+    <mustBeUnderThickRoof>false</mustBeUnderThickRoof>
+    <mustBeUnderRoof>true</mustBeUnderRoof>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
@@ -95,7 +123,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/PassableBasalt/PassableBasaltA</uiIconPath>
     <statBases>
-      <MaxHitPoints>1000</MaxHitPoints>
+      <MaxHitPoints>800</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
@@ -165,7 +193,7 @@
     </graphicData>
     <uiIconPath>Things/Rock/PassableBasalt/PassableBasaltA</uiIconPath>
     <statBases>
-      <MaxHitPoints>900</MaxHitPoints>
+      <MaxHitPoints>500</MaxHitPoints>
       <Beauty>-1</Beauty>
     </statBases>
     <!--How far away it can spawn from an existing location-->
