@@ -1905,6 +1905,68 @@ namespace MineralsFramework
 
         public virtual float NearbyThingAbundanceFactor(Map map, IntVec3 position)
         {
+            if (nearbyThingAbundEffects == null || nearbyThingAbundEffects.Count == 0)
+            {
+                return 1f;
+            }
+
+            // Sort effects by radius ascending, then prioritize effects with 0 factors
+            var sortedEffects = nearbyThingAbundEffects
+                .OrderBy(e => e.Radius)
+                .ThenByDescending(e => (e.FoundFactor == 0 || e.NotFoundFactor == 0) ? 1 : 0)
+                .ToList();
+
+            float factor = 1f;
+            
+            foreach (var effect in sortedEffects)
+            {
+                bool found = PosHasThing(map, position, effect.DefNames);
+                float effectValue = 1f;
+
+                if (effect.ScaleByDistance)
+                {
+                    float minDist = float.MaxValue;
+                    foreach (string defName in effect.DefNames)
+                    {
+                        float dist = map.listerThings.ThingsOfDef(DefDatabase<ThingDef>.GetNamed(defName))
+                            .Concat(map.terrainGrid.AllTerrains().Where(t => t.defName == defName).Cast<Thing>())
+                            .Min(t => t.Position.DistanceTo(position));
+                        minDist = Mathf.Min(minDist, dist);
+                    }
+                    effectValue = Mathf.Lerp(effect.FoundFactor, effect.NotFoundFactor, minDist / effect.Radius);
+                }
+                else if (effect.ScaleByArea)
+                {
+                    int count = 0;
+                    int total = 0;
+                    for (int x = -Mathf.FloorToInt(effect.Radius); x <= Mathf.CeilToInt(effect.Radius); x++)
+                    {
+                        for (int z = -Mathf.FloorToInt(effect.Radius); z <= Mathf.CeilToInt(effect.Radius); z++)
+                        {
+                            IntVec3 c = position + new IntVec3(x, 0, z);
+                            if (c.InBounds(map) && PosHasThing(map, c, effect.DefNames))
+                            {
+                                count++;
+                            }
+                            total++;
+                        }
+                    }
+                    effectValue = Mathf.Lerp(effect.FoundFactor, effect.NotFoundFactor, 1f - (count / (float)total));
+                }
+                else
+                {
+                    effectValue = found ? effect.FoundFactor : effect.NotFoundFactor;
+                }
+
+                factor *= effectValue;
+                
+                if (factor <= 0f)
+                {
+                    break;
+                }
+            }
+
+            return factor;
         }
 
         public virtual float NearbyThingSizeFactor(Map map, IntVec3 position)
