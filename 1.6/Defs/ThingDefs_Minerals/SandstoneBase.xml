@@ -30,32 +30,32 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>SandResource</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <ScaleYieldBySkill>false</ScaleYieldBySkill>
+        <resourceDefName>SandResource</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <scaleYieldBySkill>false</scaleYieldBySkill>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkFlint</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_ChunkFlint</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>SmallFossil</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
-        <MinMiningSkill>8</MinMiningSkill>
+        <resourceDefName>SmallFossil</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
+        <minMiningSkill>8</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>Amber</ResourceDefName>
-        <DropProbability>0.05</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <MinMiningSkill>3</MinMiningSkill>
+        <resourceDefName>Amber</resourceDefName>
+        <dropProbability>0.05</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <minMiningSkill>3</minMiningSkill>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -75,38 +75,38 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>SandResource</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <ScaleYieldBySkill>false</ScaleYieldBySkill>
+        <resourceDefName>SandResource</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <scaleYieldBySkill>false</scaleYieldBySkill>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkFlint</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_ChunkFlint</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>SmallFossil</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
-        <MinMiningSkill>8</MinMiningSkill>
+        <resourceDefName>SmallFossil</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
+        <minMiningSkill>8</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>Amber</ResourceDefName>
-        <DropProbability>0.05</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <MinMiningSkill>3</MinMiningSkill>
+        <resourceDefName>Amber</resourceDefName>
+        <dropProbability>0.05</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <minMiningSkill>3</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkAlabaster</ResourceDefName>
-        <DropProbability>0.005</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
-        <MinMiningSkill>5</MinMiningSkill>
+        <resourceDefName>MAU_ChunkAlabaster</resourceDefName>
+        <dropProbability>0.005</dropProbability>
+        <countPerDrop>1</countPerDrop>
+        <minMiningSkill>5</minMiningSkill>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -124,38 +124,38 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>SandResource</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <ScaleYieldBySkill>false</ScaleYieldBySkill>
+        <resourceDefName>SandResource</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <scaleYieldBySkill>false</scaleYieldBySkill>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkFlint</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_ChunkFlint</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>SmallFossil</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
-        <MinMiningSkill>8</MinMiningSkill>
+        <resourceDefName>SmallFossil</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
+        <minMiningSkill>8</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>Amber</ResourceDefName>
-        <DropProbability>0.05</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <MinMiningSkill>3</MinMiningSkill>
+        <resourceDefName>Amber</resourceDefName>
+        <dropProbability>0.05</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <minMiningSkill>3</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkAlabaster</ResourceDefName>
-        <DropProbability>0.01</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
-        <MinMiningSkill>5</MinMiningSkill>
+        <resourceDefName>MAU_ChunkAlabaster</resourceDefName>
+        <dropProbability>0.01</dropProbability>
+        <countPerDrop>1</countPerDrop>
+        <minMiningSkill>5</minMiningSkill>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -214,32 +214,32 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>SandResource</ResourceDefName>
-        <DropProbability>0.5</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <ScaleYieldBySkill>false</ScaleYieldBySkill>
+        <resourceDefName>SandResource</resourceDefName>
+        <dropProbability>0.5</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <scaleYieldBySkill>false</scaleYieldBySkill>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkFlint</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_ChunkFlint</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>SmallFossil</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
-        <MinMiningSkill>8</MinMiningSkill>
+        <resourceDefName>SmallFossil</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
+        <minMiningSkill>8</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>Amber</ResourceDefName>
-        <DropProbability>0.05</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <MinMiningSkill>3</MinMiningSkill>
+        <resourceDefName>Amber</resourceDefName>
+        <dropProbability>0.05</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <minMiningSkill>3</minMiningSkill>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -289,27 +289,27 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>SandResource</ResourceDefName>
-        <DropProbability>0.5</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <ScaleYieldBySkill>false</ScaleYieldBySkill>
+        <resourceDefName>SandResource</resourceDefName>
+        <dropProbability>0.5</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <scaleYieldBySkill>false</scaleYieldBySkill>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>SmallFossil</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
-        <MinMiningSkill>8</MinMiningSkill>
+        <resourceDefName>SmallFossil</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
+        <minMiningSkill>8</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>Amber</ResourceDefName>
-        <DropProbability>0.05</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <MinMiningSkill>3</MinMiningSkill>
+        <resourceDefName>Amber</resourceDefName>
+        <dropProbability>0.05</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <minMiningSkill>3</minMiningSkill>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -359,27 +359,27 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>SandResource</ResourceDefName>
-        <DropProbability>0.5</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <ScaleYieldBySkill>false</ScaleYieldBySkill>
+        <resourceDefName>SandResource</resourceDefName>
+        <dropProbability>0.5</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <scaleYieldBySkill>false</scaleYieldBySkill>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>SmallFossil</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
-        <MinMiningSkill>8</MinMiningSkill>
+        <resourceDefName>SmallFossil</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
+        <minMiningSkill>8</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>Amber</ResourceDefName>
-        <DropProbability>0.05</DropProbability>
-        <CountPerDrop>10</CountPerDrop>
-        <MinMiningSkill>3</MinMiningSkill>
+        <resourceDefName>Amber</resourceDefName>
+        <dropProbability>0.05</dropProbability>
+        <countPerDrop>10</countPerDrop>
+        <minMiningSkill>3</minMiningSkill>
       </li>
     </randomlyDropResources>
   </ThingDef>

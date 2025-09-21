@@ -24,25 +24,25 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>MS_RoughGem</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <MinMiningSkill>6</MinMiningSkill>
+        <resourceDefName>MS_RoughGem</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <minMiningSkill>6</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>CrushedStone</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>5</CountPerDrop>
-        <WasteProduct>true</WasteProduct>
+        <resourceDefName>CrushedStone</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>5</countPerDrop>
+        <wasteProduct>true</wasteProduct>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.1</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.1</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkDunite</ResourceDefName>
-        <DropProbability>0.01</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_ChunkDunite</resourceDefName>
+        <dropProbability>0.01</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -61,25 +61,25 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>MS_RoughGem</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <MinMiningSkill>6</MinMiningSkill>
+        <resourceDefName>MS_RoughGem</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <minMiningSkill>6</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>CrushedStone</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>5</CountPerDrop>
-        <WasteProduct>true</WasteProduct>
+        <resourceDefName>CrushedStone</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>5</countPerDrop>
+        <wasteProduct>true</wasteProduct>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.08</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.08</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkDunite</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_ChunkDunite</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -98,25 +98,25 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>MS_RoughGem</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <MinMiningSkill>6</MinMiningSkill>
+        <resourceDefName>MS_RoughGem</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <minMiningSkill>6</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>CrushedStone</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>5</CountPerDrop>
-        <WasteProduct>true</WasteProduct>
+        <resourceDefName>CrushedStone</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>5</countPerDrop>
+        <wasteProduct>true</wasteProduct>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.05</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.05</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkDunite</ResourceDefName>
-        <DropProbability>0.03</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_ChunkDunite</resourceDefName>
+        <dropProbability>0.03</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -173,25 +173,25 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>MS_RoughGem</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <MinMiningSkill>6</MinMiningSkill>
+        <resourceDefName>MS_RoughGem</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <minMiningSkill>6</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>CrushedStone</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>5</CountPerDrop>
-        <WasteProduct>true</WasteProduct>
+        <resourceDefName>CrushedStone</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>5</countPerDrop>
+        <wasteProduct>true</wasteProduct>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.1</DropProbability>
-        <CountPerDrop>5</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.1</dropProbability>
+        <countPerDrop>5</countPerDrop>
       </li>
       <li>
-        <ResourceDefName>MAU_ChunkDunite</ResourceDefName>
-        <DropProbability>0.01</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_ChunkDunite</resourceDefName>
+        <dropProbability>0.01</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -241,20 +241,20 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>MS_RoughGem</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <MinMiningSkill>6</MinMiningSkill>
+        <resourceDefName>MS_RoughGem</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <minMiningSkill>6</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>CrushedStone</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>5</CountPerDrop>
-        <WasteProduct>true</WasteProduct>
+        <resourceDefName>CrushedStone</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>5</countPerDrop>
+        <wasteProduct>true</wasteProduct>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.1</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.1</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
     </randomlyDropResources>
   </ThingDef>
@@ -307,20 +307,20 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>MS_RoughGem</ResourceDefName>
-        <DropProbability>0.02</DropProbability>
-        <MinMiningSkill>6</MinMiningSkill>
+        <resourceDefName>MS_RoughGem</resourceDefName>
+        <dropProbability>0.02</dropProbability>
+        <minMiningSkill>6</minMiningSkill>
       </li>
       <li>
-        <ResourceDefName>CrushedStone</ResourceDefName>
-        <DropProbability>1</DropProbability>
-        <CountPerDrop>5</CountPerDrop>
-        <WasteProduct>true</WasteProduct>
+        <resourceDefName>CrushedStone</resourceDefName>
+        <dropProbability>1</dropProbability>
+        <countPerDrop>5</countPerDrop>
+        <wasteProduct>true</wasteProduct>
       </li>
       <li>
-        <ResourceDefName>MAU_SharpStoneShard</ResourceDefName>
-        <DropProbability>0.2</DropProbability>
-        <CountPerDrop>1</CountPerDrop>
+        <resourceDefName>MAU_SharpStoneShard</resourceDefName>
+        <dropProbability>0.2</dropProbability>
+        <countPerDrop>1</countPerDrop>
       </li>
     </randomlyDropResources>
   </ThingDef>

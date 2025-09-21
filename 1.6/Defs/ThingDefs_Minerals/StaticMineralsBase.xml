@@ -237,9 +237,9 @@
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
-        <ResourceDefName>GlassBatch</ResourceDefName>
-        <DropProbability>3</DropProbability>
-        <CountPerDrop>5</CountPerDrop>
+        <resourceDefName>GlassBatch</resourceDefName>
+        <dropProbability>3</dropProbability>
+        <countPerDrop>5</countPerDrop>
       </li>
     </randomlyDropResources>
     <!-- How easy it is to mine -->

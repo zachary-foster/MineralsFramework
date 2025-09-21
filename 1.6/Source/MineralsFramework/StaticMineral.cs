@@ -209,7 +209,7 @@ namespace MineralsFramework
                 }
 
                 // Drop resource
-                int dropNum = (int)Math.Round(toDrop.dcuntPerDrop * MineralsFrameworkMain.Settings.resourceDropAmountSetting * dropChance);
+                int dropNum = (int)Math.Round(toDrop.countPerDrop * MineralsFrameworkMain.Settings.resourceDropAmountSetting * dropChance);
                 if (dropNum >= 1)
                 {
                     Thing thing = ThingMaker.MakeThing(myThingDef, null);
@@ -714,7 +714,7 @@ namespace MineralsFramework
                     continue;
                 }
 
-                float meanDrop = resource.dcuntPerDrop * resource.dropProbability * Size * MineralsFrameworkMain.Settings.resourceDropAmountSetting * MineralsFrameworkMain.Settings.resourceDropFreqSetting;
+                float meanDrop = resource.countPerDrop * resource.dropProbability * Size * MineralsFrameworkMain.Settings.resourceDropAmountSetting * MineralsFrameworkMain.Settings.resourceDropFreqSetting;
                 if (meanDrop < 0.01f) 
                 {
                     continue;
@@ -928,7 +928,7 @@ namespace MineralsFramework
     {
         public string resourceDefName;
         public float dropProbability;
-        public int dcuntPerDrop = 1;
+        public int countPerDrop = 1;
         public int minMiningSkill = 0;
         public bool scaleYieldBySkill = true;
         public bool wasteProduct = false;
@@ -1269,7 +1269,7 @@ namespace MineralsFramework
             {
                 resourceDefName = d.resourceDefName,
                 dropProbability = d.dropProbability,
-                dcuntPerDrop = d.dcuntPerDrop,
+                countPerDrop = d.countPerDrop,
                 minMiningSkill = d.minMiningSkill,
                 scaleYieldBySkill = d.scaleYieldBySkill,
                 wasteProduct = d.wasteProduct,
