@@ -158,7 +158,7 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>6</neededNearbyTerrainRadius>
+    <neededNearbyRadius>6</neededNearbyRadius>
     <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
     <!-- The size range -->
     <visualSizeRange>
@@ -223,7 +223,7 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>2</neededNearbyTerrainRadius>
+    <neededNearbyRadius>2</neededNearbyRadius>
     <!-- Controls how extra clusters are added near assocaited ore-->
     <nearAssociatedOreBonus>3</nearAssociatedOreBonus>
     <!-- The maximum number of images that will be printed per square -->
@@ -289,7 +289,7 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.1</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>10</neededNearbyTerrainRadius>
+    <neededNearbyRadius>10</neededNearbyRadius>
     <!-- Controls how extra clusters are added near assocaited ore-->
     <nearAssociatedOreBonus>3</nearAssociatedOreBonus>
     <!-- The maximum number of images that will be printed per square -->

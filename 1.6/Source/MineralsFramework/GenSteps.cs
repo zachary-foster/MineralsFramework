@@ -17,11 +17,11 @@ namespace MineralsFramework
 
         public override void Generate(Map map, GenStepParams parms)
         {
-            initRocks(map);
+            InitRocks(map);
             
         }
 
-        public static void initRocks(Map map)
+        public static void InitRocks(Map map)
         {
             // Spawn all minerals in specified order
             foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs.OrderBy(m => m.newMapSpawnOrder))
@@ -41,10 +41,10 @@ namespace MineralsFramework
 
         public override void Generate(Map map, GenStepParams parms)
         {
-            initIce(map);
+            InitIce(map);
         }
 
-        public static void initIce(Map map)
+        public static void InitIce(Map map)
         {
             foreach (ThingDef_StaticMineral mineralType in DefDatabase<ThingDef_StaticMineral>.AllDefs.OrderBy(m => m.newMapSpawnOrder))
             {
@@ -65,11 +65,11 @@ namespace MineralsFramework
             // Remove starting chunks
             if (MineralsFrameworkMain.Settings.removeStartingChunksSetting)
             {
-                removeStartingChunks(map);
+                RemoveStartingChunks(map);
             }
         }
 
-        public static void removeStartingChunks(Map map)
+        public static void RemoveStartingChunks(Map map)
         {
             List<Thing> thingsToCheck = map.listerThings.AllThings;
             for (int i = thingsToCheck.Count - 1; i >= 0; i--)

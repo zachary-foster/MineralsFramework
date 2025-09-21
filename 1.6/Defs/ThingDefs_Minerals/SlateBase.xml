@@ -26,7 +26,7 @@
     <minClusterSize>1</minClusterSize>
     <maxClusterSize>1</maxClusterSize>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+    <neededNearbyRadius>1</neededNearbyRadius>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
@@ -183,9 +183,9 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.1</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>20</neededNearbyTerrainRadius>
+    <neededNearbyRadius>20</neededNearbyRadius>
     <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbyTerrainSizeEffect>false</neededNearbyTerrainSizeEffect>
+    <neededNearbySizeEffect>false</neededNearbySizeEffect>
     <nearAssociatedOreBonus>1</nearAssociatedOreBonus>
     <!-- The size range -->
     <visualSizeRange>
@@ -249,7 +249,7 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.3</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+    <neededNearbyRadius>1</neededNearbyRadius>
     <!-- Controls how extra clusters are added near assocaited ore-->
     <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- The maximum number of images that will be printed per square -->

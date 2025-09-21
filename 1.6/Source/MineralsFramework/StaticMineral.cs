@@ -37,7 +37,7 @@ namespace MineralsFramework
         // Cache for mineral texture indexes
         protected int[] textureIndexes;
 
-        public float size
+        public float Size
         {
             get
             {
@@ -59,27 +59,47 @@ namespace MineralsFramework
         }
 
 
-        protected float? myDistFromNeededTerrain = null;
-        public virtual float distFromNeededTerrain
+        protected float? myNearbyThingEffectAbundFactor = null;
+        public virtual float NearbyThingEffectAbundFactor
         {
             get
             {
-                if (myDistFromNeededTerrain == null) // not yet set
+                if (myNearbyThingEffectAbundFactor == null) // not yet set
                 {
-                    myDistFromNeededTerrain = attributes.posDistFromNeededTerrain(Map, Position);
+                    myNearbyThingEffectAbundFactor = Attributes.NearbyThingFactor(Map, Position, Attributes.nearbyThingAbundEffects);
                 }
 
-                return (float)myDistFromNeededTerrain;
+                return (float)myNearbyThingEffectAbundFactor;
             }
 
             set
             {
-                myDistFromNeededTerrain = value;
+                myNearbyThingEffectAbundFactor = value;
+            }
+        }
+
+        protected float? myNearbyThingEffectSizeFactor = null;
+        public virtual float NearbyThingEffectSizeFactor
+        {
+            get
+            {
+                if (myNearbyThingEffectSizeFactor == null) // not yet set
+                {
+                    myNearbyThingEffectSizeFactor = Attributes.NearbyThingFactor(Map, Position, Attributes.nearbyThingSizeEffects);
+                }
+
+                return (float)myNearbyThingEffectSizeFactor;
+            }
+
+            set
+            {
+                myNearbyThingEffectSizeFactor = value;
             }
         }
 
 
-        public virtual ThingDef_StaticMineral attributes
+
+        public virtual ThingDef_StaticMineral Attributes
         {
             get
             {
@@ -87,43 +107,12 @@ namespace MineralsFramework
             }
         }
 
-        // ======= Spawning conditions ======= //
-
-
-
-        //        public override IntVec3 Position
-        //        {
-        //            get
-        //            {
-        //                return base.Position;
-        //            }
-        //            set
-        //            {
-        //                const int maxTrys = 10;
-        //                for (int i = 0; i < maxTrys; i++)
-        //                {
-        //                    if (StaticMineral.PlaceIsBlocked(this.attributes, this.Map, value))
-        //                    {
-        //                        value = value.RandomAdjacentCell8Way();
-        //                    }
-        //                    else
-        //                    {
-        //                        break;
-        //                    }
-        //                }
-        //                base.Position = value;
-        //            }
-        //        }
-
-
-
-
 
 
 
         // ======= Yeilding resources ======= //
 
-        public virtual void incPctYeild(float amount, Pawn miner)
+        public virtual void IncPctYeild(float amount, Pawn miner)
         {
             // Increase yeild for when it is destroyed
             float minerYield = 1f;
@@ -178,26 +167,26 @@ namespace MineralsFramework
             yieldPct += proportionMined;
 
             // Drop resources
-            foreach (RandomResourceDrop toDrop in attributes.randomlyDropResources)
+            foreach (RandomResourceDrop toDrop in Attributes.randomlyDropResources)
             {
                 // Check that resource is available
-                ThingDef myThingDef = DefDatabase<ThingDef>.GetNamed(toDrop.ResourceDefName, false);
+                ThingDef myThingDef = DefDatabase<ThingDef>.GetNamed(toDrop.resourceDefName, false);
                 if (myThingDef == null)
                 {
                     continue;
                 }
 
                 // Check that minimum skill is enough
-                if (minerSkill < toDrop.MinMiningSkill && !miner.def.race.IsMechanoid && !miner.RaceProps.Animal)
+                if (minerSkill < toDrop.minMiningSkill && !miner.def.race.IsMechanoid && !miner.RaceProps.Animal)
                 {
                     continue;
                 }
 
                 // Find drop chance for this resource
-                float dropChance = size * toDrop.DropProbability * MineralsFrameworkMain.Settings.resourceDropFreqSetting;
-                if (toDrop.ScaleYieldBySkill)
+                float dropChance = Size * toDrop.dropProbability * MineralsFrameworkMain.Settings.resourceDropFreqSetting;
+                if (toDrop.scaleYieldBySkill)
                 {
-                    if (toDrop.WasteProduct)
+                    if (toDrop.wasteProduct)
                     {
                         dropChance *= proportionDamaged / minerYield;
                     } else
@@ -220,12 +209,12 @@ namespace MineralsFramework
                 }
 
                 // Drop resource
-                int dropNum = (int)Math.Round(toDrop.CountPerDrop * MineralsFrameworkMain.Settings.resourceDropAmountSetting * dropChance);
+                int dropNum = (int)Math.Round(toDrop.dcuntPerDrop * MineralsFrameworkMain.Settings.resourceDropAmountSetting * dropChance);
                 if (dropNum >= 1)
                 {
                     Thing thing = ThingMaker.MakeThing(myThingDef, null);
                     thing.stackCount = dropNum;
-                    if (toDrop.Minified) {
+                    if (toDrop.minified) {
                         thing = thing.MakeMinified();
                     }
                     GenPlace.TryPlaceThing(thing, Position, Map, ThingPlaceMode.Near, null);
@@ -233,29 +222,21 @@ namespace MineralsFramework
             }
         }
 
-        public virtual float miningSpeedFactor()
+        public virtual float MiningSpeedFactor()
         {
-            return attributes.mineSpeedFactor * MineralsFrameworkMain.Settings.miningEffortSetting / size;
+            return Attributes.mineSpeedFactor * MineralsFrameworkMain.Settings.miningEffortSetting / Size;
         }
 
         public override void PreApplyDamage(ref DamageInfo dinfo, out bool absorbed)
         {
-            if (dinfo.Def == DamageDefOf.Mining && dinfo.Instigator != null && dinfo.Instigator is Pawn)
+            if (dinfo.Def == DamageDefOf.Mining && dinfo.Instigator != null && dinfo.Instigator is Pawn pawn)
             {
-                dinfo.SetAmount(dinfo.Amount * miningSpeedFactor());
-                incPctYeild(dinfo.Amount, (Pawn)dinfo.Instigator);
+                dinfo.SetAmount(dinfo.Amount * MiningSpeedFactor());
+                IncPctYeild(dinfo.Amount, pawn);
             }
             base.PreApplyDamage(ref dinfo, out absorbed);
         }
 
-
-
-        // ======= Behavior ======= //
-
-        //        public override bool BlocksPawn(Pawn p)
-        //        {
-        //            return this.size >= 0.8f;
-        //        }
 
 
         // ======= Appearance ======= //
@@ -279,14 +260,14 @@ namespace MineralsFramework
                         List<Thing> list = Map.thingGrid.ThingsListAt(checkedPosition);
                         foreach (Thing item in list)
                         {
-                            if (item.def.defName == attributes.defName)
+                            if (item.def.defName == Attributes.defName)
                             {
                                 float distanceToPos = Vector3.Distance(item.TrueCenter(), subcenter);
 
                                 if (distToNearest > distanceToPos & distanceToPos <= 1)
                                 {
                                     distToNearest = distanceToPos;
-                                    sizeOfNearest = ((StaticMineral)item).size;
+                                    sizeOfNearest = ((StaticMineral)item).Size;
                                 }
                             }
                         }
@@ -298,21 +279,21 @@ namespace MineralsFramework
             //Log.Message("this.size=" + this.size + " sizeOfNearest=" + sizeOfNearest + " distToNearest=" + distToNearest + " distToTrueCenter=" + distToTrueCenter);
             //Log.Message(this.size + " -> " + correctedSize + "  dist = " + distToNearest);
 
-            return attributes.visualSizeRange.LerpThroughRange(correctedSize);
+            return Attributes.visualSizeRange.LerpThroughRange(correctedSize);
         }
 
-        public static float randPos(float clustering, float spread)
+        public static float RandPos(float clustering, float spread)
         {
             // Weighted average of normal and uniform distribution
             return (Rand.Gaussian(0, 0.2f) * clustering + Rand.Range(-0.5f, 0.5f) * (1 - clustering)) * spread;
         }
 
-        public virtual bool isWaterLikeTerrain(TerrainDef t)
+        public virtual bool IsWaterLikeTerrain(TerrainDef t)
         {
             return t.IsWater || t.IsIce || t.IsFlood || t.IsRiver;
         }
 
-        public virtual float submersibleFactor()
+        public virtual float SubmersibleFactor()
         {
             // Check that underwater minerals are enabled
             if (!MineralsFrameworkMain.Settings.underwaterMineralsSetting)
@@ -321,14 +302,14 @@ namespace MineralsFramework
             }
 
             // Check that it is submersible
-            if (attributes.submergedSize >= 1)
+            if (Attributes.submergedSize >= 1)
             {
                 return 1f;
             }
 
             // Check if is on dry land
             TerrainDef myTerrain = Map.terrainGrid.TerrainAt(Position);
-            if (myTerrain == null || !isWaterLikeTerrain(myTerrain))
+            if (myTerrain == null || !IsWaterLikeTerrain(myTerrain))
             {
                 return 1f;
             }
@@ -336,18 +317,18 @@ namespace MineralsFramework
             // count number of dry cells aroud it
             float dryCount = 0;
             float spotsChecked = 0;
-            for (int xOffset = -attributes.submergedRadius; xOffset <= attributes.submergedRadius; xOffset++)
+            for (int xOffset = -Attributes.submergedRadius; xOffset <= Attributes.submergedRadius; xOffset++)
             {
-                for (int zOffset = -attributes.submergedRadius; zOffset <= attributes.submergedRadius; zOffset++)
+                for (int zOffset = -Attributes.submergedRadius; zOffset <= Attributes.submergedRadius; zOffset++)
                 {
-                    spotsChecked = spotsChecked + 1;
+                    spotsChecked++;
                     IntVec3 checkedPosition = Position + new IntVec3(xOffset, 0, zOffset);
                     if (checkedPosition.InBounds(Map))
                     {
                         TerrainDef terrain = Map.terrainGrid.TerrainAt(checkedPosition);
-                        if (terrain != null && !isWaterLikeTerrain(terrain))
+                        if (terrain != null && !IsWaterLikeTerrain(terrain))
                         {
-                            dryCount = dryCount + 1;
+                            dryCount++;
                         }
                     }
                 }
@@ -359,31 +340,31 @@ namespace MineralsFramework
             {
                 propDry = dryCount / spotsChecked;
             }
-            return attributes.submergedSize + (1 - attributes.submergedSize) * propDry;
+            return Attributes.submergedSize + (1 - Attributes.submergedSize) * propDry;
         }
 
-        public virtual float printSizeFactor()
+        public virtual float PrintSizeFactor()
         {
             float effectiveSize = 1f;
-            effectiveSize = effectiveSize * submersibleFactor();
+            effectiveSize *= SubmersibleFactor();
             return effectiveSize;
         }
 
-        public virtual float printSize()
+        public virtual float PrintSize()
         {
-            return printSizeFactor() * size;
+            return PrintSizeFactor() * Size;
         }
 
-        public virtual void initializeTextureLocations()
+        public virtual void InitializeTextureLocations()
         {
 
             Rand.PushState();
-            Rand.Seed = Position.GetHashCode() + attributes.defName.GetHashCode();
+            Rand.Seed = Position.GetHashCode() + Attributes.defName.GetHashCode();
 
             // initalize the array if it has not already been initalized
             if (textureLocations == null)
             {
-                textureLocations = new Vector3[attributes.maxMeshCount];
+                textureLocations = new Vector3[Attributes.maxMeshCount];
             }
 
             // Calculate the location of each texture
@@ -391,68 +372,68 @@ namespace MineralsFramework
             for (int i = 0; i < textureLocations.Length; i++)
             {
                 Vector3 pos = trueCenter;
-                pos.x += randPos(attributes.visualClustering, attributes.visualSpread * MineralsFrameworkMain.Settings.visualSpreadFactor);
-                pos.z += randPos(attributes.visualClustering, attributes.visualSpread * MineralsFrameworkMain.Settings.visualSpreadFactor);
-                pos.z += attributes.verticalOffset;
-                pos.y = attributes.Altitude;
+                pos.x += RandPos(Attributes.visualClustering, Attributes.visualSpread * MineralsFrameworkMain.Settings.visualSpreadFactor);
+                pos.z += RandPos(Attributes.visualClustering, Attributes.visualSpread * MineralsFrameworkMain.Settings.visualSpreadFactor);
+                pos.z += Attributes.verticalOffset;
+                pos.y = Attributes.Altitude;
                 textureLocations[i] = pos;
             }
 
             // The size effects the altitude, which is a location attribute, so:
-            initializeTextureSizes();
+            InitializeTextureSizes();
 
             Rand.PopState();
         }
 
-        public virtual Vector3 getTextureLocation(int index)
+        public virtual Vector3 GetTextureLocation(int index)
         {
             // initalize the array if it has not already been initalized
             if (textureLocations == null)
             {
-                initializeTextureLocations();
+                InitializeTextureLocations();
             }
 
             // Return per-calculated location
             return(textureLocations[index]);
         }
 
-        public virtual float customAltitude(int i) {
+        public virtual float CustomAltitude(int i) {
 //            float zProportionOfTextureBottom = 1f - (getTextureLocation(i).z - (getTextureSize(i) / 2f)) / Map.Size.z;
 //            float xPropDistToEven = Math.Abs(1f - ((getTextureLocation(i).x + 0.5f) % 2f));
-            return attributes.Altitude;// + zProportionOfTextureBottom * 0.01f + xPropDistToEven * 0.001f / Map.Size.z;
+            return Attributes.Altitude;// + zProportionOfTextureBottom * 0.01f + xPropDistToEven * 0.001f / Map.Size.z;
         } 
 
-        public virtual void initializeTextureSizes() {
+        public virtual void InitializeTextureSizes() {
         
             Rand.PushState();
-            Rand.Seed = Position.GetHashCode() + attributes.defName.GetHashCode();
+            Rand.Seed = Position.GetHashCode() + Attributes.defName.GetHashCode();
 
             // initalize the array if it has not already been initalized
             if (textureSizes == null)
             {
-                textureSizes = new float[attributes.maxMeshCount];
+                textureSizes = new float[Attributes.maxMeshCount];
             }
 
             // Calculate the size of each texture
             for (int i = 0; i < textureLocations.Length; i++)
             {
                 // Get location of texture
-                Vector3 pos = getTextureLocation(i);
+                Vector3 pos = GetTextureLocation(i);
 
                 // Adjust size for distance from center to other crystals
-                float thisSize = GetSizeBasedOnNearest(pos, size);
+                float thisSize = GetSizeBasedOnNearest(pos, Size);
 
                 // Add random variation
-                thisSize = thisSize + (thisSize * Rand.Range(- attributes.visualSizeVariation, attributes.visualSizeVariation));
+                thisSize += (thisSize * Rand.Range(- Attributes.visualSizeVariation, Attributes.visualSizeVariation));
 
                 // Make large textures appear on top
-                if (attributes.largeTexturesOnTop)
+                if (Attributes.largeTexturesOnTop)
                 {
-                    textureLocations[i].y = customAltitude(i) + 0.01f * thisSize;
+                    textureLocations[i].y = CustomAltitude(i) + 0.01f * thisSize;
                 }
                 else
                 {
-                    textureLocations[i].y = customAltitude(i);
+                    textureLocations[i].y = CustomAltitude(i);
                 }
 
                 textureSizes[i] = thisSize;
@@ -463,36 +444,36 @@ namespace MineralsFramework
 
         }
 
-        public virtual float getTextureSize(int index)
+        public virtual float GetTextureSize(int index)
         {
             // initalize the array if it has not already been initalized
             if (textureSizes == null)
             {
-                initializeTextureSizes();
+                InitializeTextureSizes();
             }
 
             // Return per-calculated location
             return(textureSizes[index]);
         }
 
-        public virtual void initializeTextures() {
+        public virtual void InitializeTextures() {
 
             Rand.PushState();
-            Rand.Seed = Position.GetHashCode() + attributes.defName.GetHashCode();
+            Rand.Seed = Position.GetHashCode() + Attributes.defName.GetHashCode();
 
             // initalize the array if it has not already been initalized
             if (textureIndexes == null)
             {
-                textureIndexes = new int[attributes.maxMeshCount];
+                textureIndexes = new int[Attributes.maxMeshCount];
             }
                 
-            List<int> possibilities = Enumerable.Range(0, attributes.getTexturePaths().Count).OrderBy(order=>Rand.Range(0, 100)).ToList();
-            for (int i = 0; i < attributes.maxMeshCount; i++)
+            List<int> possibilities = Enumerable.Range(0, Attributes.GetTexturePaths().Count).OrderBy(order=>Rand.Range(0, 100)).ToList();
+            for (int i = 0; i < Attributes.maxMeshCount; i++)
             {
                 // get a new random set of textures if run out of options
                 if (possibilities.Count == 0)
                 {
-                    possibilities = Enumerable.Range(0, attributes.getTexturePaths().Count).OrderBy(order=>Rand.Range(0, 100)).ToList();
+                    possibilities = Enumerable.Range(0, Attributes.GetTexturePaths().Count).OrderBy(order=>Rand.Range(0, 100)).ToList();
                 }
                 textureIndexes[i] = possibilities[0];
                 possibilities.RemoveAt(0);
@@ -502,30 +483,30 @@ namespace MineralsFramework
 
         }
 
-        public virtual string getTexturePath()
+        public virtual string GetTexturePath()
         {
             // initalize the array if it has not already been initalized
             if (textureIndexes == null)
             {
-                initializeTextures();
+                InitializeTextures();
             }
                 
-            return(attributes.getTexturePaths()[textureIndexes[currentTextureIndex]]);
+            return(Attributes.GetTexturePaths()[textureIndexes[currentTextureIndex]]);
         }
 
-        // https://stackoverflow.com/questions/2742276/how-do-i-check-if-a-type-is-a-subtype-or-the-type-of-an-object/2742288
-        public static bool isSameOrSubclass(Type potentialBase, Type potentialDescendant)
+        
+        public static bool IsSameOrSubclass(Type potentialBase, Type potentialDescendant)
         {
             return potentialDescendant.IsSubclassOf(potentialBase)
                 || potentialDescendant == potentialBase;
         }
 
-        public static bool isMineral(Thing thing)
+        public static bool IsMineral(Thing thing)
         {
-            return isSameOrSubclass(typeof(StaticMineral), thing.GetType());
+            return IsSameOrSubclass(typeof(StaticMineral), thing.GetType());
         }
 
-        public static Thing isMineralWall(Map map, IntVec3 pos)
+        public static Thing IsMineralWall(Map map, IntVec3 pos)
         {
             if (pos.InBounds(map))
             {
@@ -533,7 +514,7 @@ namespace MineralsFramework
                 foreach (Thing item in list)
                 {
 
-                    if (isMineral(item) && item.def.passability == Traversability.Impassable)
+                    if (IsMineral(item) && item.def.passability == Traversability.Impassable)
                     {
                         return item;
                     }
@@ -542,16 +523,16 @@ namespace MineralsFramework
             return null;
         }
 
-        public virtual float interactWithWalls(int i, ref Vector3 center, float size)
+        public virtual float InteractWithWalls(int i, ref Vector3 center, float size)
         {
-            if (MineralsFrameworkMain.Settings.mineralsGrowUpWallsSetting && attributes.growsUpWalls)
+            if (MineralsFrameworkMain.Settings.mineralsGrowUpWallsSetting && Attributes.growsUpWalls)
             {
                 Vector3 squareCenter = this.TrueCenter();
                 float leftOverlap = (squareCenter.x - 0.5f) - (center.x - size / 2);
                 if (leftOverlap > 0) // left
                 {
                     IntVec3 leftSide = Position - new IntVec3(1, 0, 0);
-                    Thing leftWall = isMineralWall(Map, leftSide);
+                    Thing leftWall = IsMineralWall(Map, leftSide);
                     if (leftWall != null)
                     {
                         // Put half of the textures on the front of the wall
@@ -560,7 +541,7 @@ namespace MineralsFramework
                             center.y = leftWall.def.Altitude + 0.1f;
                         }
                         // make textures higher up the wall show on top
-                        center.y = center.y + Math.Min(leftOverlap / size, 1f) * 0.1f;
+                        center.y += Math.Min(leftOverlap / size, 1f) * 0.1f;
 
                         // rotate based on proportion of texture overlapping
                         return Math.Min(90f * (leftOverlap / size), 90f);
@@ -570,7 +551,7 @@ namespace MineralsFramework
                 if (rightOverlap > 0)
                 {
                     IntVec3 rightSide = Position + new IntVec3(1, 0, 0);
-                    Thing rightWall = isMineralWall(Map, rightSide);
+                    Thing rightWall = IsMineralWall(Map, rightSide);
                     if (rightWall != null)
                     {
                         // Put half of the textures on the front of the wall
@@ -579,7 +560,7 @@ namespace MineralsFramework
                             center.y = rightWall.def.Altitude + 0.1f;
                         }
                         // make textures higher up the wall show on top
-                        center.y = center.y + Math.Min(rightOverlap / size, 1f) * 0.1f;
+                        center.y += Math.Min(rightOverlap / size, 1f) * 0.1f;
 
                         // rotate based on proportion of texture overlapping
                         return -Math.Min(90f * (rightOverlap / size), 90f);
@@ -589,7 +570,7 @@ namespace MineralsFramework
                 if (topOverlap > 0)
                 {
                     IntVec3 topSide = Position + new IntVec3(0, 0, 1);
-                    Thing topWall = isMineralWall(Map, topSide);
+                    Thing topWall = IsMineralWall(Map, topSide);
                     if (topWall != null)
                     {
                         center.y = topWall.def.Altitude + 0.1f;
@@ -597,14 +578,14 @@ namespace MineralsFramework
                     }
                 }
             }
-            if (attributes.printOverWalls)
+            if (Attributes.printOverWalls)
             {
                 Vector3 squareCenter = this.TrueCenter();
                 float topOverlap = (center.z + size / 2) - (squareCenter.z + 0.4f);
                 if (topOverlap > 0)
                 {
                     IntVec3 topSide = Position + new IntVec3(0, 0, 1);
-                    Thing topWall = isMineralWall(Map, topSide);
+                    Thing topWall = IsMineralWall(Map, topSide);
                     if (topWall != null)
                     {
                         center.y = topWall.def.Altitude + 0.001f;
@@ -616,25 +597,25 @@ namespace MineralsFramework
             return 0f;
         }
 
-        public virtual bool hiddenInSnow(int i)
+        public virtual bool HiddenInSnow(int i)
         {
-            if (attributes.hiddenInSnowThreshold > 10f)
+            if (Attributes.hiddenInSnowThreshold > 10f)
             {
                 return false;
             }
-            return snowLevel() > attributes.hiddenInSnowThreshold * getTextureSize(i) / attributes.visualSizeRange.max;
+            return SnowLevel() > Attributes.hiddenInSnowThreshold * GetTextureSize(i) / Attributes.visualSizeRange.max;
         }
 
-        public virtual void printSubTexture(SectionLayer layer, int i, float sizeFactor = 1f)
+        public virtual void PrintSubTexture(SectionLayer layer, int i, float sizeFactor = 1f)
         {
             Rand.PushState();
-            Rand.Seed = Position.GetHashCode() + attributes.defName.GetHashCode() + i.GetHashCode();
+            Rand.Seed = Position.GetHashCode() + Attributes.defName.GetHashCode() + i.GetHashCode();
 
             // Get location
-            Vector3 center = getTextureLocation(i);
+            Vector3 center = GetTextureLocation(i);
 
             // Get size
-            float thisSize = getTextureSize(i) * sizeFactor;
+            float thisSize = GetTextureSize(i) * sizeFactor;
             if (thisSize <= 0)
             {
                 Rand.PopState();
@@ -642,19 +623,19 @@ namespace MineralsFramework
             }
 
             // Check if snow is covering it
-            if (hiddenInSnow(i))
+            if (HiddenInSnow(i))
             {
                 Rand.PopState();
                 return;
             }
 
             // Get rotation
-            float thisRotation = interactWithWalls(i, ref center, thisSize);
+            float thisRotation = InteractWithWalls(i, ref center, thisSize);
 
             // Print image
             Material matSingle = Graphic.MatSingle;
             Vector2 sizeVec = new Vector2(thisSize, thisSize);
-            Printer_Plane.PrintPlane(layer, center, sizeVec, matSingle, thisRotation, Rand.Bool, null, null, attributes.topVerticesAltitudeBias * thisSize, 0f);
+            Printer_Plane.PrintPlane(layer, center, sizeVec, matSingle, thisRotation, Rand.Bool, null, null, Attributes.topVerticesAltitudeBias * thisSize, 0f);
 
             Rand.PopState();
         }
@@ -664,7 +645,7 @@ namespace MineralsFramework
         {
 
             // get print size
-            float sizeFactor = printSizeFactor();
+            float sizeFactor = PrintSizeFactor();
 
             if (sizeFactor <= 0.05f)
             {
@@ -672,21 +653,20 @@ namespace MineralsFramework
             }
 
             Rand.PushState();
-            //Rand.Seed = Position.GetHashCode() + attributes.defName.GetHashCode() + thingIDNumber.GetHashCode();
-            Rand.Seed = attributes.defName.GetHashCode() + thingIDNumber.GetHashCode();
+            Rand.Seed = Attributes.defName.GetHashCode() + thingIDNumber.GetHashCode();
 
-            if (this.attributes.graphicData.graphicClass.Name != "Graphic_Random" || this.attributes.graphicData.linkType == LinkDrawerType.CornerFiller) {
+            if (this.Attributes.graphicData.graphicClass.Name != "Graphic_Random" || this.Attributes.graphicData.linkType == LinkDrawerType.CornerFiller) {
                 currentTextureIndex = 0;
                 base.Print(layer);
 			} else {
-                int numToPrint = Mathf.CeilToInt(printSize() * (float)attributes.maxMeshCount);
+                int numToPrint = Mathf.CeilToInt(PrintSize() * (float)Attributes.maxMeshCount);
 				if (numToPrint < 1)
 				{
 					numToPrint = 1;
 				}
 				for (int i = 0; i < numToPrint; i++)
 				{
-                    printSubTexture(layer, i, sizeFactor);
+                    PrintSubTexture(layer, i, sizeFactor);
                     currentTextureIndex = i;
 				}
 			}
@@ -701,40 +681,40 @@ namespace MineralsFramework
             var dropDict = new Dictionary<string, DropInfo>();
 
             // Add thing dropped on destruction first
-            if (attributes.building.mineableDropChance > 0 && attributes.building.mineableThing != null)
+            if (Attributes.building.mineableDropChance > 0 && Attributes.building.mineableThing != null)
             {
-                string defName = attributes.building.mineableThing.defName;
-                float amount = attributes.building.mineableDropChance;
-                if (attributes.building.mineableYield != 0)
+                string defName = Attributes.building.mineableThing.defName;
+                float amount = Attributes.building.mineableDropChance;
+                if (Attributes.building.mineableYield != 0)
                 {
-                    amount = attributes.building.mineableDropChance * (float)attributes.building.mineableYield;
+                    amount = Attributes.building.mineableDropChance * (float)Attributes.building.mineableYield;
                 }
                 if (dropDict.TryGetValue(defName, out DropInfo existingDrop))
                 {
-                    existingDrop.amount += amount;
-                    existingDrop.output = $"{existingDrop.amount} {attributes.building.mineableThing.label}";
+                    existingDrop.Amount += amount;
+                    existingDrop.Ooutput = $"{existingDrop.Amount} {Attributes.building.mineableThing.label}";
                 }
                 else
                 {
                     dropDict[defName] = new DropInfo
                     {
-                        amount = amount,
-                        output = $"{amount} {attributes.building.mineableThing.label}"
+                        Amount = amount,
+                        Ooutput = $"{amount} {Attributes.building.mineableThing.label}"
                     };
                 }
             }
 
             // Add each extra resource that can be dropped
-            foreach (RandomResourceDrop resource in attributes.randomlyDropResources)
+            foreach (RandomResourceDrop resource in Attributes.randomlyDropResources)
             {
                 // Check that resource is available
-                ThingDef myThingDef = DefDatabase<ThingDef>.GetNamed(resource.ResourceDefName, false);
+                ThingDef myThingDef = DefDatabase<ThingDef>.GetNamed(resource.resourceDefName, false);
                 if (myThingDef == null)
                 {
                     continue;
                 }
 
-                float meanDrop = resource.CountPerDrop * resource.DropProbability * size * MineralsFrameworkMain.Settings.resourceDropAmountSetting * MineralsFrameworkMain.Settings.resourceDropFreqSetting;
+                float meanDrop = resource.dcuntPerDrop * resource.dropProbability * Size * MineralsFrameworkMain.Settings.resourceDropAmountSetting * MineralsFrameworkMain.Settings.resourceDropFreqSetting;
                 if (meanDrop < 0.01f) 
                 {
                     continue;
@@ -748,34 +728,34 @@ namespace MineralsFramework
                     meanDrop = (float)Math.Round(meanDrop, 2);
                 }
 
-                string defName = resource.ResourceDefName;
+                string defName = resource.resourceDefName;
                 if (dropDict.TryGetValue(defName, out DropInfo existingDrop))
                 {
-                    existingDrop.amount += meanDrop;
-                    existingDrop.output = $"{existingDrop.amount} {myThingDef.label}";
+                    existingDrop.Amount += meanDrop;
+                    existingDrop.Ooutput = $"{existingDrop.Amount} {myThingDef.label}";
                 }
                 else
                 {
                     dropDict[defName] = new DropInfo
                     {
-                        amount = meanDrop,
-                        output = $"{meanDrop} {myThingDef.label}"
+                        Amount = meanDrop,
+                        Ooutput = $"{meanDrop} {myThingDef.label}"
                     };
                 }
             }
 
             // Sort by resource abundance and create output
-            var sortedDrops = dropDict.Values.OrderByDescending(x => x.amount).ToList();
-            return string.Join(", ", sortedDrops.Select(x => x.output));
+            var sortedDrops = dropDict.Values.OrderByDescending(x => x.Amount).ToList();
+            return string.Join(", ", sortedDrops.Select(x => x.Ooutput));
         }
 
 
         public override string GetInspectString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Size: " + size.ToStringPercent());
-            stringBuilder.AppendLine("Mining speed: " + miningSpeedFactor().ToStringPercent());
-            float propSubmerged = 1 - submersibleFactor();
+            stringBuilder.AppendLine("Size: " + Size.ToStringPercent());
+            stringBuilder.AppendLine("Mining speed: " + MiningSpeedFactor().ToStringPercent());
+            float propSubmerged = 1 - SubmersibleFactor();
             if (propSubmerged > 0)
             {
                 stringBuilder.AppendLine("Submerged: " + propSubmerged.ToStringPercent());
@@ -791,9 +771,9 @@ namespace MineralsFramework
         }
         public override void Destroy(DestroyMode mode)
         {
-            if (!string.IsNullOrEmpty(attributes.makeTerrainOnDestroy))
+            if (!string.IsNullOrEmpty(Attributes.makeTerrainOnDestroy))
             {
-                TerrainDef newTerrain = DefDatabase<TerrainDef>.GetNamed(attributes.makeTerrainOnDestroy, false);
+                TerrainDef newTerrain = DefDatabase<TerrainDef>.GetNamed(Attributes.makeTerrainOnDestroy, false);
                 if (newTerrain != null && Map != null && Position.InBounds(Map))
                 {
                     Map.terrainGrid.SetTerrain(Position, newTerrain);
@@ -801,13 +781,13 @@ namespace MineralsFramework
             }
             base.Destroy(mode);
         }
-        public virtual float snowLevel()
+        public virtual float SnowLevel()
         {
             if (Map == null)
             {
                 return 0f;
             }
-            if (attributes.passability == Traversability.Impassable)
+            if (Attributes.passability == Traversability.Impassable)
             {
                 if (Position.Roofed(Map))
                 {
@@ -850,18 +830,18 @@ namespace MineralsFramework
             {
       
                 // Pick a random path 
-                string printedTexturePath = getTexturePath();
+                string printedTexturePath = GetTexturePath();
 
                 // Check if it should be snowy
-                if (attributes.hasSnowyTextures && snowLevel() > attributes.snowTextureThreshold)
+                if (Attributes.hasSnowyTextures && SnowLevel() > Attributes.snowTextureThreshold)
                 {
-                    printedTexturePath = printedTexturePath + "_s";
+                    printedTexturePath += "_s";
                 }
-                Graphic printedTexture = GraphicDatabase.Get<Graphic_Single>(printedTexturePath, attributes.graphicData.shaderType.Shader);
+                Graphic printedTexture = GraphicDatabase.Get<Graphic_Single>(printedTexturePath, Attributes.graphicData.shaderType.Shader);
 
                 // convert to corner filler if needed
                 printedTexture = GraphicDatabase.Get<Graphic_Single>(printedTexture.path, printedTexture.Shader, printedTexture.drawSize, DrawColor, DrawColorTwo, printedTexture.data);
-                if (attributes.graphicData.linkType == LinkDrawerType.CornerFiller)
+                if (Attributes.graphicData.linkType == LinkDrawerType.CornerFiller)
                 {
                      return new Graphic_LinkedCornerFiller(printedTexture);
                 }
@@ -885,7 +865,7 @@ namespace MineralsFramework
         public override Color DrawColor {
             get
             {
-                if (this.attributes.coloredByTerrain)
+                if (this.Attributes.coloredByTerrain)
                 {
                     TerrainDef terrain = this.Position.GetTerrain(this.Map);
                     if (terrain.graphic.Color == Color.white)
@@ -898,15 +878,15 @@ namespace MineralsFramework
                     }
                 }
 
-                if (this.attributes.randomColorsOne != null && this.attributes.randomColorsOne.Count > 0)
+                if (this.Attributes.randomColorsOne != null && this.Attributes.randomColorsOne.Count > 0)
                 {
-                    if (attributes.seedRandomColorByMap)
+                    if (Attributes.seedRandomColorByMap)
                     {
-                        return this.attributes.randomColorsOne.RandomElementByWeight(RandomColorProb);
+                        return this.Attributes.randomColorsOne.RandomElementByWeight(RandomColorProb);
                     }
                     else
                     {
-                        return this.attributes.randomColorsOne.RandomElement();
+                        return this.Attributes.randomColorsOne.RandomElement();
                     }
           
                 }
@@ -919,15 +899,15 @@ namespace MineralsFramework
         {
             get
             {
-                if (this.attributes.randomColorsTwo != null && this.attributes.randomColorsTwo.Count > 0)
+                if (this.Attributes.randomColorsTwo != null && this.Attributes.randomColorsTwo.Count > 0)
                 {
-                    if (attributes.seedRandomColorByMap)
+                    if (Attributes.seedRandomColorByMap)
                     {
-                        return this.attributes.randomColorsTwo.RandomElementByWeight(RandomColorProb);
+                        return this.Attributes.randomColorsTwo.RandomElementByWeight(RandomColorProb);
                     }
                     else
                     {
-                        return this.attributes.randomColorsTwo.RandomElement();
+                        return this.Attributes.randomColorsTwo.RandomElement();
                     }
 
                 }
@@ -946,13 +926,13 @@ namespace MineralsFramework
     /// <permission>No restrictions</permission>
     public class RandomResourceDrop
     {
-        public string ResourceDefName;
-        public float DropProbability;
-        public int CountPerDrop = 1;
-        public int MinMiningSkill = 0;
-        public bool ScaleYieldBySkill = true;
-        public bool WasteProduct = false;
-        public bool Minified = false;
+        public string resourceDefName;
+        public float dropProbability;
+        public int dcuntPerDrop = 1;
+        public int minMiningSkill = 0;
+        public bool scaleYieldBySkill = true;
+        public bool wasteProduct = false;
+        public bool minified = false;
     }
 
 
@@ -964,17 +944,19 @@ namespace MineralsFramework
     public class NearbyThingEffect
     {
         // Terrain or thing defnames to look for
-        public List<string> DefNames;
+        public List<string> defNames;
         // How far to look for DefNames relative to a given position. 0 means only the given position
-        public float Radius = 1f;
+        public float radius = 1f;
         // The amount that will be multiplied to the spawn probability or size when DefNames is found
-        public float FoundFactor = 1f;
+        public float foundFactor = 1f;
         // The minimum amount that will be multiplied to the spawn probability or size when DefNames is not found
-        public float NotFoundFactor = 0f;
+        public float notFoundFactor = 0f;
         // Return a value between FoundFactor and NotFoundFactor base on minimum distance to DefNames
-        public bool ScaleByDistance = false;
+        public bool scaleByDistance = false;
         // Return a value between FoundFactor and NotFoundFactor base on proportion of area occupied by DefNames
-        public bool ScaleByArea = false;
+        public bool scaleByArea = false;
+        // Determines the how values are interpoleted between FoundFactor and NotFoundFactor. 1 = linear, lower = slow falloff, higher = fast falloff
+        public float scaleFalloff = 1f;
     }
 
 
@@ -1029,7 +1011,7 @@ namespace MineralsFramework
         public int mustBeNearRoofDist = 1;
 
         // Things this mineral replaces when a map is initialized
-        public List<string> ThingsToReplace; 
+        public List<string> thingsToReplace; 
 
         // If it replaces everything
         public bool replaceAll = false;
@@ -1227,14 +1209,26 @@ namespace MineralsFramework
             copy.initialSizeMin = this.initialSizeMin;
             copy.initialSizeMax = this.initialSizeMax;
             copy.initialSizeVariation = this.initialSizeVariation;
-            copy.allowedBiomes = this.allowedBiomes != null ? new List<string>(this.allowedBiomes) : null;
-            copy.allowedTerrains = this.allowedTerrains != null ? new List<string>(this.allowedTerrains) : null;
-            copy.disallowedTerrains = this.disallowedTerrains != null ? new List<string>(this.disallowedTerrains) : null;
-            copy.neededNearbyTerrains = this.neededNearbyTerrains != null ? new List<string>(this.neededNearbyTerrains) : null;
-            copy.neededNearbyTerrainRadius = this.neededNearbyTerrainRadius;
-            copy.neededNearbyTerrainSizeEffect = this.neededNearbyTerrainSizeEffect;
-            copy.associatedOres = this.associatedOres != null ? new List<string>(this.associatedOres) : null;
-            copy.nearAssociatedOreBonus = this.nearAssociatedOreBonus;
+            copy.nearbyThingAbundEffects = this.nearbyThingAbundEffects?.Select(x => new NearbyThingEffect
+            {
+                defNames = x.defNames != null ? new List<string>(x.defNames) : null,
+                radius = x.radius,
+                foundFactor = x.foundFactor,
+                notFoundFactor = x.notFoundFactor,
+                scaleByDistance = x.scaleByDistance,
+                scaleByArea = x.scaleByArea,
+                scaleFalloff = x.scaleFalloff
+            }).ToList();
+            copy.nearbyThingSizeEffects = this.nearbyThingSizeEffects?.Select(x => new NearbyThingEffect
+            {
+                defNames = x.defNames != null ? new List<string>(x.defNames) : null,
+                radius = x.radius,
+                foundFactor = x.foundFactor,
+                notFoundFactor = x.notFoundFactor,
+                scaleByDistance = x.scaleByDistance,
+                scaleByArea = x.scaleByArea,
+                scaleFalloff = x.scaleFalloff
+            }).ToList();
             copy.mustBeUnderRoof = this.mustBeUnderRoof;
             copy.mustBeNotUnderRoof = this.mustBeNotUnderRoof;
             copy.mustBeUnderThickRoof = this.mustBeUnderThickRoof;
@@ -1243,7 +1237,7 @@ namespace MineralsFramework
             copy.mustBeNotNearPassable = this.mustBeNotNearPassable;
             copy.mustBeNearRoof = this.mustBeNearRoof;
             copy.mustBeNearRoofDist = this.mustBeNearRoofDist;
-            copy.ThingsToReplace = this.ThingsToReplace != null ? new List<string>(this.ThingsToReplace) : null;
+            copy.thingsToReplace = this.thingsToReplace != null ? new List<string>(this.thingsToReplace) : null;
             copy.replaceAll = this.replaceAll;
             copy.mustReplace = this.mustReplace;
             copy.replaceRadius = this.replaceRadius;
@@ -1273,13 +1267,13 @@ namespace MineralsFramework
             copy.submergedRadius = this.submergedRadius;
             copy.randomlyDropResources = this.randomlyDropResources?.Select(d => new RandomResourceDrop
             {
-                ResourceDefName = d.ResourceDefName,
-                DropProbability = d.DropProbability,
-                CountPerDrop = d.CountPerDrop,
-                MinMiningSkill = d.MinMiningSkill,
-                ScaleYieldBySkill = d.ScaleYieldBySkill,
-                WasteProduct = d.WasteProduct,
-                Minified = d.Minified
+                resourceDefName = d.resourceDefName,
+                dropProbability = d.dropProbability,
+                dcuntPerDrop = d.dcuntPerDrop,
+                minMiningSkill = d.minMiningSkill,
+                scaleYieldBySkill = d.scaleYieldBySkill,
+                wasteProduct = d.wasteProduct,
+                minified = d.minified
             }).ToList();
             copy.isTemplateFor = this.isTemplateFor != null ? new List<string>(this.isTemplateFor) : null;
             copy.templateReplaceString = this.templateReplaceString;  // string is immutable so direct assignment is safe
@@ -1297,8 +1291,7 @@ namespace MineralsFramework
 
         public StaticMineral TryReproduce(Map map, IntVec3 position)
         {
-            IntVec3 dest;
-            if (! TryFindReproductionDestination(map, position, out dest))
+            if (!TryFindReproductionDestination(map, position, out IntVec3 dest))
             {
                 return null;
             }
@@ -1333,10 +1326,10 @@ namespace MineralsFramework
         {
             if (times > 0)
             {
-                StaticMineral newGrowth = sourceMineral.attributes.TryReproduce(map, sourceMineral.Position);
+                StaticMineral newGrowth = sourceMineral.Attributes.TryReproduce(map, sourceMineral.Position);
                 if (newGrowth != null)
                 {
-                    newGrowth.size = Rand.Range(1f - initialSizeVariation, 1f + initialSizeVariation) * sourceMineral.size;
+                    newGrowth.Size = Rand.Range(1f - initialSizeVariation, 1f + initialSizeVariation) * sourceMineral.Size;
                     GrowCluster(map, newGrowth, times - 1);
                 }
 
@@ -1347,7 +1340,7 @@ namespace MineralsFramework
         public virtual Thing ThingToReplaceAtPos(Map map, IntVec3 position)
         {
             //if (defName == "BigColdstoneCrystal") Log.Message("ThingToReplaceAtPos: checking for " + defName +  " at " + position, true);
-            if (ThingsToReplace == null || ThingsToReplace.Count == 0)
+            if (thingsToReplace == null || thingsToReplace.Count == 0)
             {
                 //if (defName == "BigColdstoneCrystal") Log.Message("ThingToReplaceAtPos: no replacement defined", true);
                 return(null);
@@ -1358,7 +1351,7 @@ namespace MineralsFramework
             {
                 for (int zOffset = -replaceRadius; zOffset <= replaceRadius; zOffset++)
                 {
-                    spotsChecked = spotsChecked + 1;
+                    spotsChecked += 1;
                     IntVec3 checkedPosition = position + new IntVec3(xOffset, 0, zOffset);
                     if (checkedPosition.InBounds(map))
                     {
@@ -1369,11 +1362,11 @@ namespace MineralsFramework
                                 continue;
                             }
 
-                            if (ThingsToReplace.Any(thing.def.defName.Equals))
+                            if (thingsToReplace.Any(thing.def.defName.Equals))
                             {
-                                if (StaticMineral.isMineral(thing))
+                                if (StaticMineral.IsMineral(thing))
                                 {
-                                    replaceCount += ((StaticMineral) thing).size;
+                                    replaceCount += ((StaticMineral) thing).Size;
                                 }
                                 else
                                 {
@@ -1393,7 +1386,7 @@ namespace MineralsFramework
                     {
                         continue;
                     }
-                    if (ThingsToReplace.Any(thing.def.defName.Equals))
+                    if (thingsToReplace.Any(thing.def.defName.Equals))
                     {
                         return (thing);
                     }
@@ -1431,37 +1424,32 @@ namespace MineralsFramework
         }
 
 
-        public virtual bool CanSpawnAt(Map map, IntVec3 position, bool initialSpawn = false)
+        public virtual bool CanSpawnAt(Map map, IntVec3 position, bool initialSpawn)
         {
-            //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: checking for " + defName + " at " + position, true);
 
             // Check that location is in the map
             if (! position.InBounds(map))
             {
                 return false;
             }
-            //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: is in bounds" + position + " " + map, true);
 
             // Check that it is under a roof if it needs to be
-            if (!isRoofConditionOk(map, position))
+            if (!IsRoofConditionOk(map, position))
             {
                 return false;
             }
-            //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: roof is ok " + position, true);
 
             // Look for stuff in the way
             if (PlaceIsBlocked(map, position, initialSpawn))
             {
                 return false;
             }
-            //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: not blocked " + position, true);
 
             // Check for things it must replace
             if (mustReplace && ThingToReplaceAtPos(map, position) == null)
             {
                 return false;
             }
-            //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: replacement is ok " + position, true);
 
             // Check if it is near passable if needed
             bool nearPassable = IsNearPassable(map, position);
@@ -1551,93 +1539,12 @@ namespace MineralsFramework
         }
 
 
-        public virtual bool isNearNeededTerrain(Map map, IntVec3 position)
-        {
-            if (neededNearbyTerrains == null || neededNearbyTerrains.Count == 0)
-            {
-                return true;
-            }
-
-            for (int xOffset = -(int)Math.Ceiling(neededNearbyTerrainRadius); xOffset <= (int)Math.Ceiling(neededNearbyTerrainRadius); xOffset++)
-            {
-                for (int zOffset = -(int)Math.Ceiling(neededNearbyTerrainRadius); zOffset <= (int)Math.Ceiling(neededNearbyTerrainRadius); zOffset++)
-                {
-                    IntVec3 checkedPosition = position + new IntVec3(xOffset, 0, zOffset);
-                    if (checkedPosition.InBounds(map))
-                    {
-                        TerrainDef terrain = map.terrainGrid.TerrainAt(checkedPosition);
-                        if (neededNearbyTerrains.Any(terrain.defName.Equals) && position.DistanceTo(checkedPosition) < neededNearbyTerrainRadius)
-                        {
-                            return true;
-                        }
-                        foreach (Thing thing in map.thingGrid.ThingsListAt(checkedPosition))
-                        {
-                            if (neededNearbyTerrains.Any(thing.def.defName.Equals) && position.DistanceTo(checkedPosition) < neededNearbyTerrainRadius)
-                            {
-                                return true;
-                            }
-                        }
-
-                    }
-                }
-            }
-
-            return false;
-        }
-
-
-        // The distance a position is from a needed terrain type
-        // A little slower than `isNearNeededTerrain` because all squares are checked
-        public virtual float posDistFromNeededTerrain(Map map, IntVec3 position)
-        {
-            if (neededNearbyTerrains == null || neededNearbyTerrains.Count == 0)
-            {
-                return 0;
-            }
-
-            float output = -1;
-
-            for (int xOffset = -(int)Math.Ceiling(neededNearbyTerrainRadius); xOffset <= (int)Math.Ceiling(neededNearbyTerrainRadius); xOffset++)
-            {
-                for (int zOffset = -(int)Math.Ceiling(neededNearbyTerrainRadius); zOffset <= (int)Math.Ceiling(neededNearbyTerrainRadius); zOffset++)
-                {
-                    IntVec3 checkedPosition = position + new IntVec3(xOffset, 0, zOffset);
-                    if (checkedPosition.InBounds(map))
-                    {
-                        TerrainDef terrain = map.terrainGrid.TerrainAt(checkedPosition);
-                        if (neededNearbyTerrains.Any(terrain.defName.Equals))
-                        {
-                            float distanceToPos = position.DistanceTo(checkedPosition);
-                            if (output < 0 || output > distanceToPos) 
-                            {
-                                output = distanceToPos;
-                            }
-                        }
-                        foreach (Thing thing in map.thingGrid.ThingsListAt(checkedPosition))
-                        {
-                            if (neededNearbyTerrains.Any(thing.def.defName.Equals))
-                            {
-                                float distanceToPos = position.DistanceTo(checkedPosition);
-                                if (output < 0 || output > distanceToPos) 
-                                {
-                                    output = distanceToPos;
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-
-            return output;
-        }
-
         // ======= Spawning individuals ======= //
 
 
         public virtual StaticMineral TrySpawnAt(IntVec3 dest, Map map, float size)
         {
-            if (CanSpawnAt(map, dest))
+            if (CanSpawnAt(map, dest, false))
             {
                 return SpawnAt(map, dest, size);
             }
@@ -1651,14 +1558,11 @@ namespace MineralsFramework
         {
             // Remove things to replace
             Thing thingToRemove = ThingToReplaceAtPos(map, dest);
-            if (thingToRemove != null)
-            {
-                thingToRemove.Destroy(DestroyMode.Vanish);
-            }
+            thingToRemove?.Destroy(DestroyMode.Vanish);
 
             StaticMineral output = (StaticMineral)ThingMaker.MakeThing(this);
             GenSpawn.Spawn(output, dest, map, WipeMode.Vanish);
-            output.size = size;
+            output.Size = size;
             map.mapDrawer.MapMeshDirty(dest, MapMeshFlagDefOf.Buildings);
             map.edificeGrid.Register(output);
             if (!string.IsNullOrEmpty(makeTerrainOnSpawn))
@@ -1699,27 +1603,27 @@ namespace MineralsFramework
 
             Predicate<IntVec3> isValidSite(Map myMap, IntVec3 myPosition)
             {
-                return c => c.DistanceTo(myPosition) <= spawnRadius && CanSpawnAt(myMap, c);
+                return c => c.DistanceTo(myPosition) <= spawnRadius && CanSpawnAt(myMap, c, false);
             }
 
         }
 
-        public virtual bool isNearRoof(Map map, IntVec3 position, int radius = 1)
+        public virtual bool IsNearRoof(Map map, IntVec3 position, int radius = 1)
         {
             // Allow to spawn near roofs
-            Predicate<IntVec3> validator = c => c.InBounds(map) && c.Roofed(map);
-            IntVec3 unused;
+            bool validator(IntVec3 c) => c.InBounds(map) && c.Roofed(map);
 
-            if (CellFinder.TryFindRandomCellNear(position, map, radius, validator, out unused))
+            if (CellFinder.TryFindRandomCellNear(position, map, radius, validator, out IntVec3 unused))
             {
                 return true;
-            } else 
+            }
+            else
             {
                 return false;
             }
         }
 
-        public virtual bool isRoofConditionOk(Map map, IntVec3 position)
+        public virtual bool IsRoofConditionOk(Map map, IntVec3 position)
         {
             if (mustBeUnderThickRoof && (map.roofGrid.RoofAt(position) == null || (! map.roofGrid.RoofAt(position).isThickRoof)))
             {
@@ -1741,7 +1645,7 @@ namespace MineralsFramework
                 return false;
             }
 
-            if (mustBeNearRoof && !isNearRoof(map, position, mustBeNearRoofDist))
+            if (mustBeNearRoof && !IsNearRoof(map, position, mustBeNearRoofDist))
             {
                 return false;
             }
@@ -1765,7 +1669,7 @@ namespace MineralsFramework
             InitialSpawn(map, scaling);
         }
 
-        public virtual float abundanceSettingFactor()
+        public virtual float AbundanceSettingFactor()
         {
             float factor = 1f;
             if (tags == null || tags.Count <= 0)
@@ -1774,15 +1678,15 @@ namespace MineralsFramework
             }
             if (tags.Contains("crystal"))
             {
-                factor = factor * MineralsFrameworkMain.Settings.crystalAbundanceSetting;
+                factor *= MineralsFrameworkMain.Settings.crystalAbundanceSetting;
             }
             if (tags.Contains("boulder"))
             {
-                factor = factor * MineralsFrameworkMain.Settings.boulderAbundanceSetting;
+                factor *= MineralsFrameworkMain.Settings.boulderAbundanceSetting;
             }
             if (tags.Contains("small_rock"))
             {
-                factor = factor * MineralsFrameworkMain.Settings.rocksAbundanceSetting;
+                factor *= MineralsFrameworkMain.Settings.rocksAbundanceSetting;
             }
             if (tags.Contains("wall") && MineralsFrameworkMain.Settings.replaceWallsSetting == false)
             {
@@ -1791,7 +1695,7 @@ namespace MineralsFramework
             return factor;
         }
 
-        public virtual float diversitySettingFactor()
+        public virtual float DiversitySettingFactor()
         {
             float factor = 1f;
             if (tags == null || tags.Count <= 0)
@@ -1800,36 +1704,36 @@ namespace MineralsFramework
             }
             if (tags.Contains("crystal"))
             {
-                factor = factor * MineralsFrameworkMain.Settings.crystalDiversitySetting;
+                factor *= MineralsFrameworkMain.Settings.crystalDiversitySetting;
             }
             return factor;
         }
 
         // The probablility of spawning at each point when a map is created
-        public virtual float mapSpawnProbFactor(Map map)
+        public virtual float MapSpawnProbFactor(Map map)
         {
             float output = 1f;
 
             // Base value determined by world tile location
             Rand.PushState();
             Rand.Seed = map.GetHashCode();
-            output = output * Rand.Range(minClusterProbability, maxClusterProbability);
+            output *= Rand.Range(minClusterProbability, maxClusterProbability);
             Rand.PopState();
 
             // Apply distance to settlements factor
-            output *= settlementDistProbFactor(map);
+            output *= SettlementDistProbFactor(map);
 
             // Apply habitability factor if it is a valuable mineral
             if (otherSettlementMiningRadius > 3f)
             {
-                output *= mapHabitabilitySpawnFactor(map);
+                output *= MapHabitabilitySpawnFactor(map);
             }
 
             return output;
         }
 
         // How spawning is effected by the habitability of the world location
-        public virtual float mapHabitabilitySpawnFactor(Map map)
+        public virtual float MapHabitabilitySpawnFactor(Map map)
         {
             // Return max value for maps without world tiles (underground, asteroids etc)
             if (!map.Tile.Valid)
@@ -1869,7 +1773,7 @@ namespace MineralsFramework
         }
 
         // How much the probablility of spawning reduces based on distance to nearest settlement 
-        public virtual float settlementDistProbFactor(Map map)
+        public virtual float SettlementDistProbFactor(Map map)
         {
             // Skip calculation for maps without world tiles (underground, asteroids etc)
             if (!map.Tile.Valid)
@@ -1903,59 +1807,118 @@ namespace MineralsFramework
         }
 
 
-        public virtual float NearbyThingAbundanceFactor(Map map, IntVec3 position)
+        public virtual float NearbyThingFactor(Map map, IntVec3 position, List<NearbyThingEffect> effects)
         {
-            if (nearbyThingAbundEffects == null || nearbyThingAbundEffects.Count == 0)
+            if (effects == null || effects.Count == 0)
             {
                 return 1f;
             }
 
             // Sort effects by radius ascending, then prioritize effects with 0 factors
-            var sortedEffects = nearbyThingAbundEffects
-                .OrderBy(e => e.Radius)
-                .ThenByDescending(e => (e.FoundFactor == 0 || e.NotFoundFactor == 0) ? 1 : 0)
+            var sortedEffects = effects
+                .OrderBy(e => e.radius)
+                .ThenByDescending(e => (e.foundFactor == 0 || e.notFoundFactor == 0) ? 1 : 0)
                 .ToList();
 
             float factor = 1f;
             
             foreach (var effect in sortedEffects)
             {
-                bool found = PosHasThing(map, position, effect.DefNames);
                 float effectValue = 1f;
 
-                if (effect.ScaleByDistance)
+                if (effect.scaleByDistance && effect.scaleByArea)
                 {
-                    float minDist = float.MaxValue;
-                    foreach (string defName in effect.DefNames)
+                    float foundScore = 0f;
+                    float notFoundScore = 0f;
+                    for (int x = -Mathf.FloorToInt(effect.radius); x <= Mathf.CeilToInt(effect.radius); x++)
                     {
-                        float dist = map.listerThings.ThingsOfDef(DefDatabase<ThingDef>.GetNamed(defName))
-                            .Concat(map.terrainGrid.AllTerrains().Where(t => t.defName == defName).Cast<Thing>())
-                            .Min(t => t.Position.DistanceTo(position));
-                        minDist = Mathf.Min(minDist, dist);
+                        for (int z = -Mathf.FloorToInt(effect.radius); z <= Mathf.CeilToInt(effect.radius); z++)
+                        {
+                            IntVec3 c = position + new IntVec3(x, 0, z);
+                            if (c.InBounds(map))
+                            {
+                                float distance = position.DistanceTo(c);
+                                if (distance <= effect.radius && PosHasThing(map, c, effect.defNames))
+                                {
+                                    foundScore = foundScore + effect.radius - distance;
+                                }
+                                else
+                                {
+                                    notFoundScore = notFoundScore + effect.radius - (x + z) / 2;
+                                }
+                            }
+                        }
                     }
-                    effectValue = Mathf.Lerp(effect.FoundFactor, effect.NotFoundFactor, minDist / effect.Radius);
+                    effectValue = Mathf.Lerp(
+                        effect.notFoundFactor, effect.foundFactor,
+                        (float)Math.Pow(foundScore / (foundScore + notFoundScore), effect.scaleFalloff)
+                    );
                 }
-                else if (effect.ScaleByArea)
+                else if (effect.scaleByArea)
                 {
                     int count = 0;
                     int total = 0;
-                    for (int x = -Mathf.FloorToInt(effect.Radius); x <= Mathf.CeilToInt(effect.Radius); x++)
+                    for (int x = -Mathf.FloorToInt(effect.radius); x <= Mathf.CeilToInt(effect.radius); x++)
                     {
-                        for (int z = -Mathf.FloorToInt(effect.Radius); z <= Mathf.CeilToInt(effect.Radius); z++)
+                        for (int z = -Mathf.FloorToInt(effect.radius); z <= Mathf.CeilToInt(effect.radius); z++)
                         {
                             IntVec3 c = position + new IntVec3(x, 0, z);
-                            if (c.InBounds(map) && PosHasThing(map, c, effect.DefNames))
+                            if (c.InBounds(map))
                             {
-                                count++;
+                                float distance = position.DistanceTo(c);
+                                if (distance <= effect.radius && PosHasThing(map, c, effect.defNames))
+                                {
+                                    count++;
+                                }
+                                else
+                                {
+                                    total++;
+                                }
                             }
-                            total++;
                         }
                     }
-                    effectValue = Mathf.Lerp(effect.FoundFactor, effect.NotFoundFactor, 1f - (count / (float)total));
+                    effectValue = Mathf.Lerp(
+                        effect.notFoundFactor, effect.foundFactor,
+                        (float)Math.Pow((float)count / (float)total, effect.scaleFalloff)
+                    );
                 }
-                else
+                else 
                 {
-                    effectValue = found ? effect.FoundFactor : effect.NotFoundFactor;
+                    float minDistance = 999f;
+                    bool found = false;
+                    for (int xOffset = -(int)Math.Ceiling(effect.radius); xOffset <= (int)Math.Ceiling(effect.radius); xOffset++)
+                    {
+                        if (found)
+                        {
+                            break;
+                        }
+                        for (int zOffset = -(int)Math.Ceiling(effect.radius); zOffset <= (int)Math.Ceiling(effect.radius); zOffset++)
+                        {
+                            IntVec3 c = position + new IntVec3(xOffset, 0, zOffset);
+                            if (c.InBounds(map))
+                            {
+                                float distance = position.DistanceTo(c);
+                                if (distance <= effect.radius && PosHasThing(map, c, effect.defNames))
+                                {
+                                    minDistance = distance;
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!found) {
+                        effectValue = effect.notFoundFactor;
+                    } else if (effect.scaleByDistance)
+                    {
+                        effectValue = Mathf.Lerp(
+                            effect.foundFactor, effect.notFoundFactor,
+                            (float)Math.Pow(minDistance / effect.radius, effect.scaleFalloff)
+                        );
+                    } else
+                    {
+                        effectValue = PosHasThing(map, position, effect.defNames) ? effect.foundFactor : effect.notFoundFactor;
+                    }
                 }
 
                 factor *= effectValue;
@@ -1969,11 +1932,6 @@ namespace MineralsFramework
             return factor;
         }
 
-        public virtual float NearbyThingSizeFactor(Map map, IntVec3 position)
-        {
-        }
-
-
         public virtual void InitialSpawn(Map map, float abundScaling = 1f, float sizeScaling = 1f)
         {
 
@@ -1984,7 +1942,7 @@ namespace MineralsFramework
             }
 
             // Select probability of spawing for this map
-            float spawnProbability = mapSpawnProbFactor(map) * abundScaling * abundanceSettingFactor();
+            float spawnProbability = MapSpawnProbFactor(map) * abundScaling * AbundanceSettingFactor();
 
             // Inferr size scaling factor based on abundance
             if (sizeScaledByAbundance)
@@ -2001,7 +1959,7 @@ namespace MineralsFramework
             }
 
             // Find spots to spawn it
-            if (Rand.Range(0f, 1f) <= perMapProbability * diversitySettingFactor() && spawnProbability > 0)
+            if (Rand.Range(0f, 1f) <= perMapProbability * DiversitySettingFactor() && spawnProbability > 0)
             {
                 if (MineralsFrameworkMain.Settings.debugModeEnabled)
                 {
@@ -2014,10 +1972,10 @@ namespace MineralsFramework
                     {
                         continue;
                     }
-                    float positionProbFactor = NearbyThingAbundanceFactor(map, position) * spawnProbability;
+                    float positionProbFactor = NearbyThingFactor(map, position, nearbyThingAbundEffects) * spawnProbability;
                     if (Rand.Range(0f, 1f) < positionProbFactor)
                     {
-                        float positionSizeFactor = NearbyThingSizeFactor(map, position) * sizeScaling;
+                        float positionSizeFactor = NearbyThingFactor(map, position, nearbyThingSizeEffects) * sizeScaling;
                         if (positionSizeFactor > 0)
                         {
                             float spawnedSize = Rand.Range(initialSizeMin, initialSizeMax) * positionSizeFactor;
@@ -2029,7 +1987,7 @@ namespace MineralsFramework
             }
         }
 
-        public virtual bool allowReplaceSetting()
+        public virtual bool AllowReplaceSetting()
         {
             bool output = true;
             if (replaceAll == false)
@@ -2050,11 +2008,10 @@ namespace MineralsFramework
 
         public virtual void ReplaceThings(Map map, float scaling = 1)
         {
-            if (ThingsToReplace == null || ThingsToReplace.Count == 0 || allowReplaceSetting() == false)
+            if (thingsToReplace == null || thingsToReplace.Count == 0 || AllowReplaceSetting() == false)
             {
                 return;
             }
-
 
             // Find spots to spawn it
             map.regionAndRoomUpdater.Enabled = false;
@@ -2067,7 +2024,7 @@ namespace MineralsFramework
                 }
 
                 // roof filters
-                if (! isRoofConditionOk(map, current))
+                if (! IsRoofConditionOk(map, current))
                 {
                     continue;
                 }
@@ -2076,23 +2033,23 @@ namespace MineralsFramework
                 if (ToReplace != null)
                 {
                     ToReplace.Destroy(DestroyMode.Vanish);
-                    StaticMineral spawned = SpawnAt(map, current, Rand.Range(initialSizeMin, initialSizeMax));
+                    SpawnAt(map, current, Rand.Range(initialSizeMin, initialSizeMax));
                 }
             }
             map.regionAndRoomUpdater.Enabled = true;
 
         }
 
-        public virtual List<string> getTexturePaths()
+        public virtual List<string> GetTexturePaths()
         {
             if (texturePaths == null)
             {
-                initTexturePaths();
+                InitTexturePaths();
             }
             return texturePaths;
         }
 
-        public virtual void initTexturePaths()
+        public virtual void InitTexturePaths()
         {
             // Get paths to textures
             string textureName = System.IO.Path.GetFileName(graphicData.texPath);
@@ -2127,8 +2084,8 @@ namespace MineralsFramework
 
     public class DropInfo
     {
-        public float amount { get; set; }
-        public string output { get; set; }
+        public float Amount { get; set; }
+        public string Ooutput { get; set; }
     }
         
 }

@@ -32,9 +32,9 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.3</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>2</neededNearbyTerrainRadius>
+    <neededNearbyRadius>2</neededNearbyRadius>
     <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbyTerrainSizeEffect>false</neededNearbyTerrainSizeEffect>
+    <neededNearbySizeEffect>false</neededNearbySizeEffect>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
     </randomlyDropResources>
@@ -121,9 +121,9 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>1.5</neededNearbyTerrainRadius>
+    <neededNearbyRadius>1.5</neededNearbyRadius>
     <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbyTerrainSizeEffect>true</neededNearbyTerrainSizeEffect>
+    <neededNearbySizeEffect>true</neededNearbySizeEffect>
     <!-- Controls how extra clusters are added near assocaited ore-->
     <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- Roof requirements -->
@@ -175,9 +175,9 @@
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>4</neededNearbyTerrainRadius>
+    <neededNearbyRadius>4</neededNearbyRadius>
     <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbyTerrainSizeEffect>true</neededNearbyTerrainSizeEffect>
+    <neededNearbySizeEffect>true</neededNearbySizeEffect>
     <!-- Controls how extra clusters are added near assocaited ore-->
     <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- Roof requirements -->

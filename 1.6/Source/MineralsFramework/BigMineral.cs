@@ -42,14 +42,14 @@ namespace MineralsFramework
         {
             get
             {
-                string printedTexturePath = getTexturePath();
+                string printedTexturePath = GetTexturePath();
                 Graphic printedTexture = GraphicDatabase.Get<Graphic_Single>(printedTexturePath, def.graphicData.shaderType.Shader);
                 printedTexture = GraphicDatabase.Get<Graphic_Single>(printedTexture.path, printedTexture.Shader, printedTexture.drawSize, DrawColor, DrawColorTwo, printedTexture.data);
                 return printedTexture;
             }
         }
 
-        public virtual void initTexturePath()
+        public virtual void InitTexturePath()
         {
             // Get paths to textures
             string textureName = System.IO.Path.GetFileName(def.graphicData.texPath);
@@ -69,12 +69,12 @@ namespace MineralsFramework
 
         }
 
-        public virtual string getTexturePath()
+        public virtual string GetTexturePath()
         {
             // initalize the array if it has not already been initalized
             if (printedTexturePath == null)
             {
-                initTexturePath();
+                InitTexturePath();
             }
 
             return(printedTexturePath);

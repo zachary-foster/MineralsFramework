@@ -199,7 +199,7 @@
       <li>VibrantDunite_Rough</li>
     </allowedTerrains>
     <!-- The terrains this must be near to, but not necessarily on -->
-    <neededNearbyTerrains>
+    <neededNearby>
       <li>Granite</li>
       <li>Marble</li>
       <li>Basalt</li>
@@ -219,9 +219,9 @@
       <li>ZF_SolidRhyolite</li>
       <li>ZF_SolidScoria</li>
       <li>ZF_SolidSerpentinite</li>
-    </neededNearbyTerrains>
+    </neededNearby>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>1.5</neededNearbyTerrainRadius>
+    <neededNearbyRadius>1.5</neededNearbyRadius>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>30</maxMeshCount>
     <!-- The size range -->
@@ -375,7 +375,7 @@
     </associatedOres>
     <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+    <neededNearbyRadius>1</neededNearbyRadius>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>12</maxMeshCount>
     <!-- The size range -->
@@ -426,7 +426,7 @@
       <li>ZF_SerpentiniteBase_Rough</li>
     </allowedTerrains>
     <!-- The terrains this must be near to, but not necessarily on -->
-    <neededNearbyTerrains>
+    <neededNearby>
       <li>Marble_Rough</li>
       <li>ZF_AnorthositeBase_Rough</li>
       <li>ZF_SchistBase_Rough</li>
@@ -440,9 +440,9 @@
       <li>ZF_DuniteBase_Rough</li>
       <li>ZF_RhyoliteBase_Rough</li>
       <li>ZF_SerpentiniteBase_Rough</li>
-    </neededNearbyTerrains>
+    </neededNearby>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+    <neededNearbyRadius>1</neededNearbyRadius>
   </ThingDef>
 
 
@@ -472,14 +472,14 @@
       <li>ZF_SerpentiniteBase_Rough</li>
     </allowedTerrains>
     <!-- The terrains this must be near to, but not necessarily on -->
-    <neededNearbyTerrains>
+    <neededNearby>
       <li>Granite_Rough</li>
       <li>Limestone_Rough</li>
       <li>ZF_SchistBase_Rough</li>
       <li>ZF_GneissBase_Rough</li>
       <li>ZF_DuniteBase_Rough</li>
       <li>ZF_SerpentiniteBase_Rough</li>
-    </neededNearbyTerrains>
+    </neededNearby>
     <!-- Controls how extra clusters are added near assocaited ore-->
     <associatedOres>
       <li>MineableTin</li>
@@ -487,7 +487,7 @@
     </associatedOres>
     <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
     <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyTerrainRadius>1</neededNearbyTerrainRadius>
+    <neededNearbyRadius>1</neededNearbyRadius>
   </ThingDef>
 
 </Defs>
