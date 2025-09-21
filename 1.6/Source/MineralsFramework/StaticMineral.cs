@@ -666,7 +666,7 @@ namespace MineralsFramework
             // get print size
             float sizeFactor = printSizeFactor();
 
-            if (sizeFactor <= 0.02f)
+            if (sizeFactor <= 0.05f)
             {
                 return;
             }
@@ -789,7 +789,18 @@ namespace MineralsFramework
             base.ExposeData();
             Scribe_Values.Look<float>(ref mySize, "mySize", 1);
         }
-
+        public override void Destroy(DestroyMode mode)
+        {
+            if (!string.IsNullOrEmpty(attributes.makeTerrainOnDestroy))
+            {
+                TerrainDef newTerrain = DefDatabase<TerrainDef>.GetNamed(attributes.makeTerrainOnDestroy, false);
+                if (newTerrain != null && Map != null && Position.InBounds(Map))
+                {
+                    Map.terrainGrid.SetTerrain(Position, newTerrain);
+                }
+            }
+            base.Destroy(mode);
+        }
         public virtual float snowLevel()
         {
             if (Map == null)
@@ -924,12 +935,12 @@ namespace MineralsFramework
                 return base.DrawColorTwo;
             }
         }
-    }       
+    }
 
 
 
     /// <summary>
-    /// ThingDef_StaticMineral class.
+    /// RandomResourceDrop class.
     /// </summary>
     /// <author>zachary-foster</author>
     /// <permission>No restrictions</permission>
@@ -944,6 +955,27 @@ namespace MineralsFramework
         public bool Minified = false;
     }
 
+
+    /// <summary>
+    /// NeededNearby class.
+    /// </summary>
+    /// <author>zachary-foster</author>
+    /// <permission>No restrictions</permission>
+    public class NearbyThingEffect
+    {
+        // Terrain or thing defnames to look for
+        public List<string> DefNames;
+        // How far to look for DefNames relative to a given position. 0 means only the given position
+        public float Radius = 1f;
+        // The amount that will be multiplied to the spawn probability or size when DefNames is found
+        public float FoundFactor = 1f;
+        // The minimum amount that will be multiplied to the spawn probability or size when DefNames is not found
+        public float NotFoundFactor = 0f;
+        // Return a value between FoundFactor and NotFoundFactor base on minimum distance to DefNames
+        public bool ScaleByDistance = false;
+        // Return a value between FoundFactor and NotFoundFactor base on proportion of area occupied by DefNames
+        public bool ScaleByArea = false;
+    }
 
 
 
@@ -980,25 +1012,11 @@ namespace MineralsFramework
         // The biomes this can appear in. If null, all are allowed
         public List<string> allowedBiomes;
 
-        // The terrains this can appear on. If null, all are allowed
-        public List<string> allowedTerrains;
-        
-        // The terrains this cannot appear on (overrides allowedTerrains)
-        public List<string> disallowedTerrains = new List<string> { "LavaDeep", "LavaShallow", "WaterDeep", "WaterOceanDeep", "Space", "CooledLava" };
+        // How nearby things or terrains affect spawn abundance
+        public List<NearbyThingEffect> nearbyThingAbundEffects;
 
-        // The terrains this must be near to, but not necessarily on, and how far away it can be
-        public List<string> neededNearbyTerrains;
-        public float neededNearbyTerrainRadius = 3f;
-
-        // If true, growth rate and initial size depends on distance from needed terrains
-        public bool neededNearbyTerrainSizeEffect = true;
-
-        // If true spawn probability depends on distance from needed terrains
-        public bool neededNearbyTerrainAbundEffect = true;
-
-        // Controls how extra clusters are added near assocaited things 
-        public List<string> associatedOres;
-        public float nearAssociatedOreBonus = 10f;
+        // How nearby things or terrains affect spawn size
+        public List<NearbyThingEffect> nearbyThingSizeEffects;
 
         // If true, only grows under roofs
         public bool mustBeUnderRoof = false;
@@ -1109,6 +1127,8 @@ namespace MineralsFramework
         public List<string> texturePaths;
         public List<string> snowTexturePaths;
         public bool hasSnowyTextures = false;
+        public string makeTerrainOnSpawn;
+        public string makeTerrainOnDestroy;
 
 
         public virtual ThingDef_StaticMineral DeepCopy()
@@ -1429,13 +1449,6 @@ namespace MineralsFramework
             }
             //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: roof is ok " + position, true);
 
-            // Check that the terrain is ok
-            if (! IsTerrainOkAt(map, position))
-            {
-                return false;
-            }
-            //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: terrain is ok " + position, true);
-
             // Look for stuff in the way
             if (PlaceIsBlocked(map, position, initialSpawn))
             {
@@ -1458,13 +1471,6 @@ namespace MineralsFramework
             if (mustBeNotNearPassable && nearPassable) {
                 return false;
             }
-
-            // Check that it is near any needed terrains
-            if (! isNearNeededTerrain(map, position))
-            {
-                return false;
-            }
-            //if (defName == "BigColdstoneCrystal") Log.Message("CanSpawnAt: can spawn " + position, true);
 
             return true;
         }
@@ -1532,12 +1538,6 @@ namespace MineralsFramework
 			return false;
 		}
 
-        public virtual bool PosIsAssociatedOre(Map map, IntVec3 position)
-        {
-			return PosHasThing(map, position, associatedOres);
-        }
-
-
         public virtual bool CanSpawnInBiome(Map map) 
         {
             if (allowedBiomes == null || allowedBiomes.Count == 0)
@@ -1550,29 +1550,6 @@ namespace MineralsFramework
             }
         }
 
-        public virtual bool IsTerrainOkAt(Map map, IntVec3 position)
-        {
-            if (! position.InBounds(map))
-            {
-                //if (defName == "BigColdstoneCrystal") Log.Message("IsTerrainOkAt: out of bounds", true);
-                return false;
-            }
-            TerrainDef terrain = map.terrainGrid.TerrainAt(position);
-            
-            // Check disallowed terrains first
-            if (disallowedTerrains != null && disallowedTerrains.Count > 0 && disallowedTerrains.Any(terrain.defName.Equals))
-            {
-                return false;
-            }
-
-            if (allowedTerrains == null || allowedTerrains.Count == 0)
-            {
-                //if (defName == "BigColdstoneCrystal") Log.Message("IsTerrainOkAt: no terrain needed", true);
-                return true;
-            }
-            // if (defName == "SmallFossils") Log.Message("IsTerrainOkAt: found terrain " + terrain.defName + ". checking if it is one of: " + String.Join(", ", allowedTerrains.ToArray()), true);
-            return allowedTerrains.Any(terrain.defName.Equals);
-        }
 
         public virtual bool isNearNeededTerrain(Map map, IntVec3 position)
         {
@@ -1679,14 +1656,19 @@ namespace MineralsFramework
                 thingToRemove.Destroy(DestroyMode.Vanish);
             }
 
-            //ThingCategory originalDef = category;
-            //category = ThingCategory.Attachment; // Hack to allow them to spawn on other minerals
             StaticMineral output = (StaticMineral)ThingMaker.MakeThing(this);
             GenSpawn.Spawn(output, dest, map, WipeMode.Vanish);
-            //category = originalDef;
             output.size = size;
             map.mapDrawer.MapMeshDirty(dest, MapMeshFlagDefOf.Buildings);
             map.edificeGrid.Register(output);
+            if (!string.IsNullOrEmpty(makeTerrainOnSpawn))
+            {
+                TerrainDef newTerrain = DefDatabase<TerrainDef>.GetNamed(makeTerrainOnSpawn, false);
+                if (newTerrain != null)
+                {
+                    map.terrainGrid.SetTerrain(dest, newTerrain);
+                }
+            }
             //Log.Message("Spawned " + defName + " at " + dest);
             return output;
         }
@@ -1921,16 +1903,21 @@ namespace MineralsFramework
         }
 
 
+        public virtual float NearbyThingAbundanceFactor(Map map, IntVec3 position)
+        {
+        }
+
+        public virtual float NearbyThingSizeFactor(Map map, IntVec3 position)
+        {
+        }
+
+
         public virtual void InitialSpawn(Map map, float abundScaling = 1f, float sizeScaling = 1f)
         {
 
             // Check that it is a valid biome
             if (! CanSpawnInBiome(map))
             {
-                if (MineralsFrameworkMain.Settings.debugModeEnabled)
-                {
-                    //Log.Message("MineralsFramework: " + defName + " cannot be added to this biome");
-                }
                 return;
             }
 
@@ -1959,43 +1946,21 @@ namespace MineralsFramework
                     Log.Message("MineralsFramework: " + defName + " will be spawned at a probability of " + spawnProbability);
                 }
                 IEnumerable<IntVec3> allCells = map.AllCells.InRandomOrder(null);
-                foreach (IntVec3 current in allCells)
+                foreach (IntVec3 position in allCells)
                 {
-                    if (!current.InBounds(map))
+                    if (! CanSpawnAt(map, position, true))
                     {
                         continue;
                     }
-
-                    // Randomly spawn some clusters
-                    if (Rand.Range(0f, 1f) < spawnProbability && CanSpawnAt(map, current, true))
+                    float positionProbFactor = NearbyThingAbundanceFactor(map, position) * spawnProbability;
+                    if (Rand.Range(0f, 1f) < positionProbFactor)
                     {
-                        if (neededNearbyTerrainAbundEffect && neededNearbyTerrains != null && neededNearbyTerrains.Count > 0) {
-                            if (Rand.Range(0f, 1f) > Math.Pow(posDistFromNeededTerrain(map, current) / neededNearbyTerrainRadius, 0.5))
-                            {
-                                continue;
-                            }
-                        }
-                        
-                        SpawnInitialCluster(map, current, Rand.Range(initialSizeMin, initialSizeMax) * sizeScaling, Rand.Range(minClusterSize, maxClusterSize));
-                    }
-
-                    // Spawn near their assocaited ore
-                    if (PosIsAssociatedOre(map, current))
-                    {
-
-                        if (Rand.Range(0f, 1f) < spawnProbability * nearAssociatedOreBonus)
+                        float positionSizeFactor = NearbyThingSizeFactor(map, position) * sizeScaling;
+                        if (positionSizeFactor > 0)
                         {
-
-                            if (CanSpawnAt(map, current, true))
-                            {
-                                SpawnCluster(map, current, Rand.Range(initialSizeMin, initialSizeMax) * sizeScaling, Rand.Range(minClusterSize, maxClusterSize));
-                            } else {
-                                IntVec3 dest;
-                                if (current.InBounds(map) && TryFindReproductionDestination(map, current, out dest))
-                                {
-                                    TrySpawnCluster(map, dest, Rand.Range(initialSizeMin, initialSizeMax) * sizeScaling, Rand.Range(minClusterSize, maxClusterSize));
-                                }
-                            }
+                            float spawnedSize = Rand.Range(initialSizeMin, initialSizeMax) * positionSizeFactor;
+                            int spawnedCount = Rand.Range(minClusterSize, maxClusterSize);
+                            SpawnInitialCluster(map, position, spawnedSize, spawnedCount);
                         }
                     }
                 }
