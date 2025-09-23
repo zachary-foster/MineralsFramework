@@ -18,8 +18,6 @@
     <!-- The range of starting sizes of individuals in clusters -->
     <initialSizeMin>0.95</initialSizeMin>
     <initialSizeMax>1</initialSizeMax>
-    <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbySizeEffect>false</neededNearbySizeEffect>
     <!-- The size range -->
     <visualSizeRange>
       <min>1.75</min>
@@ -156,10 +154,6 @@
     <initialSizeMax>1.0</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.5</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>12</neededNearbyRadius>
-    <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbySizeEffect>true</neededNearbySizeEffect>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>1</maxMeshCount>
     <!-- The size range -->
@@ -212,10 +206,6 @@
     <initialSizeMax>1.0</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>4</neededNearbyRadius>
-    <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbySizeEffect>true</neededNearbySizeEffect>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>4</maxMeshCount>
     <!-- The size range -->

@@ -25,8 +25,6 @@
     <initialSizeMax>1</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.3</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>2</neededNearbyRadius>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
@@ -70,8 +68,6 @@
       <MaxHitPoints>1200</MaxHitPoints>
       <Beauty>0</Beauty>
     </statBases>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>3</neededNearbyRadius>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
@@ -195,10 +191,6 @@
     <initialSizeMax>1.0</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>2</neededNearbyRadius>
-    <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>12</nearAssociatedOreBonus>
     <!-- Roof requirements -->
     <mustBeNotUnderRoof>true</mustBeNotUnderRoof>
     <!-- The size range -->
@@ -268,10 +260,6 @@
     <initialSizeMax>1.0</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>2</neededNearbyRadius>
-    <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- Roof requirements -->
     <mustBeNotUnderRoof>true</mustBeNotUnderRoof>
     <!-- The maximum number of images that will be printed per square -->
@@ -338,10 +326,6 @@
     <initialSizeMax>.9</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>3</neededNearbyRadius>
-    <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>2</nearAssociatedOreBonus>
     <!-- Roof requirements -->
     <mustBeUnderRoof>true</mustBeUnderRoof>
     <!-- The maximum number of images that will be printed per square -->

@@ -31,10 +31,6 @@
     <initialSizeMax>1</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.3</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>2</neededNearbyRadius>
-    <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbySizeEffect>false</neededNearbySizeEffect>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
     </randomlyDropResources>
@@ -75,9 +71,9 @@
     <randomlyDropResources>
     </randomlyDropResources>
     <!-- Things this mineral replaces when a map is initialized -->
-    <ThingsToReplace>
+    <thingsToReplace>
       <li>SolidIce</li>
-    </ThingsToReplace>
+    </thingsToReplace>
     <!-- What stage of map generation the thing is spawned during (rocks or ice) -->
     <newMapGenStep>ice</newMapGenStep>
   </ThingDef>
@@ -120,12 +116,6 @@
     <initialSizeMax>1.0</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>1.5</neededNearbyRadius>
-    <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbySizeEffect>true</neededNearbySizeEffect>
-    <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- Roof requirements -->
     <mustBeNotUnderRoof>true</mustBeNotUnderRoof>
     <!-- The maximum number of images that will be printed per square -->
@@ -174,12 +164,6 @@
     <initialSizeMax>.9</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>4</neededNearbyRadius>
-    <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbySizeEffect>true</neededNearbySizeEffect>
-    <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- Roof requirements -->
     <mustBeUnderRoof>true</mustBeUnderRoof>
     <!-- The maximum number of images that will be printed per square -->

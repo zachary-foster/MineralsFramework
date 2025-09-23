@@ -69,31 +69,25 @@
     <!-- The biomes this can appear in. If empty, all biomes are allowed -->
     <allowedBiomes>
     </allowedBiomes>
-    <!-- The terrains this can appear on. If empty, all terrains are allowed -->
-    <allowedTerrains>
-    </allowedTerrains>
-    <!-- The terrains this can appear cant on. If empty, all terrains are allowed -->
-    <disallowedTerrains>
-      <li>LavaDeep</li>
-      <li>LavaShallow</li>
-      <li>WaterDeep</li>
-      <li>WaterOceanDeep</li>
-      <li>Space</li>
-      <li>CooledLava</li>
-    </disallowedTerrains>
-    <!-- The terrains this must be near to, but not necessarily on. If empty, it does not need to be near any -->
-    <neededNearby>
-    </neededNearby>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>3</neededNearbyRadius>
-    <!-- If true, growth rate and initial size depends on distance from needed terrains -->
-    <neededNearbySizeEffect>true</neededNearbySizeEffect>
-    <!-- If true spawn probability depends on distance from needed terrains -->
-    <neededNearbyAbundEffect>true</neededNearbyAbundEffect>
-    <!-- Controls how extra clusters are added near assocaited things -->
-    <associatedOres>
-    </associatedOres>
-    <nearAssociatedOreBonus>10</nearAssociatedOreBonus>
+    <!-- How nearby things or terrains affect spawn abundance -->
+    <nearbyThingAbundEffects>
+      <li>
+        <defNames>
+          <li>LavaDeep</li>
+          <li>LavaShallow</li>
+          <li>WaterDeep</li>
+          <li>WaterOceanDeep</li>
+          <li>Space</li>
+          <li>CooledLava</li>
+        </defNames>
+        <radius>0</radius>
+        <foundFactor>0</foundFactor>
+        <notFoundFactor>1</notFoundFactor>
+      </li>
+    </nearbyThingAbundEffects>
+    <!-- How nearby things or terrains affect spawn size -->
+    <nearbyThingSizeEffects>
+    </nearbyThingSizeEffects>
     <!-- Roof requirements -->
     <mustBeUnderRoof>false</mustBeUnderRoof>
     <mustBeNotUnderRoof>false</mustBeNotUnderRoof>
@@ -103,10 +97,9 @@
     <mustBeNotNearPassable>false</mustBeNotNearPassable>
     <mustBeNearRoof>false</mustBeNearRoof>
     <mustBeNearRoofDist>1</mustBeNearRoofDist>
-
     <!-- Things this mineral replaces when a map is initialized -->
-    <ThingsToReplace>
-    </ThingsToReplace>
+    <thingsToReplace>
+    </thingsToReplace>
     <!-- If it replaces everything or just things it spawns on -->
     <replaceAll>false</replaceAll>
     <!-- If it must replace something in order to spawned -->
@@ -233,7 +226,7 @@
     <rainGrowthRateModifier/>
     <lightGrowthRateModifier/>
     <fertGrowthRateModifier/>
-    <distGrowthRateModifier/>
+    <nearbyThingGrowthRateModifier/>
     <sizeGrowthRateModifier/>
 
     <!-- ========== APPEARANCE SETTINGS ========== -->

@@ -20,10 +20,6 @@
     <!-- How  many squares each cluster will be -->
     <minClusterSize>2</minClusterSize>
     <maxClusterSize>8</maxClusterSize>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>2</neededNearbyRadius>
-    <!-- Controls how extra clusters are added near assocaited things -->
-    <nearAssociatedOreBonus>5</nearAssociatedOreBonus>
     <!-- Other resources it might drop -->
     <randomlyDropResources>
       <li>
@@ -144,10 +140,6 @@
     <initialSizeMax>1.0</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.5</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>12</neededNearbyRadius>
-    <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>30</nearAssociatedOreBonus>
     <!-- The size range -->
     <visualSizeRange>
       <min>1.1</min>
@@ -198,10 +190,6 @@
     <initialSizeMax>1.0</initialSizeMax>
     <!-- How much initial sizes of individuals randomly vary -->
     <initialSizeVariation>.2</initialSizeVariation>
-    <!-- how far away it can be from needed nearby terrains-->
-    <neededNearbyRadius>3</neededNearbyRadius>
-    <!-- Controls how extra clusters are added near assocaited ore-->
-    <nearAssociatedOreBonus>8</nearAssociatedOreBonus>
     <!-- The maximum number of images that will be printed per square -->
     <maxMeshCount>2</maxMeshCount>
     <!-- The size range -->

@@ -946,7 +946,7 @@ namespace MineralsFramework
         // Terrain or thing defnames to look for
         public List<string> defNames;
         // How far to look for DefNames relative to a given position. 0 means only the given position
-        public float radius = 1f;
+        public float radius = 0f;
         // The amount that will be multiplied to the spawn probability or size when DefNames is found
         public float foundFactor = 1f;
         // The minimum amount that will be multiplied to the spawn probability or size when DefNames is not found
