@@ -3,6 +3,7 @@ using LudeonTK;
 using RimWorld;      // RimWorld specific functions 
 using RimWorld.Planet;
 using System;
+using System.Diagnostics;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,7 @@ namespace MineralsFramework
                 mySize = value;
             }
         }
+    
 
 
         protected float? myNearbyThingEffectAbundFactor = null;
@@ -946,7 +948,7 @@ namespace MineralsFramework
         // Terrain or thing defnames to look for
         public List<string> defNames;
         // How far to look for DefNames relative to a given position. 0 means only the given position
-        public float radius = 0f;
+        public int radius = 0;
         // The amount that will be multiplied to the spawn probability or size when DefNames is found
         public float foundFactor = 1f;
         // The minimum amount that will be multiplied to the spawn probability or size when DefNames is not found
@@ -1826,54 +1828,47 @@ namespace MineralsFramework
             {
                 float effectValue = 1f;
 
-                if (effect.scaleByDistance && effect.scaleByArea)
+                if (effect.scaleByDistance && effect.scaleByArea && effect.radius > 0)
                 {
                     float foundScore = 0f;
-                    float notFoundScore = 0f;
-                    for (int x = -Mathf.FloorToInt(effect.radius); x <= Mathf.CeilToInt(effect.radius); x++)
+                    float totalScore = 0f;
+                    for (int x = -effect.radius; x <= effect.radius; x++)
                     {
-                        for (int z = -Mathf.FloorToInt(effect.radius); z <= Mathf.CeilToInt(effect.radius); z++)
+                        for (int z = -effect.radius; z <= effect.radius; z++)
                         {
                             IntVec3 c = position + new IntVec3(x, 0, z);
                             if (c.InBounds(map))
                             {
-                                float distance = position.DistanceTo(c);
-                                if (distance <= effect.radius && PosHasThing(map, c, effect.defNames))
+                                float score = effect.radius - (x + z) / 2;
+                                if (PosHasThing(map, c, effect.defNames))
                                 {
-                                    foundScore = foundScore + effect.radius - distance;
+                                    foundScore += score;
                                 }
-                                else
-                                {
-                                    notFoundScore = notFoundScore + effect.radius - (x + z) / 2;
-                                }
+                                totalScore += score;
                             }
                         }
                     }
                     effectValue = Mathf.Lerp(
                         effect.notFoundFactor, effect.foundFactor,
-                        (float)Math.Pow(foundScore / (foundScore + notFoundScore), effect.scaleFalloff)
+                        (float)Math.Pow(foundScore / totalScore, effect.scaleFalloff)
                     );
                 }
                 else if (effect.scaleByArea)
                 {
                     int count = 0;
                     int total = 0;
-                    for (int x = -Mathf.FloorToInt(effect.radius); x <= Mathf.CeilToInt(effect.radius); x++)
+                    for (int x = -effect.radius; x <= effect.radius; x++)
                     {
-                        for (int z = -Mathf.FloorToInt(effect.radius); z <= Mathf.CeilToInt(effect.radius); z++)
+                        for (int z = -effect.radius; z <= effect.radius; z++)
                         {
                             IntVec3 c = position + new IntVec3(x, 0, z);
                             if (c.InBounds(map))
                             {
-                                float distance = position.DistanceTo(c);
-                                if (distance <= effect.radius && PosHasThing(map, c, effect.defNames))
+                                if (PosHasThing(map, c, effect.defNames))
                                 {
                                     count++;
                                 }
-                                else
-                                {
-                                    total++;
-                                }
+                                total++;
                             }
                         }
                     }
@@ -1882,42 +1877,55 @@ namespace MineralsFramework
                         (float)Math.Pow((float)count / (float)total, effect.scaleFalloff)
                     );
                 }
-                else 
+                else if (effect.scaleByDistance)
                 {
-                    float minDistance = 999f;
-                    bool found = false;
-                    for (int xOffset = -(int)Math.Ceiling(effect.radius); xOffset <= (int)Math.Ceiling(effect.radius); xOffset++)
+                    float? minDistance = null;
+                    for (int xOffset = -effect.radius; xOffset <= effect.radius; xOffset++)
                     {
-                        if (found)
-                        {
-                            break;
-                        }
-                        for (int zOffset = -(int)Math.Ceiling(effect.radius); zOffset <= (int)Math.Ceiling(effect.radius); zOffset++)
+                        for (int zOffset = -effect.radius; zOffset <= effect.radius; zOffset++)
                         {
                             IntVec3 c = position + new IntVec3(xOffset, 0, zOffset);
                             if (c.InBounds(map))
                             {
-                                float distance = position.DistanceTo(c);
-                                if (distance <= effect.radius && PosHasThing(map, c, effect.defNames))
+                                if (PosHasThing(map, c, effect.defNames))
                                 {
-                                    minDistance = distance;
-                                    found = true;
-                                    break;
+                                    float distance = position.DistanceTo(c);
+                                    if (minDistance is null || minDistance > distance)
+                                    {
+                                        minDistance = distance;
+                                    }
                                 }
                             }
                         }
                     }
-                    if (!found) {
-                        effectValue = effect.notFoundFactor;
-                    } else if (effect.scaleByDistance)
+                    if (minDistance is null)
                     {
-                        effectValue = Mathf.Lerp(
-                            effect.foundFactor, effect.notFoundFactor,
-                            (float)Math.Pow(minDistance / effect.radius, effect.scaleFalloff)
-                        );
+                        effectValue = effect.notFoundFactor;
                     } else
                     {
-                        effectValue = PosHasThing(map, position, effect.defNames) ? effect.foundFactor : effect.notFoundFactor;
+                        effectValue = Mathf.Lerp(
+                                effect.foundFactor, effect.notFoundFactor,
+                                (float)Math.Pow((float)minDistance / ((float)effect.radius + 1), effect.scaleFalloff)
+                            );
+                    }
+                } else
+                {
+                    effectValue = effect.notFoundFactor;
+                    bool found = false;
+                    for (int xOffset = -effect.radius; xOffset <= effect.radius && !found; xOffset++)
+                    {
+                        for (int zOffset = -effect.radius; zOffset <= effect.radius && !found; zOffset++)
+                        {
+                            IntVec3 c = position + new IntVec3(xOffset, 0, zOffset);
+                            if (c.InBounds(map))
+                            {
+                                if (PosHasThing(map, c, effect.defNames))
+                                {
+                                    found = true;
+                                    effectValue = effect.foundFactor;
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -1934,10 +1942,13 @@ namespace MineralsFramework
 
         public virtual void InitialSpawn(Map map, float abundScaling = 1f, float sizeScaling = 1f)
         {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             // Check that it is a valid biome
             if (! CanSpawnInBiome(map))
             {
+                stopwatch.Stop();
                 return;
             }
 
@@ -1961,10 +1972,7 @@ namespace MineralsFramework
             // Find spots to spawn it
             if (Rand.Range(0f, 1f) <= perMapProbability * DiversitySettingFactor() && spawnProbability > 0)
             {
-                if (MineralsFrameworkMain.Settings.debugModeEnabled)
-                {
-                    Log.Message("MineralsFramework: " + defName + " will be spawned at a probability of " + spawnProbability);
-                }
+
                 IEnumerable<IntVec3> allCells = map.AllCells.InRandomOrder(null);
                 foreach (IntVec3 position in allCells)
                 {
@@ -1985,6 +1993,19 @@ namespace MineralsFramework
                     }
                 }
             }
+            if (MineralsFrameworkMain.Settings.debugModeEnabled)
+            {
+                string message = $"MineralsFramework: {defName} spawned at a probability of {spawnProbability} in {stopwatch.Elapsed.Milliseconds}ms.";
+                if (stopwatch.Elapsed.Milliseconds > 500f)
+                {
+                    Log.Warning(message);
+                } else
+                {
+                    Log.Message(message);
+                }
+                    
+            }
+            stopwatch.Stop();
         }
 
         public virtual bool AllowReplaceSetting()
